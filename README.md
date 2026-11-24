@@ -170,7 +170,7 @@ Viewer op een andere poort: zet `VIEWER_PORT=8101` als omgevingsvariabele. Een a
 
 ## De Koning leidt het debat
 
-`async kies_volgende(beurten, leden, koning, opties, verbruik)` in `council.py` beslist voor elke beurt wie spreekt. De Koning krijgt publieke Rolkaarten en het debat, zonder ruwe Kennisbronnen. De functie geeft een gecontroleerd object met `rol`, `vraag`, `reden` en `open_vragen` terug. `rol: null` stopt het debat. Elke keuze wordt als `routering` vastgelegd (`aan`, `vraag`, `reden`, `open_vragen`); na 10 Raadslid-beurten stopt de code altijd.
+`async kies_volgende(beurten, leden, koning, opties, verbruik)` in `council.py` beslist voor elke beurt wie spreekt. De Koning krijgt publieke Rolkaarten en het debat, zonder ruwe Kennisbronnen. De functie geeft een gecontroleerd object met `rol`, `vraag`, `reden`, `open_vragen` (hoogstens vijf) en `hypothese` (werkhypothese per oorzaakdeel) terug. `rol: null` stopt het debat. Elke keuze wordt als `routering` vastgelegd (`aan`, `vraag`, `reden`, `open_vragen`, `hypothese`); na 10 Raadslid-beurten stopt de code altijd. Vraag, reden en hypothese mogen alleen tijden en record-ID's bevatten die een Raadslid noemde.
 
 Deze uitwerking gebruikt een LLM als Koning, aangevuld met controles in code: wie kan een bewering toetsen, welke kennis ontbreekt en wanneer voegt een extra beurt weinig toe? Ieder Raadslid ziet de bijdragen en routeringen, maar alleen zijn eigen ruwe bronnen.
 

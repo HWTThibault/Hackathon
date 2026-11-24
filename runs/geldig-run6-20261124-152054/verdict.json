@@ -1,0 +1,144 @@
+{
+  "run_id": "2026-11-24T15:15:42+01:00_f16b270a",
+  "samenvatting": "De oorzaak is niet bevestigd. De best onderbouwde lijn is een hulpslag op het datanet op dag 10 om 02:40 (ENG-011), gevolgd door een doorvoerpiek van +38% om 03:00 (ENG-012). Dat is het vroegste geregistreerde ingrijpmoment vóór het eerste symptoom, de wolvenonrust om 04:40 (BEA-019). Een causale keten naar de onrust van de dieren en naar de klachten over berichten ontbreekt. Het vierdaagse ritme rond 04:15–04:40 wordt alleen gedragen door de Beast Master en de Oracle, en de Historian en de Archmage bevestigen het niet. De kabelhypothese van dag 3 (BEA-102/BEA-109) wordt door het archief tegengesproken (HIS-014, HIS-005, HIS-007). De hackerhypothese (ENG-110) is niet met een tweede record-ID onderbouwd. Alle tijdstempels hangen af van klokken die niet zijn gesynchroniseerd of gecontroleerd. Dit is een werkversie.",
+  "oorzaak": {
+    "ingreep": {
+      "bewering": "Hulpslag op het datanet geactiveerd op dag 10 om 02:40 (ENG-011), met een doorvoerpiek van +38% om 03:00 (ENG-012). Dit is het vroegste geregistreerde ingrijpmoment vóór het eerste symptoom (wolven om 04:40, BEA-019). De dader van de activatie is niet vastgesteld.",
+      "bewijs": [
+        "ENG-011",
+        "ENG-012",
+        "BEA-019"
+      ],
+      "zekerheid": 0.3
+    },
+    "mechanisme": {
+      "bewering": "Onbekend. De best onderbouwde lijn is dat de doorvoerpiek (ENG-012) gepaard ging met berichten die half aankwamen (ENG-107). Een keten van het datanet naar de onrust van de dieren is niet aangetoond. Een alternatief dat niet is bewezen: het schild laat verkeer op het midden tussen twee tikken zonder toets door (GUA-104).",
+      "bewijs": [
+        "ENG-012",
+        "ENG-107",
+        "GUA-104"
+      ],
+      "zekerheid": 0.2
+    },
+    "verloop": {
+      "bewering": "Onrust rond 04:15–04:50 op dag 10 (BEA-019, BEA-020, ENG-107) en op dag 22 (ENG-026, BEA-046, BEA-047). Volgens de dierenlog en het dagboek keert dit terug op dag 14, 18, 26, 30, 34, 38 en 42 (BEA-091, ORA-110, ORA-114, ORA-118, ORA-122, ORA-126, ORA-130, ORA-134, ORA-138, ORA-142). De Historian kan dag 14 en later niet bevestigen. De Archmage vindt geen vierdaagse cyclus, maar een 28-dagen patroon in de leylijnmetingen (ARC-015, ARC-028, ARC-071, ARC-084). De oorzaak van de terugkeer is onbekend.",
+      "bewijs": [
+        "BEA-019",
+        "BEA-020",
+        "ENG-026",
+        "BEA-046",
+        "BEA-047",
+        "BEA-091",
+        "ORA-110",
+        "ORA-142"
+      ],
+      "zekerheid": 0.4
+    }
+  },
+  "acties": [
+    {
+      "actie": "Hulpslag ENG-011 terugdraaien of tijdelijk beheersen, met vastlegging van de doorvoer voor en na de wijziging en een terugvalplan voor het datanet.",
+      "reden": "Dit is de waarschijnlijkste ingreep vóór het eerste symptoom. Het terugdraaien is reversibel en kan de hypothese toetsen, ook als de oorzaak niet bewezen is.",
+      "bewijs": [
+        "ENG-011",
+        "ENG-012",
+        "ENG-029"
+      ]
+    },
+    {
+      "actie": "Tijdregel van het schild controleren en de doorlaat op het midden tussen twee tikken tijdelijk blokkeren of met een handmatige ronde afdekken.",
+      "reden": "GUA-104 laat een niet-geverifieerde doorgang toe. Een ingreep via die regel is niet uitgesloten en is met intacte zegels niet te weerleggen.",
+      "bewijs": [
+        "GUA-104",
+        "GUA-019",
+        "GUA-043"
+      ]
+    },
+    {
+      "actie": "Klokken van datatoren, benedenstad, archief en wachtlogs synchroniseren en de afwijkingen vastleggen.",
+      "reden": "HIS-035, HIS-036 en HIS-053 wijken af van de gebeurd-tijden, en er is geen klokreferentie. Zonder gelijke klokken is de volgorde van activatie en symptoom niet te bepalen.",
+      "bewijs": [
+        "HIS-035",
+        "HIS-036",
+        "HIS-053",
+        "ENG-107"
+      ]
+    },
+    {
+      "actie": "Registratie vullen voor de uren zonder dekking: datanet tussen 03:00 en 06:00, en schildrondes in dezelfde uren.",
+      "reden": "Stilte in de logs is geen bewijs van rust. De gaten maken het onmogelijk om ingreep en symptoom betrouwbaar te scheiden.",
+      "bewijs": [
+        "GUA-106",
+        "ENG-012"
+      ]
+    },
+    {
+      "actie": "Toets het vierdaagse ritme: vergelijk de datanetlogs en de werkorders van dag 14, 18, 26 en later met de wektijden van de Beast Master en de Oracle.",
+      "reden": "Het ritme is het enige patroon dat de voorspelling draagt. Het is nog niet bevestigd, en de Archmage vindt een ander patroon.",
+      "bewijs": [
+        "BEA-046",
+        "BEA-091",
+        "ORA-142",
+        "ARC-015",
+        "ARC-084"
+      ]
+    },
+    {
+      "actie": "Controleer de nachtelijke wijzigingen aan het datanet en de signaalmast op dag 8 en tussen dag 13 en 14 en tussen dag 41 en 42, en bepaal wie het bevel gaf.",
+      "reden": "ARC-106 beschrijft een nachtelijke wijziging, maar de Oracle kan die ID niet terugvinden in haar bron. De wijziging is dus niet bevestigd.",
+      "bewijs": [
+        "ARC-106",
+        "ORA-108",
+        "ARC-102"
+      ]
+    },
+    {
+      "actie": "Onderzoek de hackerhypothese met een forensische controle van poort oost en de wachtlogs van dag 22 (01:50).",
+      "reden": "ENG-110 heeft slechts één onderbouwing (ENG-026), die alleen pakketverlies meldt. De melding van de wachters is de enige andere bron.",
+      "bewijs": [
+        "ENG-110",
+        "ENG-026",
+        "GUA-115"
+      ]
+    },
+    {
+      "actie": "Bevestig of verwerp het kabelwerk op dag 3 met werkorders en inspectieverslagen.",
+      "reden": "BEA-102 en BEA-109 spreken de kabels aan, maar HIS-014, HIS-005 en HIS-007 melden geen ingreep. Dit geschil moet met documenten worden beslist.",
+      "bewijs": [
+        "BEA-102",
+        "BEA-109",
+        "HIS-014"
+      ]
+    }
+  ],
+  "risicos": [
+    {
+      "risico": "Het terugdraaien van de hulpslag kan de doorvoer of de berichtenstroom verslechteren, zodat berichten blijven halen of verloren gaan.",
+      "mitigatie": "Gefaseerd terugdraaien met doorvoermeting voor en na elke stap, en een vooraf vastgesteld terugvalpad."
+    },
+    {
+      "risico": "De ingreep is de oorzaak niet, en het ritme gaat door.",
+      "mitigatie": "Het verloop niet als bewezen behandelen. Monitor 04:00–05:00 op de voorspelde dag en laat de volgende stap afhangen van die metingen."
+    },
+    {
+      "risico": "Het aanpassen van de schildregel kan de toegangsbeveiliging verzwakken.",
+      "mitigatie": "Eerst een handmatige ronde instellen en de wijziging alleen doorvoeren na een tweede controle door de Guardian Keeper."
+    },
+    {
+      "risico": "Onjuiste klokken leiden tot een verkeerde volgorde van oorzaak en gevolg.",
+      "mitigatie": "Synchronisatie vóór elke causale conclusie, en de afwijkingen van HIS-035/036/053 expliciet meenemen."
+    },
+    {
+      "risico": "Belangenvertekening: de Engineer, de Archmage en de Oracle beoordelen eigen werk of eigen overtuiging.",
+      "mitigatie": "Alleen conclusies gebruiken die door een onafhankelijke bron of een extra meting zijn gedragen."
+    }
+  ],
+  "voorspelling": {
+    "dag": 46,
+    "bewering": "Als het vierdaagse ritme werkelijk bestaat, volgt op dag 46 opnieuw onrust rond 04:15–04:40. Berekening: de laatst waargenomen dag is 42, en 42 + 4 = 46. Het ritme vanaf dag 10 (10, 14, 18, ..., 42) is door de Historian niet bevestigd en door de Archmage niet gevonden.",
+    "bewijs": [
+      "BEA-091",
+      "ORA-142"
+    ]
+  }
+}

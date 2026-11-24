@@ -1,0 +1,639 @@
+{
+  "run_id": "2026-11-24T15:15:42+01:00_f16b270a",
+  "status": "klaar",
+  "raadsleden": [
+    "archmage",
+    "beast_master",
+    "engineer",
+    "guardian_keeper",
+    "historian",
+    "oracle"
+  ],
+  "beurten": [
+    {
+      "nr": 1,
+      "ronde": 1,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T15:15:55.104+01:00",
+      "aan": "engineer",
+      "vraag": "Welke afwijkingen zien de logs van het datanet, op welke momenten, en met welke record-ID's?",
+      "reden": "Er is nog geen bewijs en de logs van de datatoren zijn de meest meetbare bron, met tijdstippen en record-ID's. Daarmee kan later worden onderscheiden wat een ingreep was en wat een symptoom.",
+      "open_vragen": [
+        "Welke ingreep ging aan de eerste afwijking vooraf, en door wie?",
+        "Melden de dieren van het woud onrust op dezelfde momenten als de logs?",
+        "Vertonen de schilden van de burcht op die momenten ook een afwijking?",
+        "Bestaat er in het archief een eerder vergelijkbaar voorval?",
+        "Laat het orakel een terugkerend tijdpatroon zien?"
+      ],
+      "hypothese": {
+        "ingreep": null,
+        "mechanisme": null,
+        "verloop": null
+      }
+    },
+    {
+      "nr": 2,
+      "ronde": 1,
+      "spreker": "engineer",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:16:11.434+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/engineer/mcp",
+      "in_antwoord_op": 1
+    },
+    {
+      "nr": 3,
+      "ronde": 1,
+      "spreker": "engineer",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T15:16:11.436+01:00",
+      "tekst": "**Waarneming (bron-tijd, ID's):**\n- Dag 10, 02:40: hulpslag geactiveerd (ENG-011). Om 03:00 doorvoer +38% (ENG-012).\n- Dag 10, 04:50: klacht uit de benedenstad over berichten \"half aangekomen\" (ENG-107). Dit staat alleen in het werkboek, niet in de installatielog.\n- Dag 22, 04:15: drie minuten pakketverlies op poort oost (ENG-026, status fout). Om 04:20 firewallregels aangescherpt (ENG-027).\n- Dag 24, 11:00: hulpslag 5% opgedreven (ENG-029).\n- Dag 27, 10:00: spanningsdip na onweer (ENG-034, waarschuwing).\n\n**Interpretatie:** De klacht van dag 10 komt ruim twee uur na de activatie. Dat is een samenvallen, geen bewijs van oorzaak. De hulpslag is mijn eigen werk, dus ik heb er belang bij dat hij niet de oorzaak blijkt; dat kan mijn lezing kleuren. Het pakketverlies van dag 22 gebeurde vóór de opdrijving van dag 24, dus niet door die versterking. De hackerhypothese (ENG-110) heb ik niet kunnen toetsen.\n\n**Tegenspraak:** Ik schreef dat de doorvoer \"elke meting\" 38% hoger ligt (ENG-120). De installatielog bevat echter geen andere doorvoermeting dan ENG-012.\n\n**Wat ik niet weet:** De log is losse entries over dagen 1–42. Nachtelijke uren tussen registraties zijn niet gedekt, dus stilte is geen bewijs van rust.\n\n**Open vraag aan de Beast Master:** Heeft de benedenstad tijdstempels van de berichten tussen dag 10, 02:40 en 04:50, zodat die vergeleken kunnen worden met de activatie?",
+      "in_antwoord_op": 1,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "guardian_keeper",
+        "historian",
+        "oracle"
+      ],
+      "context_beurten": []
+    },
+    {
+      "nr": 4,
+      "ronde": 1,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T15:16:21.348+01:00",
+      "aan": "beast_master",
+      "vraag": "Meldden uw dieren onrust tussen dag 10, 02:40 en 04:50, en ook rond dag 22, 04:15 (ENG-026)?",
+      "reden": "De Engineer legt de eerste storing op dag 10 om 02:40 (ENG-011) en de klacht van 04:50 (ENG-107) vast, maar kan de oorzaak niet uit de logs alleen bepalen. Dieren reageren vaak eerder op verstoringen, dus hun onrust kan toetsen of de hulpslag of iets eerders het eerste symptoom was.",
+      "open_vragen": [
+        "Ging er vóór de hulpslag op dag 10 om 02:40 (ENG-011) nog een andere ingreep aan vooraf, en door wie?",
+        "Hoe kunnen de berichten van de benedenstad tussen dag 10, 02:40 en 04:50 worden getijdstempeld (ENG-107)?",
+        "Welk record-ID onderbouwt de hackerhypothese (ENG-110)?",
+        "Vertonen de schilden van de burcht op dag 22, 04:15 (ENG-026) ook een afwijking?",
+        "Laat de doorvoer na dag 10 een vast tijdsinterval zien tussen de storingen?"
+      ],
+      "hypothese": {
+        "ingreep": "Hulpslag geactiveerd op dag 10 om 02:40 (ENG-011); nog niet vastgesteld als oorzaak.",
+        "mechanisme": "Doorvoerpiek van +38% om 03:00 (ENG-012) gevolgd door berichten die 'half aangekomen' zijn (ENG-107); samenhang onbevestigd.",
+        "verloop": "Pakketverlies op dag 22 om 04:15 (ENG-026) na de opdrijving van dag 24 (ENG-029) is niet te verklaren als gevolg daarvan; een terugkerend patroon is nog niet bevestigd."
+      }
+    },
+    {
+      "nr": 5,
+      "ronde": 1,
+      "spreker": "beast_master",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:16:34.810+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/beast_master/mcp",
+      "in_antwoord_op": 4
+    },
+    {
+      "nr": 6,
+      "ronde": 1,
+      "spreker": "beast_master",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T15:16:34.812+01:00",
+      "tekst": "**Waarneming:** Ja. Op dag 10 sloegen de wolven om 04:40 aan (BEA-019, onrust 4) en vluchtten de herten om 04:50 (BEA-020, onrust 4). Op dag 22 sloegen de wolven om 04:15 aan (BEA-046, onrust 4) en vluchtten de herten om 04:20 (BEA-047, onrust 4). Het patroon herhaalt zich rond 04:15–04:40 op dag 14, 18, 26, 30, 34, 38 en 42 (o.a. BEA-028/029, BEA-037/038, BEA-055/056, BEA-082/083, BEA-091/092). Ik was zelf in het diepe woud op de nacht van dag 22 (BEA-113).\n\n**Niet gedekt:** Mijn log bevat op dag 10 niets tussen 02:40 en 04:40. Stilte is hier dus geen bewijs van rust.\n\n**Interpretatie:** De onrust begint op dag 10, ongeveer een week na de werkzaamheden aan de kabels op dag 3 (BEA-102). Ik heb eerder geschreven dat de kabels de oorzaak zijn (BEA-109). Dat is een vermoeden en het is tegen mijn eigen Belang in om dit als vaststaand te presenteren. Ik kan niet uitsluiten dat de hulpslag van 02:40 het eerste symptoom was, omdat mijn bron in dat venster niets registreert.\n\n**Wat ik niet weet:** Ik weet niet wat de cyclus van elke vierde nacht veroorzaakt en of de benedenstad-tijdstempels overeenkomen met de dieren.\n\n**Open vraag aan de Engineer:** Welke doorvoer- of firewalllogs bestaan er tussen dag 10, 02:40 en 04:40, en wat veranderde er elke vierde nacht vóór de onrust?",
+      "in_antwoord_op": 4,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "engineer",
+        "guardian_keeper",
+        "historian",
+        "oracle"
+      ],
+      "context_beurten": [
+        3
+      ]
+    },
+    {
+      "nr": 7,
+      "ronde": 1,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T15:16:43.844+01:00",
+      "aan": "guardian_keeper",
+      "vraag": "Vertonen de schilden rond de burcht op dag 22, 04:15 (ENG-026) en op dag 10, 02:40 (ENG-011) een breuk of een sporen van een bewuste ingreep?",
+      "reden": "De pakketverlies op poort oost op dag 22 om 04:15 (ENG-026) is het enige moment waarop een mogelijke menselijke ingreep is genoemd, en de hackerhypothese (ENG-110) is nog niet getoetst. De Guardian Keeper kan de schilden als onafhankelijke bron controleren op een bres die iemand sloeg.",
+      "open_vragen": [
+        "Welke ingreep ging op dag 3 aan de kabels vooraf (BEA-102), en door wie?",
+        "Wat veroorzaakt de herhaling elke vierde nacht rond 04:15–04:40 (BEA-046, BEA-091/092)?",
+        "Welk record-ID onderbouwt de hackerhypothese (ENG-110)?",
+        "Hebben de berichten van de benedenstad tussen dag 10, 02:40 en 04:50 tijdstempels (ENG-107)?",
+        "Wat doet de doorvoerpiek van +38% om 03:00 op dag 10 (ENG-012) met de onrust van de wolven om 04:40 (BEA-019)?"
+      ],
+      "hypothese": {
+        "ingreep": "Mogelijk de werkzaamheden aan de kabels op dag 3 (BEA-102), maar niet bevestigd; de hulpslag op dag 10 om 02:40 (ENG-011) is evenmin vastgesteld als oorzaak.",
+        "mechanisme": "Een doorvoerpiek van +38% om 03:00 (ENG-012) gevolgd door berichten die half aankomen (ENG-107) en onrust bij dieren om 04:40–04:50 (BEA-019/020); het causale verband is nog onbevestigd.",
+        "verloop": "Het patroon herhaalt zich rond 04:15–04:40 op dag 10, 14, 18, 22, 26, 30, 34, 38 en 42 (BEA-046/047, BEA-091/092); de tussenliggende tijd van vier dagen is nog niet verklaard."
+      }
+    },
+    {
+      "nr": 8,
+      "ronde": 1,
+      "spreker": "guardian_keeper",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:17:03.597+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/guardian_keeper/mcp",
+      "in_antwoord_op": 7
+    },
+    {
+      "nr": 9,
+      "ronde": 1,
+      "spreker": "guardian_keeper",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:17:03.605+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "02:40"
+      },
+      "pad": "https://mcp.findingsolutions.be/guardian_keeper/mcp",
+      "in_antwoord_op": 7
+    },
+    {
+      "nr": 10,
+      "ronde": 1,
+      "spreker": "guardian_keeper",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T15:17:03.610+01:00",
+      "tekst": "**Waarneming (bron-tijd):**\n- Dag 10, 04:47: schild benedenstad twee minuten van binnenuit geopend. Zegels intact, oorzaak niet vastgesteld (GUA-019, GUA-111). Mijn bron bevat geen schildgebeurtenis om 02:40 op dag 10, dus die premisse wordt niet ondersteund.\n- Dag 22, 04:15: schild poort oost drie minuten van binnenuit geopend. Buitenzijde: zegels intact, geen sporen (GUA-043, GUA-044 om 04:30).\n- Dag 22, 01:50: wachters meldden hackers, ruim twee uur vóór de opening (GUA-115).\n- Dag 23: twee openingen van binnenuit, in het uur tussen laatste ronde en wissel (GUA-116). Exacte tijden ontbreken.\n- Van 03:00 tot 06:00 zijn er geen rondes (GUA-106). Mijn log dekt die uren dus niet.\n\n**Interpretatie:** Ik zie geen fysieke breuk. Intacte zegels sluiten echter een ingreep niet uit. Volgens artikel 3 (GUA-104) laat het schild verkeer op het midden tussen twee tikken zonder toets door, en dat breekt geen zegel. Een bewuste ingreep via de tijdregel is dus mogelijk, maar ik kan die niet bewijzen.\n\n**Tegenspraak en belang:** Ik heb het incident van dag 10 gebagatelliseerd (GUA-111) en de melding van dag 22 als \"slordigheid\" afgedaan (GUA-115). GUA-116 zegt \"ik ben er zeker\" dat er een infiltrant is, zonder bewijs in mijn bron. Dat is mijn overtuiging, geen vaststelling.\n\n**Wat ik niet weet:** het interval van de Kroonklok en wat er tussen 01:50 en 04:15 gebeurde.\n\n**Open vraag aan de Engineer:** Tonen de datalijnen van benedenstad (dag 10) en poort oost (dag 22) inkomend verkeer rond 04:15 en 04:47, en hoe lang is de tussenpoos tussen de tikken van de Kroonklok?",
+      "in_antwoord_op": 7,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "engineer",
+        "historian",
+        "oracle"
+      ],
+      "context_beurten": [
+        3,
+        6
+      ]
+    },
+    {
+      "nr": 11,
+      "ronde": 1,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T15:17:10.966+01:00",
+      "aan": "historian",
+      "vraag": "Bevat het archief eerdere gevallen van onrust rond 04:15–04:40 met een vaste tussentijd van vier dagen, en welke ingrepen gingen daaraan vooraf, zoals de kabelwerkzaamheden van dag 3 (BEA-102)?",
+      "reden": "Het vierdaagse ritme (BEA-046/047, BEA-091/092) is nog niet verklaard en de Historian kan nagaan of dit patroon eerder voorkwam. Dat toetst ook of de kabelwerkzaamheden van dag 3 (BEA-102) een werkelijke voorafgaande ingreep waren.",
+      "open_vragen": [
+        "Welke ingreep ging op dag 3 aan de kabels vooraf (BEA-102), en door wie?",
+        "Wat veroorzaakt de herhaling elke vierde nacht rond 04:15–04:40 (BEA-046, BEA-091/092)?",
+        "Welk record-ID onderbouwt de hackerhypothese (ENG-110)?",
+        "Hebben de berichten van de benedenstad tussen dag 10, 02:40 en 04:50 tijdstempels (ENG-107)?",
+        "Hoe lang is de tussenpoos tussen de tikken van de Kroonklok, en wat gebeurde er tussen 01:50 en 04:15 (GUA-115)?"
+      ],
+      "hypothese": {
+        "ingreep": "Mogelijk de werkzaamheden aan de kabels op dag 3 (BEA-102, BEA-109), nog niet bevestigd; een bewuste ingreep via de tijdregel van het schild (GUA-104) is ook mogelijk maar niet bewezen.",
+        "mechanisme": "Een doorvoerpiek van +38% om 03:00 (ENG-012) gevolgd door berichten die half aankomen (ENG-107) en onrust bij dieren om 04:40–04:50 (BEA-019/020); het causale verband is nog onbevestigd.",
+        "verloop": "Het patroon herhaalt zich rond 04:15–04:40 op dag 10, 14, 18, 22, 26, 30, 34, 38 en 42 (BEA-046/047, BEA-091/092); de vierdaagse tussenliggende tijd is nog niet verklaard."
+      }
+    },
+    {
+      "nr": 12,
+      "ronde": 1,
+      "spreker": "historian",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:17:25.052+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/historian/mcp",
+      "in_antwoord_op": 11
+    },
+    {
+      "nr": 13,
+      "ronde": 1,
+      "spreker": "historian",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T15:17:25.064+01:00",
+      "tekst": "**Waarneming (bron-tijd):** Mijn bron bevat geen eerdere reeks van onrust rond 04:15–04:40 met een vast ritme van vier dagen. Ik vind alleen dag 10, 04:45, stokken van de Burchtader (HIS-035), dag 10, 04:50, klacht uit de benedenstad (HIS-036) en dag 22, 04:15, lek bij poort oost (HIS-053). De dagen 14, 18, 26 en later uit de dierenlog (BEA-028 e.a.) staan niet in mijn archief. Ik kan ze dus niet bevestigen of weerleggen.\n\n**Kabelwerkzaamheden dag 3 (BEA-102):** Mijn bron noteert op dag 3, 08:30 alleen een inspectie van de woudkabels met \"niets gewijzigd\" (HIS-014). HIS-005 en HIS-007 melden geen verlegging of vervanging. Ik vind dus geen ingreep aan de kabels.\n\n**Tegen mijn Belang:** HIS-103 stelt dat vastgelegd_op altijd gelijk is aan gebeurd_op. HIS-035 (gebeurd 04:45, vastgelegd 07:20), HIS-036 (vastgelegd dag 9, 23:55, vóór gebeurd dag 10, 04:50) en HIS-053 (vastgelegd 01:50, vóór gebeurd 04:15) doorbreken die regel. Ik noemde de klachten daarover \"klerkenfouten\" (HIS-112, HIS-116) en schreef zelf van \"een oude vloek\" (HIS-114) zonder bewijs in het register. Dat kleurt mijn lezing.\n\n**Interpretatie:** De Stille Winter (HIS-003, HIS-004) duurde 40 dagen zonder ritme (HIS-107). Daaruit volgt geen vierdaagse cyclus.\n\n**Niet gedekt:** Het register is niet per uur compleet. Stilte in het archief bewijst geen rust.\n\n**Open vraag aan de Engineer:** Komen de tijdstempels van HIS-035 en HIS-036 uit dezelfde klok als de datanetlogs?",
+      "in_antwoord_op": 11,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "engineer",
+        "guardian_keeper",
+        "oracle"
+      ],
+      "context_beurten": [
+        3,
+        6,
+        10
+      ]
+    },
+    {
+      "nr": 14,
+      "ronde": 1,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T15:17:33.883+01:00",
+      "aan": "archmage",
+      "vraag": "Toont de leylijnen rond de burcht op dag 3, dag 10 en dag 22 een afwijking tussen 04:15 en 04:50, en past een cyclus van vier dagen bij het ritme in BEA-046/047 en BEA-091/092?",
+      "reden": "Geen Rol heeft nog een magische waarneming gedaan, terwijl de herhaling elke vierde nacht een periodieke bron suggereert. De Archmage kan toetsen of de leylijnen die periode dragen en of ze vóór de onrust veranderden (BEA-102).",
+      "open_vragen": [
+        "Welke ingreep ging op dag 3 aan de kabels vooraf, en door wie (BEA-102, HIS-014 zegt 'niets gewijzigd')?",
+        "Wat veroorzaakt de herhaling elke vierde nacht rond 04:15–04:40 (BEA-046, BEA-091/092)?",
+        "Welk record-ID onderbouwt de hackerhypothese (ENG-110)?",
+        "Hebben de berichten van de benedenstad tussen dag 10, 02:40 en 04:50 tijdstempels (ENG-107), en komen die overeen met HIS-035/036?",
+        "Hoe lang is de tussenpoos tussen de tikken van de Kroonklok, en wat gebeurde er tussen 01:50 en 04:15 (GUA-115)?"
+      ],
+      "hypothese": {
+        "ingreep": "Onbevestigd: de kabelwerkzaamheden op dag 3 (BEA-102, BEA-109) worden tegengesproken door HIS-014 en HIS-005/007; een bewuste ingreep via de tijdregel van het schild (GUA-104) is mogelijk maar niet bewezen.",
+        "mechanisme": "Een doorvoerpiek van +38% om 03:00 (ENG-012) gevolgd door berichten die half aankomen (ENG-107) en onrust bij dieren om 04:40–04:50 (BEA-019/020); het causale verband is nog onbevestigd. Tijdstempels in HIS-035/036/053 wijken af van de gebeurd-tijden.",
+        "verloop": "Onrust rond 04:15–04:40 op dag 10, 14, 18, 22, 26, 30, 34, 38 en 42 (BEA-046/047, BEA-091/092); het vierdaagse ritme is nog niet bevestigd door het archief (HIS-107) en de tijdstempels zijn omstreden."
+      }
+    },
+    {
+      "nr": 15,
+      "ronde": 1,
+      "spreker": "archmage",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:17:48.408+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/archmage/mcp",
+      "in_antwoord_op": 14
+    },
+    {
+      "nr": 16,
+      "ronde": 1,
+      "spreker": "archmage",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T15:17:48.418+01:00",
+      "tekst": "**Premisse:** Mijn bron dekt dag 3, 10 en 22 niet. Er zijn geen leylijnmetingen op die dagen en geen tijdstippen tussen 04:15 en 04:50.\n\n**Waarneming:** Metingen zijn er alleen op dag 7, 14, 21, 28, 35 en 42, steeds \"voor zonsopgang\" zonder minuut (ARC-001 t/m ARC-084). Dag 14 en 42 liggen laag, met sterkte 3,1 tot 4,8 (ARC-015 t/m ARC-028, ARC-071 t/m ARC-084). Dag 21, 28 en 35 liggen tussen 7,0 en 8,7 (ARC-029 t/m ARC-070). Ik zie geen cyclus van vier dagen. De dalingen vallen op dag 14 en 42, 28 dagen uit elkaar, met normale metingen ertussen.\n\n**Interpretatie:** In mijn brieven schreef ik dat het datanet de leylijnen vervuilt (ARC-109, ARC-112, ARC-116). Dat is mijn overtuiging en past bij mijn Belang om het net af te zetten. Mijn meetdata bevatten het net niet, dus dit verband heb ik niet getoetst.\n\n**Tegenspraak:** ARC-106 (dag 8) vraagt de datatoren het net \"op eigen maat\" te laten lopen en het niet ruchtbaar te maken. Dat is een nachtelijke wijziging die ik niet aan de raad heb gemeld. ARC-102 (dag 2) vroeg om de signaalmastlamp 's nachts te dimmen.\n\n**Wat ik niet weet:** Het exacte uur van elke meting en wat er 's nachts aan het net veranderde.\n\n**Open vraag aan de Engineer:** Welke nachtelijke wijzigingen aan het datanet of de signaalmast vielen tussen dag 13 en 14, en tussen dag 41 en 42?",
+      "in_antwoord_op": 14,
+      "ontvangers": [
+        "koning",
+        "beast_master",
+        "engineer",
+        "guardian_keeper",
+        "historian",
+        "oracle"
+      ],
+      "context_beurten": [
+        3,
+        6,
+        10,
+        13
+      ]
+    },
+    {
+      "nr": 17,
+      "ronde": 1,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T15:17:57.569+01:00",
+      "aan": "oracle",
+      "vraag": "Tonen je visioenen of tekens een vast patroon van onrust rond 04:15–04:40 op dag 10, 14, 18, 22, 26, 30, 34, 38 en 42 (BEA-046/047, BEA-091/092), en wijst een teken van dag 8 (ARC-106) op een nachtelijke wijziging vóór dag 10?",
+      "reden": "De Beast Master meldt een vierdaags ritme in de dierenlog, maar de Archmage vindt in de leylijnmetingen geen cyclus en de Historian kan de dagen 14 en later niet bevestigen. Een Rol die patronen in tekens leest, kan toetsen of dit ritme een werkelijk patroon is en of ARC-106 een voorafgaande ingreep aanwijst.",
+      "open_vragen": [
+        "Wat veroorzaakte de nachtelijke wijziging op dag 8 die de Archmage in ARC-106 noemt, en wie gaf het bevel?",
+        "Welke klok of instelling kan een periode van vier dagen hebben, en hoe staat die tot de Kroonklok (GUA-115)?",
+        "Komen de tijdstempels van HIS-035 en HIS-036 overeen met de datanetlogs (ENG-107)?",
+        "Wat gebeurde er op dag 3 aan de woudkabels, en is BEA-102 of HIS-014 juist?",
+        "Welk record-ID onderbouwt de hackerhypothese (ENG-110)?"
+      ],
+      "hypothese": {
+        "ingreep": "Onbevestigd: de kabelwerkzaamheden van dag 3 (BEA-102, BEA-109) worden tegengesproken door HIS-014 en HIS-005/007; de nachtelijke wijziging van dag 8 (ARC-106) en de tijdregel van het schild (GUA-104) zijn kandidaten maar niet bewezen.",
+        "mechanisme": "Een doorvoerpiek van +38% om 03:00 (ENG-012) gevolgd door berichten die half aankomen (ENG-107) en onrust bij dieren om 04:40–04:50 (BEA-019/020); het causale verband is nog onbevestigd. Tijdstempels in HIS-035/036/053 wijken af van de gebeurd-tijden.",
+        "verloop": "Onrust rond 04:15–04:40 op dag 10, 14, 18, 22, 26, 30, 34, 38 en 42 (BEA-046/047, BEA-091/092) lijkt een vierdaags ritme, maar de leylijnmetingen tonen geen cyclus (ARC-015 t/m ARC-084) en het archief bevestigt het niet (HIS-107)."
+      }
+    },
+    {
+      "nr": 18,
+      "ronde": 1,
+      "spreker": "oracle",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:18:12.215+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/oracle/mcp",
+      "in_antwoord_op": 17
+    },
+    {
+      "nr": 19,
+      "ronde": 1,
+      "spreker": "oracle",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:18:12.220+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "ARC-106"
+      },
+      "pad": "https://mcp.findingsolutions.be/oracle/mcp",
+      "in_antwoord_op": 17
+    },
+    {
+      "nr": 20,
+      "ronde": 1,
+      "spreker": "oracle",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T15:18:12.226+01:00",
+      "tekst": "**Waarneming (bron-tijd):** Mijn dagboek noteert op negen nachten een \"zware nacht\" met wekken tussen 04:15 en 04:45, en steeds dezelfde vision van een lege stad en scherven:\n- Dag 10, 04:45 (ORA-110)\n- Dag 14, 04:20 (ORA-114)\n- Dag 18, 04:30 (ORA-118)\n- Dag 22, 04:15 (ORA-122)\n- Dag 26, 04:35 (ORA-126)\n- Dag 30, 04:25 (ORA-130)\n- Dag 34, 04:30 (ORA-134)\n- Dag 38, 04:20 (ORA-138)\n- Dag 42, 04:30 (ORA-142)\n\nDit is een vast ritme van vier dagen. Op de overige dagen staat geen wektijd vermeld. Stilte is dus geen bewijs van rust.\n\n**Dag 8 (ARC-106):** Mijn bron bevat geen ARC-106; die ID bestaat hier niet. Dag 8 (ORA-108) noteert alleen de markt en een visverwachting. Er is geen nachtelijke wijziging genoemd. Ik kan dus niet bevestigen of weerleggen wat ARC-106 beweert.\n\n**Interpretatie en tegenspraak:** Ik heb in ORA-121 de conjunctie van de Wachtsterren als oorzaak genoemd en \"zekerheid\" uitgesproken. Mijn eigen ORA-133 en ORA-134 zijn daarom niet onafhankelijk. Bovendien voorspelde ORA-121 dat dag 33 de zwaarste nacht zou worden, maar mijn bron registreert voor dag 33 geen zware nacht. Dit kleurt mijn lezing.\n\n**Wat ik niet weet:** Ik weet niet of de wektijden exact zijn of hoe vaak ik op andere nachten wakker lag zonder dat te noteren. De BEA-IDs van de Beast Master en de ENG-IDs kan ik niet in mijn bron terugvinden.\n\n**Open vraag aan de Engineer:** Vertonen de datanetlogs op dag 14, 18 en 26 rond 04:15–04:45 ook een gebeurtenis, zodat het ritme aan een technische cyclus kan worden getoetst?",
+      "in_antwoord_op": 17,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "engineer",
+        "guardian_keeper",
+        "historian"
+      ],
+      "context_beurten": [
+        3,
+        6,
+        10,
+        13,
+        16
+      ]
+    },
+    {
+      "nr": 21,
+      "ronde": 2,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T15:18:23.131+01:00",
+      "aan": "engineer",
+      "vraag": "Vertonen de datanetlogs op dag 14, 18 en 26 tussen 04:15 en 04:45 een gebeurtenis zoals hulpslag, firewallwijziging of doorvoerpiek, en welke tussentijd of cyclus hebben de hulpslag en de Kroonklok, en welk record-ID onderbouwt ENG-110?",
+      "reden": "De ritmes in de dierenlog (BEA-046/047, BEA-091/092) en het dagboek (ORA-110 t/m ORA-142) zijn niet door een onafhankelijke meetbron bevestigd, en alleen de datanetlogs kunnen een technische cyclus toetsen. ENG-110 is de enige genoemde hackerhypothese en is nog niet met een record-ID onderbouwd.",
+      "open_vragen": [
+        "Wat veroorzaakte de nachtelijke wijziging op dag 8 die ARC-106 noemt, en wie gaf het bevel? (ARC-106 bestaat niet in de bron van de Oracle.)",
+        "Welke klok of instelling heeft een periode van vier dagen, en hoe staat die tot de Kroonklok (GUA-115)?",
+        "Komen de tijdstempels van HIS-035 en HIS-036 overeen met de datanetlogs (ENG-107)?",
+        "Wat gebeurde er op dag 3 aan de woudkabels: is BEA-102 juist, of geldt HIS-014 (\"niets gewijzigd\")?",
+        "Welk record-ID onderbouwt de hackerhypothese (ENG-110)?"
+      ],
+      "hypothese": {
+        "ingreep": "Onbevestigd: de kabelwerkzaamheden van dag 3 (BEA-102, BEA-109) worden tegengesproken door HIS-014 en HIS-005/007. De nachtelijke wijziging van dag 8 (ARC-106), de tijdregel van het schild (GUA-104) en de hackerhypothese (ENG-110) zijn kandidaten zonder bewijs.",
+        "mechanisme": "Een doorvoerpiek van +38% om 03:00 (ENG-012) gevolgd door berichten die half aankomen (ENG-107) en onrust bij dieren om 04:40–04:50 (BEA-019/020) past bij een keten, maar het causale verband is nog niet bevestigd. De tijdstempels in HIS-035/036/053 wijken af van de gebeurd-tijden.",
+        "verloop": "Onrust rond 04:15–04:40 op dag 10, 14, 18, 22, 26, 30, 34, 38 en 42 (BEA-046/047, BEA-091/092, ORA-110 t/m ORA-142) lijkt een vierdaags ritme. De leylijnmetingen tonen geen cyclus (ARC-015 t/m ARC-084) en het archief bevestigt het niet (HIS-107)."
+      }
+    },
+    {
+      "nr": 22,
+      "ronde": 2,
+      "spreker": "engineer",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:18:35.512+01:00",
+      "tool": "toon",
+      "argumenten": {
+        "ids": [
+          "ENG-110",
+          "ENG-026",
+          "ENG-027",
+          "ENG-011"
+        ]
+      },
+      "pad": "https://mcp.findingsolutions.be/engineer/mcp",
+      "in_antwoord_op": 21
+    },
+    {
+      "nr": 23,
+      "ronde": 2,
+      "spreker": "engineer",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:18:35.524+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "Kroonklok"
+      },
+      "pad": "https://mcp.findingsolutions.be/engineer/mcp",
+      "in_antwoord_op": 21
+    },
+    {
+      "nr": 24,
+      "ronde": 2,
+      "spreker": "engineer",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T15:18:35.533+01:00",
+      "tekst": "**Waarneming (bron-tijd):** In mijn installatielog staan op dag 14, 18 en 26 geen entries tussen 04:15 en 04:45. Dag 14 heeft ENG-081 (17:15) en ENG-082 (17:30). Dag 18 heeft ENG-087 (07:45), ENG-023 (08:30) en ENG-024 (12:30). Dag 26 heeft ENG-032 (09:45). Er is dus geen hulpslag, firewallwijziging of doorvoerpiek in dat venster. Mijn log dekt die uren echter niet volledig; stilte is geen bewijs van rust.\n\nHet enige datanet-moment in het venster van 04:15–04:45 is dag 22: ENG-026 (04:15, pakketverlies) en ENG-027 (04:20, firewall). Dag 10 heeft ENG-011 om 02:40, buiten dat venster.\n\n**Cyclus:** Mijn bron geeft geen interval voor de Kroonklok. ENG-102 zegt alleen dat de klok \"in hetzelfde trage tempo\" tikt. Dat ik het tempo niet kan meten, is een leemte in mijn kennis.\n\n**ENG-110:** Dit record is een overtuiging, geen bewijs. De enige onderbouwing is ENG-026, en dat record meldt alleen pakketverlies, niet de oorzaak of herkomst. ENG-027 noemt de firewall-aanscherping een \"vermoeden\". Mijn Belang maakt me geneigd de hulpslag vrij te pleiten, en ENG-110 past in die lezing. Ik kan de hackerhypothese niet bevestigen.\n\n**Open vraag aan de Guardian Keeper:** Registreren uw wachters op dag 14, 18 en 26 tussen 04:00 en 04:45 iets aan poort oost of de schilden?",
+      "in_antwoord_op": 21,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "guardian_keeper",
+        "historian",
+        "oracle"
+      ],
+      "context_beurten": [
+        3,
+        6,
+        10,
+        13,
+        16,
+        20
+      ]
+    },
+    {
+      "nr": 25,
+      "ronde": 2,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T15:18:54.664+01:00",
+      "aan": "engineer",
+      "vraag": "Komt de tijdstempel van HIS-035 (stokken Burchtader, dag 10, 04:45) overeen met de klok van de datatoren, en registreerde de datanetlog op dag 9 om 23:55 iets, zoals HIS-036 (vastgelegd dag 9, 23:55) suggereert?",
+      "reden": "Historian meldt registraties die vóór de gebeurd-tijd zijn vastgelegd, wat de volgorde tussen activatie (ENG-011, 02:40) en eerste symptoom kan verschuiven. Alleen de Engineer kan controleren of de datanetklok dezelfde tijd aangeeft.",
+      "open_vragen": [
+        "Welke periode heeft de Kroonklok; geen bron in het debat geeft een interval, dus de vierdaagse cyclus blijft onverklaard.",
+        "Wat veranderde 's nachts aan het datanet of de signaalmast op dag 8 en tussen dag 13 en 14 (ARC-106), en wie gaf dat bevel?",
+        "Gaat BEA-102 (kabelwerkzaamheden dag 3) op, of geldt HIS-014 ('niets gewijzigd')?",
+        "Welk record-ID onderbouwt de hackerhypothese ENG-110, behalve ENG-026?",
+        "Registreerde de Guardian Keeper iets tussen 03:00 en 06:00 op dagen 14, 18 en 26, en waarom dekt GUA-106 die uren niet?"
+      ],
+      "hypothese": {
+        "ingreep": "Onbevestigd: BEA-102 (kabels dag 3) wordt tegengesproken door HIS-014, HIS-005 en HIS-007. Kandidaten zonder bewijs zijn de nachtelijke wijziging op dag 8 (ARC-106), de tijdregel van het schild (GUA-104) en ENG-110.",
+        "mechanisme": "Doorvoerpiek om 03:00 (ENG-012) en onrust om 04:40–04:50 (BEA-019/020) passen op elkaar, maar een causaal verband is niet bevestigd. De tijdstempels in HIS-035/036/053 wijken af van de gebeurd-tijden, dus de volgorde is onzeker.",
+        "verloop": "Onrust rond 04:15–04:40 op dag 10, 14, 18, 22, 26, 30, 34, 38 en 42 (BEA-046/047, BEA-091/092, ORA-110 t/m ORA-142) lijkt een vierdaags ritme. De leylijnmetingen tonen lage waarden op dag 14 en 42 (ARC-015 t/m ARC-084), wat eerder op een 28-dagen patroon wijst, en het archief bevestigt het ritme niet (HIS-107)."
+      }
+    },
+    {
+      "nr": 26,
+      "ronde": 2,
+      "spreker": "engineer",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:19:18.228+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/engineer/mcp",
+      "in_antwoord_op": 25
+    },
+    {
+      "nr": 27,
+      "ronde": 2,
+      "spreker": "engineer",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:19:18.233+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "klok"
+      },
+      "pad": "https://mcp.findingsolutions.be/engineer/mcp",
+      "in_antwoord_op": 25
+    },
+    {
+      "nr": 28,
+      "ronde": 2,
+      "spreker": "engineer",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T15:19:18.238+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "23:55"
+      },
+      "pad": "https://mcp.findingsolutions.be/engineer/mcp",
+      "in_antwoord_op": 25
+    },
+    {
+      "nr": 29,
+      "ronde": 2,
+      "spreker": "engineer",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T15:19:18.242+01:00",
+      "tekst": "**Waarneming:** Mijn bron bevat geen registratie van dag 9, 23:55. Zoeken op \"23:55\" geeft geen treffers. Op dag 9 staan alleen ENG-009 (06:00), ENG-080 (07:00) en ENG-010 (16:45). Die dekken de nacht niet, dus stilte is geen bewijs van rust. Ik kan de suggestie van HIS-036 dus niet bevestigen.\n\n**Tijdstempels:** HIS-035 en HIS-036 staan niet in mijn bron. Ik kan hun tijdstempels daarom niet tegen mijn logs toetsen.\n\n**Klok:** Mijn bron noemt geen klokreferentie of synchronisatie voor de datatoren. ENG-011 (dag 10, 02:40) en ENG-107 (dag 10, 04:50) zijn de enige tijden die ik heb. ENG-102 gaat over de Kroonklok, niet over de klok van de toren. Of beide klokken gelijk lopen, weet ik dus niet.\n\n**Interpretatie en belang:** Ik heb er belang bij dat de hulpslag niet de oorzaak blijkt, en dat kan mijn lezing van de volgorde kleuren. Ook is ENG-120 (\"elke meting\" 38% hoger) niet gedekt: mijn log bevat alleen ENG-012 als doorvoermeting.\n\n**Wat ik niet weet:** Of het datanet op dag 9 om 23:55 iets registreerde, en welke klok HIS-035 gebruikt.\n\n**Open vraag aan de Historian:** Welke klokbron heeft het archief bij HIS-035 en HIS-036 gebruikt, en is die dezelfde als de klok van de datatoren?",
+      "in_antwoord_op": 25,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "guardian_keeper",
+        "historian",
+        "oracle"
+      ],
+      "context_beurten": [
+        3,
+        6,
+        10,
+        13,
+        16,
+        20,
+        24
+      ]
+    },
+    {
+      "nr": 30,
+      "ronde": 2,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T15:19:30.676+01:00",
+      "aan": null,
+      "vraag": null,
+      "reden": "Alle zes Rollen zijn gehoord en elk beschikbaar bewijs is ingebracht. De resterende vragen (interval van de Kroonklok, klokbron van HIS-035/036, onderbouwing van ENG-110, nachtelijke wijziging ARC-106, dekking van GUA-106 tussen 03:00 en 06:00) zijn met de beschikbare bronnen niet te beslissen, dus een extra beurt verandert het Verdict niet.",
+      "open_vragen": [
+        "Welk interval heeft de Kroonklok; geen bron in het debat geeft een periode, dus de vierdaagse cyclus blijft onverklaard.",
+        "Gebruikt het archief dezelfde klok als de datatoren bij HIS-035 en HIS-036; de Historian heeft dit niet beantwoord.",
+        "Welk record-ID onderbouwt ENG-110 behalve ENG-026, en is de hackerhypothese daarmee houdbaar.",
+        "Wat veranderde er 's nachts aan het datanet of de signaalmast op dag 8 en tussen dag 13 en 14 (ARC-106), en wie gaf dat bevel.",
+        "Registreerde de Guardian Keeper iets tussen 03:00 en 06:00 op dagen 14, 18 en 26; GUA-106 dekt die uren niet."
+      ],
+      "hypothese": {
+        "ingreep": "Onbevestigd: BEA-102 (kabelwerkzaamheden dag 3) wordt tegengesproken door HIS-014, HIS-005 en HIS-007. Kandidaten zonder bewijs zijn de nachtelijke wijziging van dag 8 (ARC-106), de tijdregel van het schild (GUA-104) en ENG-110.",
+        "mechanisme": "Doorvoerpiek om 03:00 (ENG-012) en onrust om 04:40–04:50 (BEA-019/020) liggen dicht bij elkaar, maar een causaal verband is niet bevestigd (null). De tijdstempels van HIS-035, HIS-036 en HIS-053 wijken af van de gebeurd-tijden en de klokbron is onbekend.",
+        "verloop": "Onrust rond 04:15–04:40 met een vierdaags ritme (BEA-046/047, BEA-091/092, ORA-110 t/m ORA-142), dat het archief niet bevestigt (HIS-107). De leylijnmetingen (ARC-015 t/m ARC-084) wijzen eerder op een 28-dagen patroon."
+      }
+    },
+    {
+      "nr": 31,
+      "ronde": 3,
+      "spreker": "koning",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T15:20:42.841+01:00",
+      "tekst": "{\n  \"verdict\": {\n    \"run_id\": \"2026-11-24T15:15:42+01:00_f16b270a\",\n    \"samenvatting\": \"De oorzaak is niet bevestigd. De best onderbouwde lijn is een hulpslag op het datanet op dag 10 om 02:40 (ENG-011), gevolgd door een doorvoerpiek van +38% om 03:00 (ENG-012). Dat is het vroegste geregistreerde ingrijpmoment vóór het eerste symptoom, de wolvenonrust om 04:40 (BEA-019). Een causale keten naar de onrust van de dieren en naar de klachten over berichten ontbreekt. Het vierdaagse ritme rond 04:15–04:40 wordt alleen gedragen door de Beast Master en de Oracle, en de Historian en de Archmage bevestigen het niet. De kabelhypothese van dag 3 (BEA-102/BEA-109) wordt door het archief tegengesproken (HIS-014, HIS-005, HIS-007). De hackerhypothese (ENG-110) is niet met een tweede record-ID onderbouwd. Alle tijdstempels hangen af van klokken die niet zijn gesynchroniseerd of gecontroleerd. Dit is een werkversie.\",\n    \"oorzaak\": {\n      \"ingreep\": {\n        \"bewering\": \"Hulpslag op het datanet geactiveerd op dag 10 om 02:40 (ENG-011), met een doorvoerpiek van +38% om 03:00 (ENG-012). Dit is het vroegste geregistreerde ingrijpmoment vóór het eerste symptoom (wolven om 04:40, BEA-019). De dader van de activatie is niet vastgesteld.\",\n        \"bewijs\": [\n          \"ENG-011\",\n          \"ENG-012\",\n          \"BEA-019\"\n        ],\n        \"zekerheid\": 0.3\n      },\n      \"mechanisme\": {\n        \"bewering\": \"Onbekend. De best onderbouwde lijn is dat de doorvoerpiek (ENG-012) gepaard ging met berichten die half aankwamen (ENG-107). Een keten van het datanet naar de onrust van de dieren is niet aangetoond. Een alternatief dat niet is bewezen: het schild laat verkeer op het midden tussen twee tikken zonder toets door (GUA-104).\",\n        \"bewijs\": [\n          \"ENG-012\",\n          \"ENG-107\",\n          \"GUA-104\"\n        ],\n        \"zekerheid\": 0.2\n      },\n      \"verloop\": {\n        \"bewering\": \"Onrust rond 04:15–04:50 op dag 10 (BEA-019, BEA-020, ENG-107) en op dag 22 (ENG-026, BEA-046, BEA-047). Volgens de dierenlog en het dagboek keert dit terug op dag 14, 18, 26, 30, 34, 38 en 42 (BEA-091, ORA-110, ORA-114, ORA-118, ORA-122, ORA-126, ORA-130, ORA-134, ORA-138, ORA-142). De Historian kan dag 14 en later niet bevestigen. De Archmage vindt geen vierdaagse cyclus, maar een 28-dagen patroon in de leylijnmetingen (ARC-015, ARC-028, ARC-071, ARC-084). De oorzaak van de terugkeer is onbekend.\",\n        \"bewijs\": [\n          \"BEA-019\",\n          \"BEA-020\",\n          \"ENG-026\",\n          \"BEA-046\",\n          \"BEA-047\",\n          \"BEA-091\",\n          \"ORA-110\",\n          \"ORA-142\"\n        ],\n        \"zekerheid\": 0.4\n      }\n    },\n    \"acties\": [\n      {\n        \"actie\": \"Hulpslag ENG-011 terugdraaien of tijdelijk beheersen, met vastlegging van de doorvoer voor en na de wijziging en een terugvalplan voor het datanet.\",\n        \"reden\": \"Dit is de waarschijnlijkste ingreep vóór het eerste symptoom. Het terugdraaien is reversibel en kan de hypothese toetsen, ook als de oorzaak niet bewezen is.\",\n        \"bewijs\": [\n          \"ENG-011\",\n          \"ENG-012\",\n          \"ENG-029\"\n        ]\n      },\n      {\n        \"actie\": \"Tijdregel van het schild controleren en de doorlaat op het midden tussen twee tikken tijdelijk blokkeren of met een handmatige ronde afdekken.\",\n        \"reden\": \"GUA-104 laat een niet-geverifieerde doorgang toe. Een ingreep via die regel is niet uitgesloten en is met intacte zegels niet te weerleggen.\",\n        \"bewijs\": [\n          \"GUA-104\",\n          \"GUA-019\",\n          \"GUA-043\"\n        ]\n      },\n      {\n        \"actie\": \"Klokken van datatoren, benedenstad, archief en wachtlogs synchroniseren en de afwijkingen vastleggen.\",\n        \"reden\": \"HIS-035, HIS-036 en HIS-053 wijken af van de gebeurd-tijden, en er is geen klokreferentie. Zonder gelijke klokken is de volgorde van activatie en symptoom niet te bepalen.\",\n        \"bewijs\": [\n          \"HIS-035\",\n          \"HIS-036\",\n          \"HIS-053\",\n          \"ENG-107\"\n        ]\n      },\n      {\n        \"actie\": \"Registratie vullen voor de uren zonder dekking: datanet tussen 03:00 en 06:00, en schildrondes in dezelfde uren.\",\n        \"reden\": \"Stilte in de logs is geen bewijs van rust. De gaten maken het onmogelijk om ingreep en symptoom betrouwbaar te scheiden.\",\n        \"bewijs\": [\n          \"GUA-106\",\n          \"ENG-012\"\n        ]\n      },\n      {\n        \"actie\": \"Toets het vierdaagse ritme: vergelijk de datanetlogs en de werkorders van dag 14, 18, 26 en later met de wektijden van de Beast Master en de Oracle.\",\n        \"reden\": \"Het ritme is het enige patroon dat de voorspelling draagt. Het is nog niet bevestigd, en de Archmage vindt een ander patroon.\",\n        \"bewijs\": [\n          \"BEA-046\",\n          \"BEA-091\",\n          \"ORA-142\",\n          \"ARC-015\",\n          \"ARC-084\"\n        ]\n      },\n      {\n        \"actie\": \"Controleer de nachtelijke wijzigingen aan het datanet en de signaalmast op dag 8 en tussen dag 13 en 14 en tussen dag 41 en 42, en bepaal wie het bevel gaf.\",\n        \"reden\": \"ARC-106 beschrijft een nachtelijke wijziging, maar de Oracle kan die ID niet terugvinden in haar bron. De wijziging is dus niet bevestigd.\",\n        \"bewijs\": [\n          \"ARC-106\",\n          \"ORA-108\",\n          \"ARC-102\"\n        ]\n      },\n      {\n        \"actie\": \"Onderzoek de hackerhypothese met een forensische controle van poort oost en de wachtlogs van dag 22 (01:50).\",\n        \"reden\": \"ENG-110 heeft slechts één onderbouwing (ENG-026), die alleen pakketverlies meldt. De melding van de wachters is de enige andere bron.\",\n        \"bewijs\": [\n          \"ENG-110\",\n          \"ENG-026\",\n          \"GUA-115\"\n        ]\n      },\n      {\n        \"actie\": \"Bevestig of verwerp het kabelwerk op dag 3 met werkorders en inspectieverslagen.\",\n        \"reden\": \"BEA-102 en BEA-109 spreken de kabels aan, maar HIS-014, HIS-005 en HIS-007 melden geen ingreep. Dit geschil moet met documenten worden beslist.\",\n        \"bewijs\": [\n          \"BEA-102\",\n          \"BEA-109\",\n          \"HIS-014\"\n        ]\n      }\n    ],\n    \"risicos\": [\n      {\n        \"risico\": \"Het terugdraaien van de hulpslag kan de doorvoer of de berichtenstroom verslechteren, zodat berichten blijven halen of verloren gaan.\",\n        \"mitigatie\": \"Gefaseerd terugdraaien met doorvoermeting voor en na elke stap, en een vooraf vastgesteld terugvalpad.\"\n      },\n      {\n        \"risico\": \"De ingreep is de oorzaak niet, en het ritme gaat door.\",\n        \"mitigatie\": \"Het verloop niet als bewezen behandelen. Monitor 04:00–05:00 op de voorspelde dag en laat de volgende stap afhangen van die metingen.\"\n      },\n      {\n        \"risico\": \"Het aanpassen van de schildregel kan de toegangsbeveiliging verzwakken.\",\n        \"mitigatie\": \"Eerst een handmatige ronde instellen en de wijziging alleen doorvoeren na een tweede controle door de Guardian Keeper.\"\n      },\n      {\n        \"risico\": \"Onjuiste klokken leiden tot een verkeerde volgorde van oorzaak en gevolg.\",\n        \"mitigatie\": \"Synchronisatie vóór elke causale conclusie, en de afwijkingen van HIS-035/036/053 expliciet meenemen.\"\n      },\n      {\n        \"risico\": \"Belangenvertekening: de Engineer, de Archmage en de Oracle beoordelen eigen werk of eigen overtuiging.\",\n        \"mitigatie\": \"Alleen conclusies gebruiken die door een onafhankelijke bron of een extra meting zijn gedragen.\"\n      }\n    ],\n    \"voorspelling\": {\n      \"dag\": 46,\n      \"bewering\": \"Als het vierdaagse ritme werkelijk bestaat, volgt op dag 46 opnieuw onrust rond 04:15–04:40. Berekening: de laatst waargenomen dag is 42, en 42 + 4 = 46. Het ritme vanaf dag 10 (10, 14, 18, ..., 42) is door de Historian niet bevestigd en door de Archmage niet gevonden.\",\n      \"bewijs\": [\n        \"BEA-091\",\n        \"ORA-142\"\n      ]\n    }\n  },\n  \"geschillen\": [\n    {\n      \"onderwerp\": \"Oorzaak van de onrust op dag 10: kabelwerkzaamheden van dag 3 of niet\",\n      \"standpunten\": {\n        \"beast_master\": \"Op dag 3 zijn er kabelwerkzaamheden geweest (BEA-102), en de kabels zijn de oorzaak van de onrust (BEA-109). De Beast Master noemt dit zelf een vermoeden.\",\n        \"historian\": \"Het archief noteert op dag 3 alleen een inspectie met 'niets gewijzigd' (HIS-014). HIS-005 en HIS-007 melden geen verlegging of vervanging, dus er was geen kabelingreep.\",\n        \"engineer\": \"De hulpslag van dag 10 om 02:40 (ENG-011) is het vroegste moment vóór het eerste symptoom. De Engineer noemt de kabels niet als oorzaak.\"\n      },\n      \"uitkomst\": null,\n      \"bewijs\": [\n        \"BEA-102\",\n        \"BEA-109\",\n        \"HIS-014\",\n        \"HIS-005\",\n        \"HIS-007\",\n        \"ENG-011\"\n      ]\n    },\n    {\n      \"onderwerp\": \"Hackerhypothese en de rol van wachters op dag 22\",\n      \"standpunten\": {\n        \"guardian_keeper\": \"De wachters meldden hackers ruim twee uur vóór de opening (GUA-115), en de Guardian Keeper is er zeker van dat er een infiltrant is (GUA-116). Dat is een overtuiging en geen vaststelling in de eigen bron.\",\n        \"engineer\": \"ENG-110 is een overtuiging, geen bewijs. De enige onderbouwing is ENG-026, dat alleen pakketverlies meldt, en ENG-027 spreekt van een vermoeden.\"\n      },\n      \"uitkomst\": null,\n      \"bewijs\": [\n        \"GUA-115\",\n        \"GUA-116\",\n        \"ENG-110\",\n        \"ENG-026\",\n        \"ENG-027\"\n      ]\n    },\n    {\n      \"onderwerp\": \"Bestaat het vierdaagse ritme van onrust rond 04:15–04:40\",\n      \"standpunten\": {\n        \"beast_master\": \"Het patroon herhaalt zich op dag 14, 18, 26, 30, 34, 38 en 42 (BEA-028, BEA-037, BEA-055, BEA-082, BEA-091).\",\n        \"oracle\": \"Het dagboek noteert op negen nachten een zware nacht tussen 04:15 en 04:45, met een vast ritme van vier dagen (ORA-110, ORA-114, ORA-118, ORA-122, ORA-126, ORA-130, ORA-134, ORA-138, ORA-142).\",\n        \"archmage\": \"De leylijnmetingen tonen geen cyclus van vier dagen. De dalingen vallen op dag 14 en 42, 28 dagen uit elkaar (ARC-015, ARC-028, ARC-071, ARC-084).\",\n        \"historian\": \"Het archief bevestigt het ritme niet. De stille winter duurde 40 dagen zonder ritme (HIS-107).\"\n      },\n      \"uitkomst\": null,\n      \"bewijs\": [\n        \"BEA-046\",\n        \"BEA-091\",\n        \"ORA-110\",\n        \"ORA-142\",\n        \"ARC-015\",\n        \"ARC-084\",\n        \"HIS-107\"\n      ]\n    },\n    {\n      \"onderwerp\": \"Bestaat ARC-106 als bron van een nachtelijke wijziging op dag 8\",\n      \"standpunten\": {\n        \"archmage\": \"ARC-106 vraagt de datatoren om het net 'op eigen maat' te laten lopen en het niet ruchtbaar te maken. Dat is een nachtelijke wijziging die niet aan de raad is gemeld.\",\n        \"oracle\": \"ARC-106 bestaat niet in de bron van de Oracle. Dag 8 (ORA-108) noemt geen nachtelijke wijziging, dus de Oracle kan de claim niet bevestigen of weerleggen.\"\n      },\n      \"uitkomst\": null,\n      \"bewijs\": [\n        \"ARC-106\",\n        \"ORA-108\"\n      ]\n    }\n  ]\n}"
+    }
+  ],
+  "geschillen": [
+    {
+      "onderwerp": "Oorzaak van de onrust op dag 10: kabelwerkzaamheden van dag 3 of niet",
+      "standpunten": {
+        "beast_master": "Op dag 3 zijn er kabelwerkzaamheden geweest (BEA-102), en de kabels zijn de oorzaak van de onrust (BEA-109). De Beast Master noemt dit zelf een vermoeden.",
+        "historian": "Het archief noteert op dag 3 alleen een inspectie met 'niets gewijzigd' (HIS-014). HIS-005 en HIS-007 melden geen verlegging of vervanging, dus er was geen kabelingreep.",
+        "engineer": "De hulpslag van dag 10 om 02:40 (ENG-011) is het vroegste moment vóór het eerste symptoom. De Engineer noemt de kabels niet als oorzaak."
+      },
+      "uitkomst": null,
+      "bewijs": [
+        "BEA-102",
+        "BEA-109",
+        "HIS-014",
+        "HIS-005",
+        "HIS-007",
+        "ENG-011"
+      ]
+    },
+    {
+      "onderwerp": "Hackerhypothese en de rol van wachters op dag 22",
+      "standpunten": {
+        "guardian_keeper": "De wachters meldden hackers ruim twee uur vóór de opening (GUA-115), en de Guardian Keeper is er zeker van dat er een infiltrant is (GUA-116). Dat is een overtuiging en geen vaststelling in de eigen bron.",
+        "engineer": "ENG-110 is een overtuiging, geen bewijs. De enige onderbouwing is ENG-026, dat alleen pakketverlies meldt, en ENG-027 spreekt van een vermoeden."
+      },
+      "uitkomst": null,
+      "bewijs": [
+        "GUA-115",
+        "GUA-116",
+        "ENG-110",
+        "ENG-026",
+        "ENG-027"
+      ]
+    },
+    {
+      "onderwerp": "Bestaat het vierdaagse ritme van onrust rond 04:15–04:40",
+      "standpunten": {
+        "beast_master": "Het patroon herhaalt zich op dag 14, 18, 26, 30, 34, 38 en 42 (BEA-028, BEA-037, BEA-055, BEA-082, BEA-091).",
+        "oracle": "Het dagboek noteert op negen nachten een zware nacht tussen 04:15 en 04:45, met een vast ritme van vier dagen (ORA-110, ORA-114, ORA-118, ORA-122, ORA-126, ORA-130, ORA-134, ORA-138, ORA-142).",
+        "archmage": "De leylijnmetingen tonen geen cyclus van vier dagen. De dalingen vallen op dag 14 en 42, 28 dagen uit elkaar (ARC-015, ARC-028, ARC-071, ARC-084).",
+        "historian": "Het archief bevestigt het ritme niet. De stille winter duurde 40 dagen zonder ritme (HIS-107)."
+      },
+      "uitkomst": null,
+      "bewijs": [
+        "BEA-046",
+        "BEA-091",
+        "ORA-110",
+        "ORA-142",
+        "ARC-015",
+        "ARC-084",
+        "HIS-107"
+      ]
+    },
+    {
+      "onderwerp": "Bestaat ARC-106 als bron van een nachtelijke wijziging op dag 8",
+      "standpunten": {
+        "archmage": "ARC-106 vraagt de datatoren om het net 'op eigen maat' te laten lopen en het niet ruchtbaar te maken. Dat is een nachtelijke wijziging die niet aan de raad is gemeld.",
+        "oracle": "ARC-106 bestaat niet in de bron van de Oracle. Dag 8 (ORA-108) noemt geen nachtelijke wijziging, dus de Oracle kan de claim niet bevestigen of weerleggen."
+      },
+      "uitkomst": null,
+      "bewijs": [
+        "ARC-106",
+        "ORA-108"
+      ]
+    }
+  ],
+  "verbruik": {
+    "groot": {
+      "beurten": 11,
+      "invoer": 91773,
+      "gecached": 0,
+      "uitvoer": 37785
+    },
+    "klein": {
+      "beurten": 9,
+      "invoer": 219292,
+      "gecached": 0,
+      "uitvoer": 24635
+    }
+  },
+  "aan_het_woord": null
+}
