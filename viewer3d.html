@@ -471,7 +471,8 @@ async function volg() {
 
 // ---------- Camera en invoer ----------
 const beperkt = matchMedia("(prefers-reduced-motion: reduce)").matches;
-let az = 0.35, el = 0.5, afstand = 17.5, sleept = false, laatsteSleep = -1e9, px = 0, py = 0;
+// Breed scherm: camera dichterbij, zodat de zaal het beeld vult.
+let az = 0.35, el = 0.5, afstand = innerWidth / innerHeight >= 1.5 ? 15.8 : 17.5, sleept = false, laatsteSleep = -1e9, px = 0, py = 0;
 const doel = new THREE.Vector3(0, 1.8, 0);
 const dom = renderer.domElement;
 dom.addEventListener("pointerdown", e => { sleept = true; px = e.clientX; py = e.clientY; dom.setPointerCapture(e.pointerId); });

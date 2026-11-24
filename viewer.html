@@ -67,6 +67,8 @@
   .pil.klaar { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
   .pil.fout { color: var(--fout); border-color: color-mix(in srgb, var(--fout) 45%, transparent); }
   .naar3d { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 50%, transparent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  button.pil { font-family: inherit; cursor: pointer; }
+  [hidden] { display: none !important; }
   .naar3d:hover { background: color-mix(in srgb, var(--accent) 22%, transparent); box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 35%, transparent); }
   .naar3d:focus-visible, details summary:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
 
@@ -198,6 +200,8 @@
     <div><h1>Council of Achrona</h1><small id="runid">debatviewer</small></div>
   </div>
   <span id="status" class="pil"><i></i><span>wachten op trace.json…</span></span>
+  <button class="pil naar3d" id="afspelen" type="button" title="Speel het debat beurt per beurt opnieuw af">▶ Afspelen</button>
+  <button class="pil" id="tempo" type="button" title="Afspeelsnelheid" hidden>1×</button>
   <a class="pil naar3d" href="/3d" title="Bekijk het debat als 3D-raadzaal">3D-zaal ↗</a>
 </header>
 
@@ -478,7 +482,50 @@ function render(trace, verdict) {
 async function haal(pad) {
   try { const r = await fetch(pad, { cache: "no-store" }); return r.ok ? await r.text() : null; } catch { return null; }
 }
+// ---------- Afspelen: speel een afgeronde trace beurt per beurt na, alsof het live gebeurt ----------
+let afspelen = null, tempo = 1;
+const knop = document.getElementById("afspelen"), tempoKnop = document.getElementById("tempo");
+const pauze = ms => new Promise(r => setTimeout(r, ms / tempo));
+function wieSpreekt(beurten) {
+  // Na een routering spreekt de aangewezen Rol, na een bijdrage of stop is de Koning weer aan zet.
+  const laatste = beurten[beurten.length - 1];
+  if (!laatste) return "koning";
+  if (laatste.soort === "routering") return laatste.aan || "koning";
+  if (laatste.soort === "toolcall") return laatste.spreker;
+  return "koning";
+}
+async function speelAf() {
+  const t = JSON.parse(await haal("trace.json") || "null"), v = JSON.parse(await haal("verdict.json") || "null");
+  if (!t) return;
+  const sessie = afspelen = {};
+  knop.textContent = "■ Stop"; tempoKnop.hidden = false;
+  gezien.clear(); eersteWeergave = true;
+  const beurten = (t.beurten || []).filter(b => b.soort !== "bericht" || b.spreker !== "koning");
+  const toon = (n, klaar) => {
+    render({ ...t, beurten: klaar ? t.beurten : beurten.slice(0, n), status: klaar ? t.status : "bezig",
+      aan_het_woord: klaar ? null : wieSpreekt(beurten.slice(0, n)), geschillen: klaar ? t.geschillen : [] }, klaar ? v : null);
+    // Geen gespring: de raadskring bovenaan toont wie spreekt en de vraag; de kaarten groeien eronder.
+    if (!klaar) document.querySelector("#status span").textContent = "afspelen";
+  };
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  toon(0, false); await pauze(1500);
+  for (let n = 1; n <= beurten.length && afspelen === sessie; n++) {
+    toon(n, false);
+    const b = beurten[n - 1];
+    await pauze(b.soort === "bericht" ? 4500 : b.soort === "routering" ? (b.aan ? 3000 : 2500) : 700);
+  }
+  if (afspelen !== sessie) return;
+  toon(0, true);
+  stopAfspelen();
+}
+function stopAfspelen() {
+  afspelen = null; knop.textContent = "▶ Afspelen"; tempoKnop.hidden = true; vorige = "";
+}
+knop.onclick = () => { if (afspelen) stopAfspelen(); else speelAf(); };
+tempoKnop.onclick = () => { tempo = tempo === 1 ? 2 : tempo === 2 ? 4 : 1; tempoKnop.textContent = tempo + "×"; };
+
 async function lus() {
+  if (afspelen) { setTimeout(lus, 1500); return; } // tijdens afspelen geen live-updates
   const [t, v] = await Promise.all([haal("trace.json"), haal("verdict.json")]);
   if (t && t + (v || "") !== vorige) {
     vorige = t + (v || "");
@@ -487,6 +534,7 @@ async function lus() {
   setTimeout(lus, 1500);
 }
 lus();
+if (new URLSearchParams(location.search).has("afspelen")) speelAf(); // ?afspelen start meteen
 </script>
 </body>
 </html>
