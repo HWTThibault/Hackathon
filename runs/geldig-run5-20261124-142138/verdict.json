@@ -1,0 +1,147 @@
+{
+  "run_id": "2026-11-24T14:16:14+01:00_4e8ba0fe",
+  "samenvatting": "Werkversie met lage tot matige zekerheid. De best onderbouwde ingreep is de activatie van de hulpslag door de Engineer op dag 10 om 02:40 (ENG-011), met een doorvoerstijging van 38% om 03:00 (ENG-012). Dat is de vroegste bekende handeling vóór de eerste symptomen: onrust bij de wolven om 04:40 (BEA-019), de klacht over half aangekomen berichten om 04:50 (HIS-036; ENG-107) en de opening van de poort in de benedenstad om 04:47 (GUA-019). De activatie komt alleen uit de bron van de Engineer, die partijdig is, en de tijdstempel van HIS-036 wordt betwist (HIS-103). Wat daarna terugkeert, is een ritme van zware nachten op dag 10 + 4n (BEA-113, ORA-110 t/m ORA-142). Dat ritme wordt door twee Rollen met eigen bronnen gedragen (Beast Master en Oracle), maar de periodieke oorzaak is niet vastgesteld: de Kroonklok-tikken zijn niet gedateerd (HIS-103, ENG-103), en de veronderstelde verkeersopening tussen twee tikken (GUA-104) is niet getoetst. De conjunctie van dag 33 verklaart het ritme niet (ORA-134, ARC-114). Een hackeraanval of infiltrant is niet bewezen (ENG-110, GUA-043, GUA-116).",
+  "oorzaak": {
+    "ingreep": {
+      "bewering": "Op dag 10 om 02:40 activeerde de Engineer de hulpslag (ENG-011); om 03:00 steeg de doorvoer met 38% (ENG-012). Dat is de vroegste bekende handeling vóór de eerste onrust (BEA-019, 04:40), de klacht (HIS-036, 04:50) en de opening van de benedenstad (GUA-019, 04:47). Er is geen wijziging geregistreerd tussen 03:00 en 04:40, maar de bron van de Engineer dekt dat uur niet (ENG-106). Alleen de Engineer meldt de activatie, dus de zekerheid is laag.",
+      "bewijs": [
+        "ENG-011",
+        "ENG-012",
+        "ENG-106",
+        "BEA-019",
+        "BEA-020",
+        "HIS-036",
+        "GUA-019",
+        "HIS-103"
+      ],
+      "zekerheid": 0.35
+    },
+    "mechanisme": {
+      "bewering": "Mogelijk verklaart verkeer dat midden tussen twee Kroonklok-tikken valt en door artikel 3 zonder toets gaat de openingen op dag 10 en dag 22 (GUA-104, GUA-106). De Guardian Keeper noemt geen oorzaak, het artikel is ontwerp en geen breuk (GUA-120), de tik is niet gedateerd (HIS-103), en de koppeling met de hulpslag en met de klachten is niet vastgesteld.",
+      "bewijs": [
+        "GUA-104",
+        "GUA-106",
+        "GUA-019",
+        "GUA-043",
+        "GUA-120"
+      ],
+      "zekerheid": 0.15
+    },
+    "verloop": {
+      "bewering": "Het patroon van zware nachten valt op dag 10 + 4n: dag 10 (BEA-019, ORA-110), dag 14 (BEA-028, ORA-114), dag 18 (ORA-118), dag 22 (BEA-046, ORA-122), dag 26 (BEA-055, ORA-126), dag 30 (ORA-130), dag 34 (ORA-134), dag 38 (BEA-082, ORA-138) en dag 42 (ORA-142). Het ritme van vier dagen wordt door Beast Master (BEA-113) en Oracle (eigen dagboek) gedragen. De lage lijnen van de Archmage op dag 14 en dag 42 passen erbij (ARC-015, ARC-071), maar haar metingen zijn wekelijks en geven geen uurtijden. Het ritme loopt door na de conjunctie van dag 33 (ORA-133, ORA-134). Het dagboek van de Oracle noteert alleen wakkere nachten.",
+      "bewijs": [
+        "BEA-019",
+        "BEA-028",
+        "BEA-046",
+        "BEA-055",
+        "BEA-082",
+        "BEA-113",
+        "ORA-110",
+        "ORA-114",
+        "ORA-118",
+        "ORA-122",
+        "ORA-126",
+        "ORA-130",
+        "ORA-133",
+        "ORA-134",
+        "ORA-138",
+        "ORA-142",
+        "ARC-015",
+        "ARC-071"
+      ],
+      "zekerheid": 0.5
+    }
+  },
+  "acties": [
+    {
+      "actie": "Zet de hulpslag terug naar de stand van vóór dag 10 om 02:40, in stappen van 0,1%, en meet de doorvoer per uur. Stel eerst vast wat die stand was.",
+      "reden": "De hulpslag is de enige bekende handeling vóór de eerste symptomen, dus de waarschijnlijkste oorzaak. Terugdraaien stopt de ingreep zonder de hele verbinding uit te schakelen.",
+      "bewijs": [
+        "ENG-011",
+        "ENG-012",
+        "ENG-114",
+        "ENG-120",
+        "ENG-029"
+      ]
+    },
+    {
+      "actie": "Leg de wijzigingslog en de doorvoer vast van dag 10 tussen 02:40 en 04:50, en de handelingen op de hulpslag en de kabels in dat uur. De Engineer en de Beast Master vullen het gat aan.",
+      "reden": "Het uur 03:00 tot 04:40 is in geen enkele bron gedekt, en de Beast Master kan de wijziging op dag 10 niet vaststellen (BEA-109).",
+      "bewijs": [
+        "ENG-106",
+        "BEA-109",
+        "ENG-107"
+      ]
+    },
+    {
+      "actie": "Lever berichtlogs en het tiklogboek van de Kroonklok voor dag 10, 14 en 22. Toets of vastlegtijden gelijk zijn aan gebeurtijden (HIS-103) en of de vastlegtijden van HIS-036 en HIS-053 systematisch verschuiven.",
+      "reden": "De tijdstempels van HIS-036 en HIS-053 zijn in strijd met de regel van HIS-103. Zonder deze toets is de volgorde van ingreep en klachten niet vastgesteld.",
+      "bewijs": [
+        "HIS-036",
+        "HIS-053",
+        "HIS-103",
+        "HIS-112",
+        "HIS-116"
+      ]
+    },
+    {
+      "actie": "Zet de schildlogs van poort oost en de benedenstad naast de Kroonklok-tikken van dag 10 en dag 22. Ga na of het verkeer tussen twee tikken viel.",
+      "reden": "Dit toetst het mechanisme (GUA-104) dat nu alleen op ontwerp en tijdstip berust.",
+      "bewijs": [
+        "GUA-104",
+        "GUA-106",
+        "GUA-019",
+        "GUA-043"
+      ]
+    },
+    {
+      "actie": "Registreer elke nacht van dag 42 tot dag 47 per uur tussen 03:00 en 06:00: onrust, meldingen, schildstatus en leylijnen. Registreer ook de nachten zonder onrust.",
+      "reden": "Het ritme is nu gebaseerd op wakkere nachten en wekelijkse metingen. Een volledige reeks toetst of de voorspelling op dag 46 klopt.",
+      "bewijs": [
+        "ORA-142",
+        "BEA-082",
+        "BEA-113",
+        "ARC-071",
+        "ARC-084"
+      ]
+    },
+    {
+      "actie": "Controleer de firewall- en poortlogs van poort oost op dag 22 om 04:15 op sporen van buitenaf.",
+      "reden": "De hackerverklaring (ENG-110) is niet getoetst; de Guardian Keeper vond geen sporen van inbraak (GUA-043, GUA-044).",
+      "bewijs": [
+        "ENG-110",
+        "ENG-027",
+        "GUA-043",
+        "GUA-044"
+      ]
+    }
+  ],
+  "risicos": [
+    {
+      "risico": "Terugdraaien van de hulpslag kan de doorvoer doen dalen of de klachten doen oplopen, zoals de +38% van dag 16 al liet zien (ENG-120).",
+      "mitigatie": "Draai in stappen van 0,1% (ENG-114) en meet de doorvoer per uur. Stop bij achteruitgang en zet de vorige stand terug."
+    },
+    {
+      "risico": "De ingreep verklaart het begin, maar niet het viertallige ritme. Na het herstel kan de onrust op dag 46 weer optreden.",
+      "mitigatie": "Bewaak dag 46 per uur (actie 5) en koppel het ritme aan de tikken en verkeerslogs (actie 4), zodat de periodieke oorzaak onderzocht kan worden."
+    },
+    {
+      "risico": "De bronnen zijn partijdig: de Engineer heeft de hulpslag zelf gebouwd en geactiveerd, de Guardian Keeper bewaakt de schilden, en de Historian beschermt de integriteit van het register.",
+      "mitigatie": "Toets elke bewering met ruwe logs die de betrokken Rol niet zelf beheert, en vertrouw niet op eigen afdoeningen zoals ENG-107 of GUA-115."
+    },
+    {
+      "risico": "Een hack of infiltrant op dag 22 is niet uitgesloten, en het herstel van de hulpslag verhelpt dat niet.",
+      "mitigatie": "Controleer de firewall- en poortlogs van dag 22 (actie 6) en houd de schildstatus in de gaten."
+    }
+  ],
+  "voorspelling": {
+    "dag": 46,
+    "bewering": "Als niemand ingrijpt, verwacht ik de volgende zware nacht op dag 46. De laatst waargenomen zware nacht is dag 42 (ORA-142), en met een vaste tussentijd van 4 dagen is dag 42 + 4 = dag 46. Het patroon 10 + 4n geeft hetzelfde resultaat (10 + 4 × 9 = 46). De verwachte tijd is rond 04:20 tot 04:45, volgens de eerdere nachten (ORA-142, BEA-082).",
+    "bewijs": [
+      "ORA-142",
+      "BEA-082",
+      "BEA-113",
+      "ORA-138"
+    ]
+  }
+}

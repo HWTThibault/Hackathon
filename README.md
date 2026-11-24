@@ -42,13 +42,13 @@ Staat de omgeving al in `.venv` maar `uv` niet op je `PATH` (Windows), gebruik `
 
 ## Wat de Council vond
 
-Uit het ingeleverde `verdict.json` (zekerheid per deel tussen haakjes):
+Uit het ingeleverde `verdict.json` (zekerheid per deel tussen haakjes). De Koning hoorde alle zes Rollen en stopte zelf na 8 van de 10 beurten: de resterende vragen waren met geen enkele bron te beslechten.
 
-- **Verloop (0,6):** sterke nachtelijke onrust en schildopeningen rond 04:15–04:50, elke vier dagen: dag 10, 14, 18, … 42. Gedragen door de Beast Master, de Oracle en de Guardian Keeper, elk met een eigen bron.
-- **Ingreep (0,35):** de activering van de hulpslag als pols "los van de Kroonklok" op dag 10 om 02:40 (ENG-011, +38% doorvoer ENG-012), twee uur vóór het eerste sterke symptoom (BEA-019).
-- **Mechanisme (0,2):** een verschoven tijdreferentie na die activering; nog niet bewezen.
-- **Voorspelling:** dag 46 (laatste cyclusdag 42 + 4).
-- **Herstelplan:** eerst de hulpslag terug op de Kroonklok zetten of onder toezicht uitschakelen, dan de nachtelijke openingen beperken, daarna de open sporen verifiëren.
+- **Ingreep (0,35):** de Engineer activeerde de hulpslag op dag 10 om 02:40 (ENG-011, +38% doorvoer ENG-012). Dat is de vroegste bekende handeling vóór de eerste symptomen: onrust bij de wolven om 04:40 (BEA-019), een opening van de poort in de benedenstad om 04:47 (GUA-019) en klachten over half aangekomen berichten om 04:50 (HIS-036).
+- **Verloop (0,5):** zware nachten op dag 10 + 4n, van dag 10 tot 42, rond 04:15–04:50. Per cyclusdag gedragen door de Beast Master en de Oracle met eigen bronnen; de leylijndips van de Archmage op dag 14 en 42 vallen erop.
+- **Mechanisme (0,15):** het zwakste deel. Verkeer dat tussen twee Kroonklok-tikken valt, kan zonder toets door de schilden (GUA-104); de koppeling met de hulpslag is niet vastgesteld.
+- **Voorspelling:** dag 46, rond 04:20–04:45 (laatste zware nacht dag 42 + 4; ook 10 + 4 × 9).
+- **Herstelplan:** eerst de hulpslag stapsgewijs terugzetten naar de stand van vóór dag 10 en de doorvoer per uur meten, daarna de ontbrekende logs en Kroonklok-tikken naast elkaar leggen, en de nachten tot dag 47 per uur registreren.
 
 ## Van eerste run naar ingeleverde run
 
@@ -59,10 +59,11 @@ We lazen elke trace zoals een jurylid en stuurden bij op wat we zagen. Een paar 
 | De Koning vroeg naar "14:32 op 3 April", een premisse die in geen enkele bron stond, en herhaalde die na tegenspraak. | Vragen, redenen en hypotheses mogen alleen tijden en record-ID's bevatten die een Raadslid noemde; de code weigert de rest. De eerste vraag is open en verkennend. |
 | De ID-controle vond maar 16 van de 100 ID's in een MCP-bron (ge-escapete tekst, lijst van objecten), dus echte ID's werden als verzonnen gemarkeerd. | Toolresultaten correct uitlezen en een robuustere ID-regex. Elk genoemd ID wordt getoetst tegen wat het Raadslid echt las; verzonnen ID's tellen niet als bewijs. |
 | De Engineer pleitte zichzelf vrij met "niets in mijn logs" en liet een incident twee uur na zijn eigen ingreep liggen. | Raadsleden moeten bewijs tegen hun eigen Belang noemen; ontbrekende registratie is geen bewijs. De Koning laat zo'n ontlasting toetsen door een Rol die die uren wel waarneemt. |
+| De Koning stopte nooit zelf; alle runs eindigden op "Beurtenbudget op". | Zodra alle Rollen gehoord zijn, weegt de Koning bewust af of een extra beurt het Verdict nog verandert. In de ingeleverde run stopte hij na 8 beurten, met reden. |
 | Het eerste Verdict liet ingreep en mechanisme op `null`, zonder voorspelling, met alleen onderzoeksstappen als herstel. | De Koning houdt per beurt een werkhypothese bij, legt alle Rollen op één tijdlijn en kiest de best onderbouwde verklaring met eerlijke zekerheid. Het herstelplan begint met de waarschijnlijkste oorzaak. |
-| Raadsleden lazen elke beurt hun hele bron opnieuw en kregen alle oude routeringen mee: 376k invoertokens voor 10 beurten. | Elk Raadslid heeft een sessie en krijgt alleen het nieuwe debat; context compact; maximaal 4 toolcalls per beurt. |
+| Raadsleden lazen elke beurt hun hele bron opnieuw en kregen alle oude routeringen mee: 376k invoertokens voor 10 beurten. | Elk Raadslid heeft een sessie en krijgt alleen het nieuwe debat; context compact; hoogstens vier zoekopdrachten per beurt. |
 
-Effect tussen de eerste en de ingeleverde run: ingreep van `null` naar een onderbouwde bewering, een voorspelling erbij, alle zes Rollen gehoord, geen onbevestigde ID's, en 15–30% minder invoertokens.
+Effect tussen de eerste en de ingeleverde run: ingreep van `null` naar een bewering met bewijs uit vier bronnen, een berekende voorspelling, een Koning die zelf stopt, vijf vastgelegde geschillen, geen onbevestigde ID's, en de helft minder invoertokens (503k → 252k). Alle runs staan in `runs/`.
 
 **Waarom een Council beter werkt dan één agent:** elk Raadslid ziet alleen zijn eigen bron. Het antwoord stond in geen enkele bron volledig: de ingreep stond bij de Engineer, het ritme bij de Beast Master en de Oracle, de openingen bij de Guardian Keeper. De Koning brengt die samen, en de Raadsleden toetsen elkaars beweringen, ook wanneer een Rol een eigen belang heeft. Eén agent met alle bronnen tegelijk zou die tegenspraak niet zien.
 
