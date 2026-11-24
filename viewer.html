@@ -25,25 +25,24 @@
   * { box-sizing: border-box; }
   html { background: var(--grond); }
   body {
-    margin: 0; color: var(--tekst); font: 15px/1.6 var(--f-tekst); min-height: 100vh;
+    margin: 0; color: var(--tekst); font: 15px/1.6 var(--f-tekst); min-height: 100vh; background: var(--grond);
+  }
+  /* Gloed en sterrenstof op één vaste laag met eigen compositielaag: scrollen tekent de achtergrond niet opnieuw. */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; will-change: transform;
     background:
+      radial-gradient(1px 1px at 20% 30%, #fff5, transparent), radial-gradient(1px 1px at 70% 20%, #fff4, transparent),
+      radial-gradient(1px 1px at 40% 80%, #fff3, transparent), radial-gradient(1.5px 1.5px at 85% 65%, #fff5, transparent),
       radial-gradient(1100px 600px at 12% -10%, rgba(168, 147, 255, .16), transparent 60%),
       radial-gradient(900px 500px at 100% 10%, rgba(76, 192, 245, .10), transparent 60%),
-      radial-gradient(800px 700px at 50% 120%, rgba(232, 198, 106, .08), transparent 60%),
-      var(--grond);
-    background-attachment: fixed;
-  }
-  body::before { /* sterrenstof */
-    content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .5; z-index: 0;
-    background-image: radial-gradient(1px 1px at 20% 30%, #fff8, transparent), radial-gradient(1px 1px at 70% 20%, #fff6, transparent),
-      radial-gradient(1px 1px at 40% 80%, #fff5, transparent), radial-gradient(1.5px 1.5px at 85% 65%, #fff7, transparent),
-      radial-gradient(1px 1px at 10% 70%, #fff5, transparent), radial-gradient(1px 1px at 55% 50%, #fff4, transparent);
-    background-size: 600px 600px;
+      radial-gradient(800px 700px at 50% 120%, rgba(232, 198, 106, .08), transparent 60%);
+    background-size: 600px 600px, 600px 600px, 600px 600px, 600px 600px, auto, auto, auto;
   }
   a { color: var(--accent); }
   code { font-family: var(--mono); font-size: .86em; }
   .ic { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
-  .glas { background: var(--paneel); border: 1px solid var(--lijn); border-radius: 18px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+  /* Geen blur per kaart (duur bij scrollen); een bijna dekkende glaskleur geeft hetzelfde beeld. */
+  .glas { background: linear-gradient(180deg, rgba(26, 28, 46, .9), rgba(18, 20, 34, .9)); border: 1px solid var(--lijn); border-radius: 18px; }
 
   /* Avatars */
   .avatar { --m: 34px; width: var(--m); height: var(--m); border-radius: 50%; display: inline-grid; place-items: center; flex: none;
