@@ -26,6 +26,9 @@
   .pil { font-size: 13px; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--lijn); background: var(--paneel); }
   .pil.bezig { border-color: var(--waarschuwing); color: var(--waarschuwing); }
   .pil.klaar { border-color: var(--ok); color: var(--ok); }
+  .pil.fout { border-color: var(--fout); color: var(--fout); }
+  details summary { cursor: pointer; color: var(--zacht); font-size: 13px; }
+  details pre { white-space: pre-wrap; font-size: 12px; overflow-x: auto; }
   .runid { color: var(--zacht); font-size: 12px; font-family: ui-monospace, monospace; word-break: break-all; }
   main { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; padding: 16px; max-width: 1400px; margin: 0 auto; }
   @media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); } aside { order: -1; } }
@@ -103,14 +106,14 @@ function ids(tekst) {
 function render(trace, verdict) {
   const status = document.getElementById("status");
   const bezig = trace.status === "bezig";
-  status.className = "pil " + (bezig ? "bezig" : "klaar");
-  status.textContent = bezig ? `bezig${trace.aan_het_woord ? " · " + (NAMEN[trace.aan_het_woord] || trace.aan_het_woord) + " is aan het woord" : ""}` : "klaar";
+  status.className = "pil " + (bezig ? "bezig" : trace.status === "fout" ? "fout" : "klaar");
+  status.textContent = bezig ? `bezig${trace.aan_het_woord ? " · " + (NAMEN[trace.aan_het_woord] || trace.aan_het_woord) + " is aan het woord" : ""}` : trace.status === "fout" ? "run afgebroken · zie terminal" : "klaar";
   document.getElementById("runid").textContent = trace.run_id || "";
 
   // Debat per ronde
   const beurten = trace.beurten || [];
   let html = "", ronde = null;
-  const telling = {}, padfouten = [], koningTools = [], vreemdeIds = [], zonderRoutering = [];
+  const telling = {}, padfouten = [], koningTools = [], vreemdeIds = [], zonderRoutering = [], onbevestigd = [];
   let toegewezen = null, raadslidBeurten = 0;
   for (const b of beurten) {
     if (b.ronde !== ronde) {
@@ -118,11 +121,13 @@ function render(trace, verdict) {
       html += `<div class="ronde">${ronde === 0 ? "Voorbereiding" : b.spreker === "koning" && b.soort === "bericht" ? "Koning" : "Ronde " + ronde}</div>`;
     }
     const t = telling[b.spreker] ??= { berichten: 0, tools: 0, ids: new Set() };
-    const stijl = `style="--kleur:${kleur(b.spreker)}"`;
+    const stijl = `id="beurt-${Number(b.nr)}" style="--kleur:${kleur(b.spreker)}"`;
     if (b.soort === "routering") {
       toegewezen = b.aan;
       const wie = `<span style="color:${kleur(b.spreker)}">${esc(NAMEN[b.spreker] || b.spreker)}</span>`;
-      const open = (b.open_vragen || []).length ? `<br>Open vragen: ${b.open_vragen.map(v => opmaak(v)).join(" · ")}` : "";
+      const h = b.hypothese || {};
+      const hyp = Object.keys(h).length ? `<br>Werkhypothese: ${["ingreep", "mechanisme", "verloop"].map(k => `<i>${k}</i> ${h[k] ? opmaak(h[k]) : '<span class="leeg">?</span>'}`).join(" · ")}` : "";
+      const open = ((b.open_vragen || []).length ? `<br>Open vragen: ${b.open_vragen.map(v => opmaak(v)).join(" · ")}` : "") + hyp;
       html += b.aan
         ? `<div class="beurt klein" ${stijl}>${wie} → <b style="color:${kleur(b.aan)}">${esc(NAMEN[b.aan] || b.aan)}</b>: ${opmaak(b.vraag)}<br>Waarom: ${opmaak(b.reden)}${open}</div>`
         : `<div class="beurt klein" ${stijl}>${wie} stopt het debat. Waarom: ${opmaak(b.reden)}${open}</div>`;
@@ -136,7 +141,14 @@ function render(trace, verdict) {
     if (b.soort === "bericht") {
       t.berichten++;
       for (const x of ids(b.tekst)) { t.ids.add(x.id); if (x.raar) vreemdeIds.push(x.id); }
-      html += `<div class="beurt" ${stijl}><div class="wie">${esc(NAMEN[b.spreker] || b.spreker)}<span class="nr">#${b.nr}${b.aan ? " → " + esc(NAMEN[b.aan] || b.aan) : ""}</span></div><div class="tekst">${opmaak(b.tekst)}</div></div>`;
+      for (const x of b.onbevestigd || []) onbevestigd.push(x);
+      const vlag = (b.onbevestigd || []).length ? ` <span class="vlag">onbevestigd, telt niet als bewijs: ${esc(b.onbevestigd.join(", "))}</span>` : "";
+      const tekst = b.spreker === "koning" && b.tekst.trim().startsWith("{")
+        ? `<details><summary>Besluit van de Koning (JSON, zie Council Verdict rechts)</summary><pre>${esc(b.tekst)}</pre></details>`
+        : opmaak(b.tekst);
+      const relatie = b.in_antwoord_op
+        ? `<div class="tekst"><small><a href="#beurt-${Number(b.in_antwoord_op)}">Antwoord op vraag #${Number(b.in_antwoord_op)}</a>${b.tijdstip ? ` · ${esc(new Date(b.tijdstip).toLocaleTimeString("nl-BE"))}` : ""}<br>Gedeeld met: ${(b.ontvangers || []).map(r => esc(NAMEN[r] || r)).join(", ")}${(b.context_beurten || []).length ? `<br>Eerdere bijdragen als context: ${b.context_beurten.map(n => `<a href="#beurt-${Number(n)}">#${Number(n)}</a>`).join(", ")}` : ""}</small></div>` : "";
+      html += `<div class="beurt" ${stijl}><div class="wie">${esc(NAMEN[b.spreker] || b.spreker)}<span class="nr">#${b.nr}${b.aan ? " → " + esc(NAMEN[b.aan] || b.aan) : ""}</span>${vlag}</div><div class="tekst">${tekst}</div>${relatie}</div>`;
     } else {
       t.tools++;
       let vlag = "";
@@ -169,12 +181,16 @@ function render(trace, verdict) {
   }).join("");
 
   // Spelregels
-  const zonderBron = (trace.raadsleden || []).filter(r => !(telling[r]?.tools));
+  // Alleen wie sprak zonder ooit een bron te lezen is een probleem; wie nog niet aan de beurt was niet.
+  const zonderBron = (trace.raadsleden || []).filter(r => telling[r]?.berichten && !telling[r].tools);
+  const nietGehoord = (trace.raadsleden || []).filter(r => !telling[r]?.berichten);
   const checks = [
     [padfouten.length ? "fout" : "ok", padfouten.length ? `Kennisbron van een andere Rol gelezen (beurt ${padfouten.join(", ")})` : "Elk Raadslid las alleen de eigen Kennisbron"],
     [koningTools.length ? "fout" : "ok", koningTools.length ? `Koning las een Kennisbron (beurt ${koningTools.join(", ")})` : "Koning las geen Kennisbron"],
-    [zonderBron.length ? "let" : "ok", zonderBron.length ? `Zonder bron: ${zonderBron.map(r => NAMEN[r] || r).join(", ")}` : "Elk Raadslid raadpleegde een bron"],
+    [zonderBron.length ? "fout" : "ok", zonderBron.length ? `Sprak zonder bron te lezen: ${zonderBron.map(r => NAMEN[r] || r).join(", ")}` : "Elk Raadslid dat sprak, raadpleegde zijn bron"],
+    ...(nietGehoord.length ? [[bezig ? "ok" : "let", `Nog niet aan het woord: ${nietGehoord.map(r => NAMEN[r] || r).join(", ")}`]] : []),
     [vreemdeIds.length ? "let" : "ok", vreemdeIds.length ? `ID's met een vreemd koppelteken: ${[...new Set(vreemdeIds)].join(", ")}` : "ID's in de juiste vorm"],
+    [onbevestigd.length ? "let" : "ok", onbevestigd.length ? `ID's niet in de eigen bron gevonden: ${[...new Set(onbevestigd)].join(", ")}` : "Elk genoemd ID komt uit een eigen bron of het debat"],
     [(trace.raadsleden || []).length >= 3 ? "ok" : "let", `${(trace.raadsleden || []).length} Rollen (minimum 3)`],
     [raadslidBeurten > BEURTENBUDGET ? "fout" : "ok", `${raadslidBeurten} van ${BEURTENBUDGET} Raadslid-beurten (Beurtenbudget)`],
     [zonderRoutering.length ? "fout" : "ok", zonderRoutering.length ? `Raadslid-beurt zonder Routering ervoor (beurt ${zonderRoutering.join(", ")})` : "Elke Raadslid-beurt had een Routering"],
@@ -192,12 +208,13 @@ function render(trace, verdict) {
   if (!verdict || verdict.run_id !== trace.run_id) {
     vd.innerHTML = `<span class="leeg">${verdict ? "verdict.json hoort bij een andere run" : bezig ? "komt na de Koning" : "geen verdict.json"}</span>`;
   } else {
-    const slot = (naam, s) => `<div class="slot"><b>${naam}</b>${s?.bewering ? opmaak(s.bewering) + " " + (s.bewijs || []).map(i => opmaak(i)).join(" ") : '<span class="leeg">onbekend (null)</span>'}</div>`;
+    const slot = (naam, s) => `<div class="slot"><b>${naam}</b>${s?.bewering ? opmaak(s.bewering) + " " + (s.bewijs || []).map(i => opmaak(i)).join(" ") : '<span class="leeg">onbekend (null)</span>'}${typeof s?.zekerheid === "number" ? `<br><span class="leeg">Zekerheid: ${Math.round(s.zekerheid * 100)}%</span>` : ""}</div>`;
     const o = verdict.oorzaak || {};
     vd.innerHTML = `<div class="slot"><b>Samenvatting</b>${verdict.samenvatting === "TODO" ? '<span class="leeg">TODO</span>' : opmaak(verdict.samenvatting)}</div>`
       + slot("Ingreep", o.ingreep) + slot("Mechanisme", o.mechanisme) + slot("Verloop", o.verloop)
-      + `<div class="slot"><b>Herstelplan</b><ol>${(verdict.acties || []).map(a => `<li>${opmaak(a.actie)}</li>`).join("")}</ol></div>`
-      + `<div class="slot"><b>Risico's</b><ol>${(verdict.risicos || []).map(r => `<li>${opmaak(r.risico)}</li>`).join("")}</ol></div>`;
+      + `<div class="slot"><b>Herstelplan</b><ol>${(verdict.acties || []).map(a => `<li>${opmaak(a.actie)}<br><span class="leeg">${opmaak(a.reden)}</span> ${(a.bewijs || []).map(i => opmaak(i)).join(" ")}</li>`).join("")}</ol></div>`
+      + `<div class="slot"><b>Risico's</b><ol>${(verdict.risicos || []).map(r => `<li>${opmaak(r.risico)}<br><span class="leeg">Mitigatie: ${opmaak(r.mitigatie)}</span></li>`).join("")}</ol></div>`
+      + (verdict.voorspelling ? `<div class="slot"><b>Voorspelling · dag ${esc(verdict.voorspelling.dag)}</b>${opmaak(verdict.voorspelling.bewering)} ${(verdict.voorspelling.bewijs || []).map(i => opmaak(i)).join(" ")}</div>` : "");
   }
 }
 

@@ -1,0 +1,126 @@
+{
+  "run_id": "2026-11-24T10:21:36+01:00_26735bf9",
+  "samenvatting": "Volgens de archmage lagen de leylijnen op dag 14 en dag 42 voor alle lijnen laag (ARC-015, ARC-071), terwijl de metingen op dag 21, 28 en 35 normaal waren. De oorzaak is niet vastgesteld. Het datanet is niet bewezen als oorzaak: de engineer vindt geen hulpslag-afstelling op die dagen (ENG-063, ENG-081, ENG-099), de historian vindt geen afstelling in het archief en steunt de 28-dagen-tussentijd niet (HIS-106). Het 4-daagse onrustritme van beast_master en oracle is niet met lijnmetingen getoetst. Er zijn tijdstempels die niet kloppen (HIS-035, HIS-036, HIS-053), en de meetuur van ARC-015 en ARC-071 is onbekend. Het herstel begint daarom met onderzoek, niet met een ingreep in het datanet.",
+  "oorzaak": {
+    "ingreep": {
+      "bewering": null,
+      "bewijs": [],
+      "zekerheid": 0
+    },
+    "mechanisme": {
+      "bewering": null,
+      "bewijs": [],
+      "zekerheid": 0
+    },
+    "verloop": {
+      "bewering": "Op dag 14 en dag 42 was de lijnsterkte volgens de archmage voor alle veertien lijnen laag (3.1–4.8), met een stokking van de Burchtader. Op de wekelijkse metingen van dag 21, 28 en 35 was de sterkte normaal (7.0–8.7). De twee episodes liggen 28 dagen uit elkaar; of dat een patroon is, is niet door een tweede bron bevestigd en het archief steunt de tussentijd niet (HIS-106). Het meettijdstip van de dips is onbekend (ARC-015, ARC-071). De archmage noemt de episodes voor zonsopgang (ARC-109, ARC-116).",
+      "bewijs": [
+        "ARC-015",
+        "ARC-028",
+        "ARC-071",
+        "ARC-084",
+        "ARC-029",
+        "ARC-043",
+        "ARC-057",
+        "ARC-109",
+        "ARC-116",
+        "HIS-106"
+      ],
+      "zekerheid": 0.6
+    }
+  },
+  "acties": [
+    {
+      "actie": "Archmage: leg het meettijdstip van ARC-015 (dag 14) en ARC-071 (dag 42) vast, en of dat het moment van het gebeurde of van de vastlegging is. Lever de ruwe meetwaarden met uur per meting aan.",
+      "reden": "Zonder meetuur kunnen de dips niet naast de datanet-logs of de dierlijke en oracle-onrust worden gelegd. HIS-036 en HIS-035 tonen dat vastleggingstijden afwijken.",
+      "bewijs": [
+        "ARC-015",
+        "ARC-071",
+        "HIS-036"
+      ]
+    },
+    {
+      "actie": "Engineer: lever het volledige datanet-logboek van dag 13–14 en dag 41–42 met tijdstempels, inclusief de uren voor 07:45 (dag 42) en voor 17:15 (dag 14). Meld of de afstelling op eigen maat (ARC-106) in de logs ontbreekt of in een andere bron zit.",
+      "reden": "De logs tonen geen hulpslag-afstelling, maar de eerste entries op die dagen liggen na het venster voor zonsopgang. Alleen het volledige logboek kan de hypothese van het datanet bevestigen of weerleggen.",
+      "bewijs": [
+        "ENG-063",
+        "ENG-081",
+        "ENG-099",
+        "ARC-106"
+      ]
+    },
+    {
+      "actie": "Historian: controleer de tijdstempels van HIS-035, HIS-036, HIS-053 en HIS-054 tegen de ruwe bron, en corrigeer de afwijkingen die in strijd zijn met de belofte van gelijke gebeurd- en vastleggingstijden.",
+      "reden": "HIS-103 belooft gelijke tijden, maar meerdere records wijken af. Zonder correctie is de volgorde van gebeurtenissen niet betrouwbaar.",
+      "bewijs": [
+        "HIS-103",
+        "HIS-035",
+        "HIS-036",
+        "HIS-053",
+        "HIS-054"
+      ]
+    },
+    {
+      "actie": "Guardian Keeper: bevestig of GUA-115 (01:50) een melding of het tijdstip van de opening is, en controleer of de twee openingen op dag 23 (GUA-116) in het wachtrapport staan.",
+      "reden": "GUA-115 spreekt van een melding vóór de opening van 04:15 (GUA-043), en GUA-116 noemt openingen die niet in de wachtrapporten staan. Dit is nodig om de burchtschilden te toetsen.",
+      "bewijs": [
+        "GUA-115",
+        "GUA-043",
+        "GUA-116"
+      ]
+    },
+    {
+      "actie": "Beast_master en oracle: noteer per nacht met tijd of er onrust of zware nacht was voor dag 11–13 en dag 18–38, ook op de nachten zonder onrust.",
+      "reden": "Het 4-daagse ritme staat alleen in de dagboeken van de beast_master en oracle en is nog niet onafhankelijk bevestigd. Ontbrekende nachten zijn niet als afwezigheid van onrust te lezen.",
+      "bewijs": [
+        "BEA-091",
+        "ORA-142"
+      ]
+    },
+    {
+      "actie": "Archmage: meet de lijnsterkte op dag 18, 22, 26, 30, 34 en 38, in het venster 04:00–06:00, en op de tussenliggende dagen 11–13 als dat mogelijk is.",
+      "reden": "De wekelijkse metingen kunnen het 4-daagse ritme niet toetsen. Pas dan is vast te stellen of de dips aan een ritme gebonden zijn.",
+      "bewijs": [
+        "BEA-037",
+        "BEA-083",
+        "ORA-118",
+        "ORA-138"
+      ]
+    },
+    {
+      "actie": "Guardian Keeper: stel als tussenmaatregel een extra ronde in van 03:00 tot 06:00 bij de poorten, zonder daaraan een oorzaak te verbinden.",
+      "reden": "GUA-106 meldt dat de poortposten in dit venster zonder ronde zijn, en de openingen van binnenuit op dag 10 en 22 zijn daar niet gemeld. Dit is omkeerbaar en vergt geen oorzaak.",
+      "bewijs": [
+        "GUA-106",
+        "GUA-019",
+        "GUA-043",
+        "GUA-044"
+      ]
+    },
+    {
+      "actie": "Engineer en archmage: beslis pas over een afstelling van het datanet nadat stap 1 tot en met 6 een uurgebonden verband tussen net en lijndips heeft getoond of uitgesloten.",
+      "reden": "Er is nu geen bewijs dat het datanet de dips veroorzaakte. De enige geregistreerde verstoring (ENG-107, dag 10) valt niet op de dips-dagen.",
+      "bewijs": [
+        "ENG-107"
+      ]
+    }
+  ],
+  "risicos": [
+    {
+      "risico": "Het datanet wordt ten onrechte als oorzaak aangewezen en onnodig afgesteld, terwijl de oorzaak elders ligt.",
+      "mitigatie": "Geen afstelling vóór het uurgebonden verband is getoetst (stap 1 tot en met 6). Beslissingen worden genomen op ruwe logs, niet op brieven."
+    },
+    {
+      "risico": "Vastleggingsfouten in de archieftijden (bijvoorbeeld HIS-036, vastgelegd vóór het gebeurde) verschuiven de volgorde van gebeurtenissen en geven een schijnverband.",
+      "mitigatie": "Gebruik de ruwe bronnen met tijdstempels en corrigeer HIS-035, HIS-036, HIS-053 en HIS-054 voordat ze worden gekoppeld."
+    },
+    {
+      "risico": "Openingen van binnenuit in het venster 03:00–06:00 blijven ongezien, omdat de poortposten daar geen ronde lopen (GUA-106).",
+      "mitigatie": "Tijdelijk een extra ronde in dat venster, en registratie van alle openingen met tijdstip."
+    },
+    {
+      "risico": "Bevooroordeelde lezingen: de archmage schreef de brieven die het datanet aanwijzen, de beast_master was zelf in het woud op de onrustmomenten, de oracle heeft een voorkeur voor een hemelse verklaring, en de engineer bouwde de hulpslag.",
+      "mitigatie": "Metingen en logs worden door een andere Rol getoetst dan degene die ze heeft geschreven of geïnterpreteerd."
+    }
+  ]
+}

@@ -24,9 +24,11 @@ def main():
     load_dotenv(ROOT / ".env")
     klein = client("MODEL_KLEIN")
     leden = [Agent(klein, instructies(l, kennisbron_bestanden(l.ROL), None), name=l.ROL, description=l.PERSPECTIEF)
-             for l in raadsleden.alle()]
+             for l in raadsleden.alle() if kennisbron_bestanden(l.ROL)]
+    if not leden:
+        sys.exit("Geen lokale Kennisbronnen gevonden: pak eerst pack.zip uit naar kennisbronnen/<rol>/.")
 
-    def om_de_beurt(state):  # vaste volgorde, zoals council.py
+    def om_de_beurt(state):  # eenvoudige speeltuin; council.py gebruikt de Koning
         namen = list(state.participants)
         return namen[state.current_round % len(namen)]
 

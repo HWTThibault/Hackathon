@@ -2,9 +2,73 @@
 
 Starter kit voor challenge 113 van Hack The Future 2026, aangeboden door Roboest.
 
+## Deze uitwerking
+
+Het doel: de oorzaak van de Desync reconstrueren met meerdere onafhankelijke perspectieven en een onderbouwd herstelplan opleveren. De Koning leidt het onderzoek; ieder Raadslid leest uitsluitend zijn eigen bronnen.
+
+De starter is hier uitgewerkt tot een Council met zes beschikbare Rollen:
+
+- De Koning gebruikt `MODEL_GROOT` om na elke bijdrage een relevante spreker, concrete vraag en inhoudelijke reden te kiezen. Hij houdt `open_vragen` bij en kan zelf vroegtijdig stoppen.
+- Minstens drie verschillende Rollen moeten spreken, binnen maximaal tien Raadslid-beurten. Rollen zonder MCP-pad of lokale bron doen niet mee; er moeten minstens drie Rollen met bronnen beschikbaar zijn.
+- Het Verdict bevat de oorzaak in drie delen, een geordend herstelplan en risico's; geschillen staan in de trace. Onbekende oorzaakdelen blijven `null`; zekerheid wordt gevraagd en een voorspelling alleen als de bronnen die onderbouwen.
+- JSON-antwoorden worden gecontroleerd en zo nodig maximaal tweemaal opnieuw gevraagd. Record-ID's in het besluit en de geschillen moeten in bijdragen van Raadsleden voorkomen. Dit controleert herkomst uit het debat; de inhoudelijke juistheid van een broninterpretatie blijft onderwerp van het debat.
+- Elk record-ID dat een Raadslid noemt, wordt getoetst tegen wat het echt uit de eigen bron las (MCP-toolresultaten of lokale bestanden) en het debat. Een verzonnen ID levert één herkansing op; blijft het staan, dan komt het als `onbevestigd` in de trace en telt het niet als bewijs.
+- Elk Raadslid heeft een eigen sessie: het onthoudt zijn bron en eerdere bijdragen en krijgt per beurt alleen wat nieuw is in het debat. Dat bespaart tokens en voorkomt herhaling; een gerichte toolcall per beurt blijft verplicht.
+- De Koning houdt bij elke routering een `hypothese` bij (ingreep, mechanisme, verloop, met dragende ID's) en kiest zijn vraag om de zwakste hypothese te toetsen. Vragen, redenen en hypotheses mogen alleen tijden en ID's bevatten die een Raadslid noemde: een verzonnen premisse wordt in code geweigerd.
+- Een Raadslid dat zijn MCP-bron niet raadpleegt of niets zegt, krijgt één herkansing met gerichte feedback voordat de run afbreekt. Bij Ctrl+C of een fout staat de trace op `status: "fout"`.
+- De validator controleert ook bronisolatie, minimale deelname en routeringen. De viewer toont redenen voor herstelacties, mitigaties, zekerheid en eventuele voorspelling.
+- Nieuwe tracebeurten krijgen een `tijdstip`. Elk antwoord en elke broncall verwijzen via `in_antwoord_op` naar de vraag en reden van de Koning. `ontvangers` en `context_beurten` tonen met wie een bijdrage gedeeld wordt en welke eerdere bijdragen beschikbaar waren. De viewer maakt deze beurten aanklikbaar. Tijdelijke Windows-bestandsblokkeringen worden kort opnieuw geprobeerd zonder de bestaande trace half te overschrijven.
+
+Voor een echte run heb je nog een teamkey en MCP-paden of het uitgepakte challenge pack nodig. Er worden geen echte zaakgegevens of eindbesluiten meegeleverd.
+
+```powershell
+uv sync --locked
+Copy-Item .env.example .env  # alleen als je nog geen .env hebt
+# Vul je teamkey en minstens drie MCP-paden in .env in, of pak pack.zip uit.
+uv run viewer              # in een aparte terminal
+uv run council
+uv run validate
+```
+
+Offline controles zonder API-key, netwerkproviders of teambudget:
+
+```powershell
+uv run python -m unittest discover -s tests -v
+```
+
+De integratietest gebruikt het echte agent-framework met een lokaal gesimuleerd LLM-endpoint en tijdelijke testbronnen. Testuitvoer komt niet in de root terecht.
+
+Staat de omgeving al in `.venv` maar `uv` niet op je `PATH` (Windows), gebruik `.\.venv\Scripts\uv.exe run council`, of start rechtstreeks met `.\.venv\Scripts\python.exe council.py`. Voor de viewer en validator vervang je `council.py` door `viewer.py` of `validate.py`.
+
+## Wat de Council vond
+
+Uit het ingeleverde `verdict.json` (zekerheid per deel tussen haakjes):
+
+- **Verloop (0,6):** sterke nachtelijke onrust en schildopeningen rond 04:15–04:50, elke vier dagen: dag 10, 14, 18, … 42. Gedragen door de Beast Master, de Oracle en de Guardian Keeper, elk met een eigen bron.
+- **Ingreep (0,35):** de activering van de hulpslag als pols "los van de Kroonklok" op dag 10 om 02:40 (ENG-011, +38% doorvoer ENG-012), twee uur vóór het eerste sterke symptoom (BEA-019).
+- **Mechanisme (0,2):** een verschoven tijdreferentie na die activering; nog niet bewezen.
+- **Voorspelling:** dag 46 (laatste cyclusdag 42 + 4).
+- **Herstelplan:** eerst de hulpslag terug op de Kroonklok zetten of onder toezicht uitschakelen, dan de nachtelijke openingen beperken, daarna de open sporen verifiëren.
+
+## Van eerste run naar ingeleverde run
+
+We lazen elke trace zoals een jurylid en stuurden bij op wat we zagen. Een paar voorbeelden:
+
+| Wat we zagen | Wat we deden |
+|---|---|
+| De Koning vroeg naar "14:32 op 3 April", een premisse die in geen enkele bron stond, en herhaalde die na tegenspraak. | Vragen, redenen en hypotheses mogen alleen tijden en record-ID's bevatten die een Raadslid noemde; de code weigert de rest. De eerste vraag is open en verkennend. |
+| De ID-controle vond maar 16 van de 100 ID's in een MCP-bron (ge-escapete tekst, lijst van objecten), dus echte ID's werden als verzonnen gemarkeerd. | Toolresultaten correct uitlezen en een robuustere ID-regex. Elk genoemd ID wordt getoetst tegen wat het Raadslid echt las; verzonnen ID's tellen niet als bewijs. |
+| De Engineer pleitte zichzelf vrij met "niets in mijn logs" en liet een incident twee uur na zijn eigen ingreep liggen. | Raadsleden moeten bewijs tegen hun eigen Belang noemen; ontbrekende registratie is geen bewijs. De Koning laat zo'n ontlasting toetsen door een Rol die die uren wel waarneemt. |
+| Het eerste Verdict liet ingreep en mechanisme op `null`, zonder voorspelling, met alleen onderzoeksstappen als herstel. | De Koning houdt per beurt een werkhypothese bij, legt alle Rollen op één tijdlijn en kiest de best onderbouwde verklaring met eerlijke zekerheid. Het herstelplan begint met de waarschijnlijkste oorzaak. |
+| Raadsleden lazen elke beurt hun hele bron opnieuw en kregen alle oude routeringen mee: 376k invoertokens voor 10 beurten. | Elk Raadslid heeft een sessie en krijgt alleen het nieuwe debat; context compact; maximaal 4 toolcalls per beurt. |
+
+Effect tussen de eerste en de ingeleverde run: ingreep van `null` naar een onderbouwde bewering, een voorspelling erbij, alle zes Rollen gehoord, geen onbevestigde ID's, en 15–30% minder invoertokens.
+
+**Waarom een Council beter werkt dan één agent:** elk Raadslid ziet alleen zijn eigen bron. Het antwoord stond in geen enkele bron volledig: de ingreep stond bij de Engineer, het ritme bij de Beast Master en de Oracle, de openingen bij de Guardian Keeper. De Koning brengt die samen, en de Raadsleden toetsen elkaars beweringen, ook wanneer een Rol een eigen belang heeft. Eén agent met alle bronnen tegelijk zou die tegenspraak niet zien.
+
 De Desync heeft de herinneringen en systemen van Achrona versnipperd. Jullie bouwen een **Council**: een zwerm van samenwerkende AI-agenten (Raadsleden) die elk één Rol vertolken, debatteren, verspreide kennis analyseren en samen tot een **Council Verdict** komen: wat is de oorzaak, wat is het herstelplan, welke risico's zijn er.
 
-Deze kit geeft jullie binnen het eerste halfuur een draaiende mini-Council die je live in je browser ziet debatteren. Het echte werk is aan jullie: de **Koning** het debat laten leiden. Hij beslist welk Raadslid spreekt, met welke vraag en waarom. (In AI-termen heet dat deel een orchestrator.)
+Deze Council kun je live in je browser zien debatteren. De **Koning** beslist welk Raadslid spreekt, met welke vraag en waarom. In AI-termen heet dat deel een orchestrator. De oorspronkelijke opdracht en achtergrond staan hieronder; de belangrijkste bouwtaken zijn in deze uitwerking geïmplementeerd.
 
 ## Wat je krijgt op de dag
 
@@ -14,8 +78,8 @@ Deze kit geeft jullie binnen het eerste halfuur een draaiende mini-Council die j
 | LLM-toegang: Teamkaartje met je teamkey voor het Roboest-endpoint ($5 budget, tot 18:00) | 10:00 | coaches |
 | Optioneel: je eigen FreeLLMAPI (gratis, zie "FreeLLMAPI (optioneel)") | vooraf | je laptop |
 | Rolkaarten: perspectief, Belang en Kennisbron per Rol | in deze repo | `rolkaarten.md` |
-| Challenge pack: Kennisbronnen (bestanden) | 10:00 | `https://<mcp-host>/pack.zip` |
-| MCP-server: één pad per Rol, `https://<mcp-host>/<rol>/mcp` | antwoordt vanaf 10:00 (daarvoor geeft `uv run council` een MCP-fout) | in je `.env` |
+| Challenge pack: Kennisbronnen (bestanden) | 10:00 | `https://mcp.findingsolutions.be/pack.zip` |
+| MCP-server: één pad per Rol, `https://mcp.findingsolutions.be/<rol>/mcp` | antwoordt vanaf 10:00 (daarvoor geeft `uv run council` een MCP-fout) | in je `.env` |
 | Coaches | de hele dag | in de zaal |
 
 ## Vooraf installeren
@@ -57,7 +121,7 @@ Maak thuis al je repo aan (stap 1–2 hieronder) en draai daarin `uv sync` (en `
    ```
    uv run validate
    ```
-   Groen = `verdict.json` en `trace.json` volgen het schema en komen uit dezelfde run. Groen betekent geldig, nog niet goed: het Verdict van de kit is nog leeg (TODO).
+   Groen = `verdict.json` en `trace.json` volgen het schema, komen uit dezelfde run en doorstaan de aanvullende spelregel- en bewijscontroles. Dat garandeert nog niet dat de diagnose inhoudelijk juist is.
 
 Geen uv? Maak een venv (`python -m venv .venv`, activeer met `.venv\Scripts\activate` op Windows of `source .venv/bin/activate`), dan `pip install -e .` en `python viewer.py`, `python council.py`, `python validate.py`.
 
@@ -69,7 +133,8 @@ Viewer op een andere poort: zet `VIEWER_PORT=8101` als omgevingsvariabele. Een a
              ┌────────────── jouw laptop ──────────────┐
              │  council.py ── Koning (leidt, geen bron)│
    (.env) ──►│      │      ── Raadslid (Oracle) ───────┼──► MCP  /oracle/mcp
-             │      │      ── Raadslid (Beast Master) ─┼──► MCP  /beast_master/mcp
+             │      │      ── Raadslid (Engineer) ─────┼──► MCP  /engineer/mcp
+             │      │      ── … (tot zes Rollen) ──────┼──► MCP  /<rol>/mcp
              │      ▼                                   │
              │  trace.json + verdict.json ──► viewer    │──► LLM via Roboest-endpoint
              └──────────────────────────────────────────┘
@@ -77,7 +142,9 @@ Viewer op een andere poort: zet `VIEWER_PORT=8101` als omgevingsvariabele. Een a
 
 | Bestand | Wat |
 |---|---|
-| `council.py` | De Koning die het debat leidt (`kies_volgende()`, nu een vaste volgorde), het debat zelf en het Verdict van de Koning. Schrijft `trace.json` na elke beurt en `verdict.json` aan het einde. |
+| `council.py` | De Koning die gericht het debat leidt (`kies_volgende()`), het debat zelf en de gevalideerde synthese. Schrijft `trace.json` na elke beurt en `verdict.json` aan het einde. |
+| `besluitvorming.py` | Gedeelde spelregelconstanten (Rollen, Beurtenbudget, minimum Rollen), JSON-verwerking, routeringscontroles en controle van bewijs-ID's uit het debat. |
+| `tests/` | Offline tests, inclusief een volledige run tegen een gesimuleerd LLM-endpoint (`uv run python -m unittest discover -s tests -v`). |
 | `raadsleden/<rol>.py` | Eén bestand per Raadslid: Rol, naam en publiek perspectief. |
 | `rolkaarten.md` | De zes Rolkaarten: perspectief, publiek Belang en soort Kennisbron per Rol. Begin hier om je Rollen te kiezen. |
 | `viewer.py` + `viewer.html` | De debatviewer (`uv run viewer`). Leest alleen `trace.json` en `verdict.json`, dus werkt ook als je een ander platform kiest. |
@@ -89,19 +156,19 @@ Viewer op een andere poort: zet `VIEWER_PORT=8101` als omgevingsvariabele. Een a
 
 ## Wat stel je zelf in?
 
-- **Welke Rollen** meedoen: kopieer `raadsleden/oracle.py` naar bv. `raadsleden/engineer.py` en pas aan: `ROL` = de mapnaam van de Rol in kleine letters (`archmage`, `engineer`, `guardian_keeper`, `historian`, `oracle`, `beast_master`); `NAAM` en `PERSPECTIEF` haal je van de Rolkaart in `rolkaarten.md`. Het nieuwe bestand doet vanzelf mee; de volgorde in het debat is alfabetisch op bestandsnaam. Voeg in `.env` een regel `MCP_<ROL>=https://<mcp-host>/<rol>/mcp` toe.
-- **Kennisbronnen**: standaard leest elk Raadslid via MCP. Laat je `MCP_<ROL>` leeg, dan plakt de kit de bestanden uit `kennisbronnen/<rol>/` (uit `pack.zip`) in de prompt van dat Raadslid. Heeft een Raadslid geen van beide, dan meldt de kit dat bij de start.
+- **Welke Rollen** meedoen: alle zes Rolbestanden zijn aanwezig. Geef een Rol in `.env` een `MCP_<ROL>=https://mcp.findingsolutions.be/<rol>/mcp` of lokale bronnen. De Koning kiest uit Rollen met bronnen; minstens drie moeten beschikbaar zijn. De spreekvolgorde wordt inhoudelijk gekozen.
+- **Kennisbronnen**: standaard leest elk Raadslid via MCP. Laat je `MCP_<ROL>` leeg, dan gaan de bestanden uit `kennisbronnen/<rol>/` (uit `pack.zip`) in de prompt van alleen dat Raadslid. Rollen zonder bron worden bij de start gemeld en overgeslagen. Een MCP-bijdrage zonder succesvol toolresultaat breekt de run af.
 - **Modellen**: `MODEL_KLEIN` voor de Raadsleden, `MODEL_GROOT` voor de Koning, `REASONING` voor het denkwerk. Op het Roboest-endpoint zijn dat `achrona` en `achrona-groot`. Een andere provider kies je alleen via `.env` (blokken voor het Roboest-endpoint, FreeLLMAPI en Ollama). Met FreeLLMAPI kies je `auto:fast`/`auto:smartest` of een vast model uit de catalogus op http://localhost:3001. Support geven we op het Roboest-endpoint en FreeLLMAPI; andere eigen modellen mogen, zonder support.
-- **Rondes**: `RONDES` in `.env` geldt alleen voor de vaste volgorde van de kit. Het Beurtenbudget (10 Raadslid-beurten) geldt altijd.
+- **Rondes**: de Koning kiest zelf het stopmoment; `RONDES` wordt niet meer gebruikt. Het Beurtenbudget (10 Raadslid-beurten) geldt altijd.
 - **Het debat zelf**: de instructies, wie wie aan het woord laat (`kies_volgende()`), wat elk Raadslid van het debat ziet, en hoe de Koning het Verdict invult. Dat staat allemaal in `council.py`.
 
 **Verbruik**: je teamkey heeft $5 budget en maximaal 60 calls per minuut; dat volstaat voor tientallen volledige runs. Gratis tiers van FreeLLMAPI hebben eigen limieten per provider. De viewer en de terminal tonen per run hoeveel tokens het kleine en het grote model gebruikten; het staat ook in `trace.json` onder `verbruik`. Bij een rate limit (429) wacht de kit en probeert opnieuw. Budget op? Dan geeft het endpoint een fout over het budget: schakel over op FreeLLMAPI (blok 2) of vraag een coach.
 
 ## De Koning leidt het debat
 
-`kies_volgende(beurten, leden)` in `council.py` beslist voor elke beurt wie spreekt. De functie krijgt het debat tot nu toe (dezelfde `beurten` als in `trace.json`) en de Raadsleden, en geeft `(rol, vraag, reden)` terug, of `(None, None, reden)` om te stoppen. De kit schrijft elke keuze als `routering`-beurt in de trace (`aan`, `vraag`, `reden`) en stopt zelf na 10 Raadslid-beurten.
+`async kies_volgende(beurten, leden, koning, opties, verbruik)` in `council.py` beslist voor elke beurt wie spreekt. De Koning krijgt publieke Rolkaarten en het debat, zonder ruwe Kennisbronnen. De functie geeft een gecontroleerd object met `rol`, `vraag`, `reden` en `open_vragen` terug. `rol: null` stopt het debat. Elke keuze wordt als `routering` vastgelegd (`aan`, `vraag`, `reden`, `open_vragen`); na 10 Raadslid-beurten stopt de code altijd.
 
-Standaard is het een vaste volgorde met `reden: "vaste volgorde"`. Laat jullie Koning beter kiezen: als agent (een LLM die het debat leest), met regels in code, of een mix. Vragen om mee te starten: wie moet een bewering toetsen? Welke Rol ontbreekt nog? Wanneer weet je genoeg? Wat moet elk Raadslid van het debat zien?
+Deze uitwerking gebruikt een LLM als Koning, aangevuld met controles in code: wie kan een bewering toetsen, welke kennis ontbreekt en wanneer voegt een extra beurt weinig toe? Ieder Raadslid ziet de bijdragen en routeringen, maar alleen zijn eigen ruwe bronnen.
 
 ### Na je eerste run: waar kijk je naar?
 
@@ -125,7 +192,7 @@ De vorm:
 Raadsleden + debat tot nu toe  ──►  LLM (MODEL_GROOT)  ──►  {"rol": ..., "vraag": ..., "reden": ...}
 ```
 
-Wat je daarvoor uitzoekt: een chat-call naar hetzelfde endpoint als de Raadsleden, een instructie die zegt wat een goede keuze is (en wanneer de Koning stopt), en het antwoord als JSON uitlezen. Zoektermen: *structured output*, *JSON mode*, *group chat manager* of *speaker selection* (MAF). Let op: `kies_volgende()` is gewone, niet-async code, en modellen zetten soms tekst rond hun JSON.
+Dit is geïmplementeerd via dezelfde agent-client als de Raadsleden. `kies_volgende()` is nu async. `vraag_json()` verwerkt ook JSON in codeblokken, valideert het antwoord en vraagt bij fouten gericht om herstel.
 
 ## Spelregels
 
@@ -139,6 +206,8 @@ Wat je daarvoor uitzoekt: een chat-call naar hetzelfde endpoint als de Raadslede
 - Elke Rol heeft een Belang en kan ernaast zitten.
 
 ## Wat moet je zelf bouwen?
+
+De onderstaande oorspronkelijke bouwtaken zijn in deze uitwerking verwerkt. De kwaliteit van vragen, broninterpretatie en diagnose moet nog met de echte Kennisbronnen worden beoordeeld.
 
 - Een **Koning** die het debat leidt in plaats van de vaste volgorde, met een reden bij elke keuze.
 - Meer Raadsleden (minstens 3 Rollen). Meer Rollen geven meer kennis, maar elke beurt telt. De Kennisbronnen verwijzen soms naar andere Rollen: dat zegt je welke Rol je nog mist.

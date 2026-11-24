@@ -1,6 +1,6 @@
 # Kennisbronnen
 
-Deze map is leeg. De Kennisbronnen zitten in het Challenge pack: `https://<mcp-host>/pack.zip`, open vanaf 10:00. Pak de map `kennisbronnen/` uit de zip hier uit.
+De Kennisbronnen zitten in het Challenge pack: `https://mcp.findingsolutions.be/pack.zip`, open vanaf 10:00. Pak de map `kennisbronnen/` uit de zip hier uit. Via MCP zijn lokale bestanden niet nodig: `.env.example` bevat de paden voor alle zes Rollen.
 
 Werk je zonder MCP, zet dan de bestanden van elke Rol in een eigen map:
 

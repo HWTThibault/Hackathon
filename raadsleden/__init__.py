@@ -1,4 +1,4 @@
-"""Elk bestand in deze map is één Raadslid. Volgorde in het debat = alfabetische bestandsnaam."""
+"""Elk bestand in deze map is één Raadslid. De Koning kiest de spreekvolgorde."""
 import importlib
 import pkgutil
 

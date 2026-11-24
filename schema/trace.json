@@ -68,6 +68,26 @@
           "type": "integer",
           "minimum": 0
         },
+        "tijdstip": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "in_antwoord_op": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Beurtnummer van de routering die deze bijdrage of broncall uitlokte."
+        },
+        "context_beurten": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "integer", "minimum": 1},
+          "description": "Eerdere Raadslid-bijdragen die als debatcontext beschikbaar waren."
+        },
+        "ontvangers": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"enum": ["koning", "mens", "archmage", "engineer", "guardian_keeper", "historian", "oracle", "beast_master"]}
+        },
         "spreker": {
           "anyOf": [
             {

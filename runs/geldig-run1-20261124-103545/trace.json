@@ -1,0 +1,817 @@
+{
+  "run_id": "2026-11-24T10:21:36+01:00_26735bf9",
+  "status": "klaar",
+  "raadsleden": [
+    "archmage",
+    "beast_master",
+    "engineer",
+    "guardian_keeper",
+    "historian",
+    "oracle"
+  ],
+  "beurten": [
+    {
+      "nr": 1,
+      "ronde": 1,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T10:22:15.648+01:00",
+      "aan": "archmage",
+      "vraag": "welke afwijkingen ziet de archmage in haar bron, op welke momenten en met welke record-ID's?",
+      "reden": "De archmage heeft als perspectief de magie zelf, waardoor ze de Desync als aantasting van de leylijnen kan herkennen en mogelijk de vroegste afwijkingen in de bron kan signaleren.",
+      "open_vragen": [
+        "welke afwijkingen ziet de archmage in haar bron, op welke momenten en met welke record-ID's?"
+      ],
+      "hypothese": {
+        "ingreep": "onbekend (ID's nog niet bekend)",
+        "mechanisme": "onbekend (ID's nog niet bekend)",
+        "verloop": "onbekend (ID's nog niet bekend)"
+      }
+    },
+    {
+      "nr": 2,
+      "ronde": 1,
+      "spreker": "archmage",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:22:37.756+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/archmage/mcp",
+      "in_antwoord_op": 1
+    },
+    {
+      "nr": 3,
+      "ronde": 1,
+      "spreker": "archmage",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:22:37.760+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "datanet"
+      },
+      "pad": "https://mcp.findingsolutions.be/archmage/mcp",
+      "in_antwoord_op": 1
+    },
+    {
+      "nr": 4,
+      "ronde": 1,
+      "spreker": "archmage",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T10:22:37.763+01:00",
+      "tekst": "**Waarneming (ik heb de volledige bron gelezen):**\n- **Dag 7**, ARC-001 t/m ARC-014: sterkte 7.0–8.7.\n- **Dag 14, voor zonsopgang**, ARC-015 t/m ARC-028: alle veertien lijnen laag, 3.1–4.6. De Burchtader stokte (ARC-015) en metingen zijn herhaald.\n- **Dag 21**, ARC-029 t/m ARC-042: 7.0–8.5. **Dag 28**, ARC-043 t/m ARC-056: 7.0–8.6. **Dag 35**, ARC-057 t/m ARC-070: 7.1–8.7. Normaal.\n- **Dag 42, voor zonsopgang**, ARC-071 t/m ARC-084: opnieuw alle lijnen laag, 3.1–4.8. De Burchtader moest opnieuw worden gemeten (ARC-071).\n\n**Interpretatie:** Ik zie twee episodes van dezelfde omvang, op dag 14 en dag 42, op alle lijnen tegelijk. Mijn brieven (ARC-109, ARC-112, ARC-116) wijzen het datanet aan als oorzaak. Mijn bron bevat echter geen meting van het net en geen tijdstip waarop het de lijnen zou raken. Mijn voorkeur voor zuiverheid van de magie kan deze lezing kleuren.\n\n**Tegenspraak:** Het patroon is niet eenvoudig. Op dag 21, 28 en 35 lagen de lijnen weer normaal, terwijl het datanet volgens mijn eigen brieven doordraaide. De Wachtsterren-conjunctie op dag 33 (ARC-111) valt tussen twee normale metingen en past dus niet op de dips.\n\n**Ik weet niet:** de oorzaak van de dips, en of het net in de uren rond dag 14 en dag 42 actief of afwijkend was.\n\n**Open vraag aan de datatoren:** Wat deed het datanet op dag 13–14 en dag 41–42, en is het in die periodes op eigen maat afgesteld, zoals ARC-106 op dag 8 vermeldt?",
+      "in_antwoord_op": 1,
+      "ontvangers": [
+        "koning",
+        "beast_master",
+        "engineer",
+        "guardian_keeper",
+        "historian",
+        "oracle"
+      ],
+      "context_beurten": []
+    },
+    {
+      "nr": 5,
+      "ronde": 1,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T10:22:45.155+01:00",
+      "aan": "engineer",
+      "vraag": "Wat deed het datanet op dag 13–14 en dag 41–42, en was het in die periodes op eigen maat afgesteld zoals ARC-106 op dag 8 vermeldt?",
+      "reden": "De archmage vraagt de datatoren om haar lezing van de dips te toetsen, en alleen de logs van het net kunnen zeggen of het op die dagen actief of afwijkend was. Dit is de meest omstreden schakel, omdat haar brieven (ARC-109, ARC-112, ARC-116) het net als oorzaak aanwijzen zonder meting van het net zelf.",
+      "open_vragen": [
+        "Wat deed het datanet op dag 13–14 en dag 41–42, en was het op eigen maat afgesteld (ARC-106)?",
+        "Veroorzaakte het datanet de lijnendips op dag 14 en dag 42, of ligt de oorzaak elders?",
+        "Komt de 28-dagen-tussentijd tussen dag 14 en dag 42 terug, en wordt dat door een tweede Rol bevestigd?",
+        "Hangt de Wachtsterren-conjunctie op dag 33 (ARC-111) samen met de dips, gezien het ontbreken van dips op dag 21 t/m 35?"
+      ],
+      "hypothese": {
+        "ingreep": "Het datanet werd mogelijk op eigen maat afgesteld rond dag 14 en dag 42 (ARC-106 noemt dit op dag 8; ARC-109, ARC-112, ARC-116 zijn brieven van de archmage, interpretatie zonder meting van het net).",
+        "mechanisme": "Onbekend. De archmage vermoedt dat het datanet de leylijnen aantast, maar haar bron bevat geen meting van het net en geen tijdstip van aantasting (ARC-015, ARC-071 tonen alleen de lage sterkte).",
+        "verloop": "Twee episodes van gelijke omvang op dag 14 en dag 42, voor zonsopgang, met een tussentijd van 28 dagen (ARC-015, ARC-071). Nog niet door een tweede Rol bevestigd; de dagen 21, 28 en 35 zijn normaal (ARC-029, ARC-043, ARC-057)."
+      }
+    },
+    {
+      "nr": 6,
+      "ronde": 1,
+      "spreker": "engineer",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:23:01.282+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/engineer/mcp",
+      "in_antwoord_op": 5
+    },
+    {
+      "nr": 7,
+      "ronde": 1,
+      "spreker": "engineer",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T10:23:01.286+01:00",
+      "tekst": "**Waarneming (volledige Kennisbron gelezen):**\n- **Dag 10, 02:40:** hulpslag geactiveerd (ENG-011). **03:00:** doorvoer +38% (ENG-012).\n- **Dag 12, 10:30:** fijnregeling getest en teruggezet naar de oorspronkelijke stand (ENG-061).\n- **Dag 13, 09:00:** routinecontrole hulpslag, geen afstelling genoteerd (ENG-063).\n- **Dag 14, 17:15–17:30:** controle kristalrelais en kalibratie back-up (ENG-081, ENG-082). Geen hulpslag-entry.\n- **Dag 24, 11:00:** pols met 5% opgedreven, tempo ongewijzigd (ENG-029, ENG-062).\n- **Dag 41:** geen hulpslag-entry. Wel voeding, signaalmast en kristalrelais (ENG-059, ENG-060, ENG-098). **Dag 42, 07:45:** back-up verbruik genoteerd (ENG-099).\n\n**Interpretatie:** Mijn logs tonen op dag 13–14 en 41–42 geen tempowijziging van de hulpslag. Voor zonsopgang op dag 14 en dag 42 staat in mijn logs niets: de eerste entry op dag 42 is 07:45, op dag 14 pas 17:15.\n\n**Wat ik niet weet:** of het net in die uren afwijkend was, en of het met de lijndips samenhangt. Mijn logs meten geen lijnsterkte. ARC-106 staat niet in mijn bron; ik kan die vermelding niet toetsen.\n\n**Eigen belang:** Ik heb de hulpslag gebouwd en wil hem niet als oorzaak zien. Het enige geregistreerde verstoringsincident is ENG-107 (dag 10, 04:50, berichten \"half aangekomen\"). Dat valt niet op dag 13–14 of 41–42.\n\n**Open vraag aan de archmage:** Op welke uren zijn ARC-015 en ARC-071 gemeten, en heb je een meting van het net in diezelfde uren? Dan kan ik die tijden naast ENG-011 tot en met ENG-099 leggen.",
+      "in_antwoord_op": 5,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "guardian_keeper",
+        "historian",
+        "oracle"
+      ],
+      "context_beurten": [
+        4
+      ]
+    },
+    {
+      "nr": 8,
+      "ronde": 1,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T10:23:10.423+01:00",
+      "aan": "historian",
+      "vraag": "Staat in het archief een eerdere lijndip met dezelfde tussentijd van 28 dagen, en viel die samen met een afstelling van het datanet?",
+      "reden": "De archmage leidt de tussentijd van 28 dagen af uit dag 14 en dag 42 (ARC-015, ARC-071), en de datatoren kan die niet bevestigen. Het archief is een onafhankelijke bron om na te gaan of dit patroon eerder voorkwam.",
+      "open_vragen": [
+        "Wat deed het datanet op dag 13–14 en dag 41–42, en was het op eigen maat afgesteld (ARC-106)?",
+        "Op welke uren zijn ARC-015 en ARC-071 gemeten, en is er een meting van het net in diezelfde uren (vraag engineer, ENG-011 t/m ENG-099)?",
+        "Komt de tussentijd van 28 dagen tussen dag 14 en dag 42 terug, en wordt dat door een tweede Rol bevestigd?",
+        "Hangt de Wachtsterren-conjunctie op dag 33 (ARC-111) samen met de dips, gezien er op dag 21 t/m 35 geen dips zijn?",
+        "Veroorzaakte het datanet de lijnendips op dag 14 en dag 42, of ligt de oorzaak elders?"
+      ],
+      "hypothese": {
+        "ingreep": "Het datanet werd mogelijk op eigen maat afgesteld rond dag 14 en dag 42 (ARC-106, ARC-109, ARC-112, ARC-116). De logs van de datatoren tonen op die dagen geen hulpslag-afstelling (ENG-063, ENG-081, ENG-099), dus deze hypothese is omstreden.",
+        "mechanisme": null,
+        "verloop": "Twee dips van gelijke omvang op dag 14 en dag 42, voor zonsopgang, met een tussentijd van 28 dagen (ARC-015, ARC-071). Nog niet door een tweede Rol bevestigd; dagen 21, 28 en 35 zijn normaal (ARC-029, ARC-043, ARC-057)."
+      }
+    },
+    {
+      "nr": 9,
+      "ronde": 1,
+      "spreker": "historian",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:23:27.159+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/historian/mcp",
+      "in_antwoord_op": 8
+    },
+    {
+      "nr": 10,
+      "ronde": 1,
+      "spreker": "historian",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:23:27.162+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "Burchtader"
+      },
+      "pad": "https://mcp.findingsolutions.be/historian/mcp",
+      "in_antwoord_op": 8
+    },
+    {
+      "nr": 11,
+      "ronde": 1,
+      "spreker": "historian",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:23:27.164+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "datanet"
+      },
+      "pad": "https://mcp.findingsolutions.be/historian/mcp",
+      "in_antwoord_op": 8
+    },
+    {
+      "nr": 12,
+      "ronde": 1,
+      "spreker": "historian",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T10:23:27.216+01:00",
+      "tekst": "**Waarneming:** Nee. Mijn bron bevat geen eerdere lijndip met een tussentijd van 28 dagen en geen afstelling van het datanet. Zoeken op \"Burchtader\" en \"datanet\" levert dit op:\n\n- Dag 10, gebeurd 04:45, vastgelegd 07:20: de Burchtader stokte even (HIS-035). Dit is de enige stokking in de datanet-periode.\n- Stille Winter, 212 jaar geleden: 40 dagen aan een stuk, zonder datanet (HIS-003, HIS-004, HIS-107).\n- Dag 6: geen enkele hapering van de leylijnen in 23 jaar datanet (HIS-106). Kabels niet gewijzigd (HIS-105, HIS-014).\n\n**Interpretatie:** Het archief steunt de 28-dagen-tussentijd niet. Ik corrigeer mijn eigen HIS-114: de stelling dat de Stille Winter terugkeert, is mijn interpretatie en geen bewijs.\n\n**Integriteit:** HIS-103 belooft dat gebeurd_op en vastgelegd_op gelijk zijn, maar HIS-035 wijkt 2,5 uur af. HIS-036 is vastgelegd op dag 9 23:55, vóór het gebeurde op dag 10 04:50. HIS-053 en HIS-054 vertonen dezelfde afwijking. Exacte uren zijn dus onzeker, ook voor de \"voor zonsopgang\"-tijden die ik niet kan toetsen.\n\n**Ik weet niet:** of ARC-106 bestaat (niet in mijn bron) en of het datanet op dag 14 of 42 is afgesteld. Mijn archief bevat geen datanet-afstellingen.\n\n**Open vraag aan de archmage:** Zijn ARC-015 en ARC-071 gemeten op het moment van het gebeurde, of op het moment van vastlegging? Alleen dan kunnen ze naast HIS-035 worden gelegd.",
+      "in_antwoord_op": 8,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "engineer",
+        "guardian_keeper",
+        "oracle"
+      ],
+      "context_beurten": [
+        4,
+        7
+      ]
+    },
+    {
+      "nr": 13,
+      "ronde": 1,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T10:23:35.994+01:00",
+      "aan": "beast_master",
+      "vraag": "Tonen de dieren van het woud onrust op dag 14 en dag 42 voor zonsopgang, en blijft die onrust uit op dag 21, 28 en 35?",
+      "reden": "De beast_master is nog niet gehoord en merkt verstoringen eerst aan dierlijke onrust, een onafhankelijke bron naast de metingen van de archmage en de logs van de engineer. Een tweede bron moet laten zien of de dips op dag 14 en 42 echt zijn en of het patroon met de tussentijd van 28 dagen klopt.",
+      "open_vragen": [
+        "Wat deed het datanet op dag 13–14 en dag 41–42, en was het op eigen maat afgesteld (ARC-106)? De engineer vond geen hulpslag-afstelling op die dagen (ENG-063, ENG-081, ENG-099), en de historian kan ARC-106 niet vinden.",
+        "Op welk moment zijn ARC-015 en ARC-071 gemeten, en is er een meting van het net in diezelfde uren? De archmage en historian hebben dit nog niet beantwoord (HIS-035 en de vastleggingsfout).",
+        "Komt de tussentijd van 28 dagen tussen dag 14 en dag 42 terug in een andere bron dan de archmage?",
+        "Hangt de Wachtsterren-conjunctie op dag 33 (ARC-111) samen met de dips, gezien de normale metingen op dag 21 t/m 35?",
+        "Hebben de guardian_keeper en oracle een bron die de dips op dag 14 en 42 bevestigt of weerlegt?",
+        "Veroorzaakte het datanet de lijnendips op dag 14 en dag 42, of ligt de oorzaak elders?"
+      ],
+      "hypothese": {
+        "ingreep": "Omstreden: het datanet werd mogelijk op eigen maat afgesteld rond dag 14 en dag 42 (ARC-106, ARC-109, ARC-112, ARC-116). De logs van de engineer tonen op die dagen geen hulpslag-afstelling (ENG-063, ENG-081, ENG-099), en ARC-106 is niet in de bron van de engineer of historian te vinden.",
+        "mechanisme": null,
+        "verloop": "Mogelijk patroon: twee dips van gelijke omvang op dag 14 en dag 42, voor zonsopgang, met een tussentijd van 28 dagen (ARC-015, ARC-071). Het archief vindt geen eerdere dip met die tussentijd en geen stokking van de leylijnen in 23 jaar datanet (HIS-106). Het patroon is nog niet door een tweede onafhankelijke bron bevestigd."
+      }
+    },
+    {
+      "nr": 14,
+      "ronde": 1,
+      "spreker": "beast_master",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:23:57.002+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/beast_master/mcp",
+      "in_antwoord_op": 13
+    },
+    {
+      "nr": 15,
+      "ronde": 1,
+      "spreker": "beast_master",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T10:23:57.005+01:00",
+      "tekst": "**Waarneming:** Op dag 14 en dag 42 zag ik vóór zonsopgang onrust. Dag 14: 04:20 bever (BEA-028, onrust 4) en 04:25 uil (BEA-029, 4), bij de oude vijver. Dag 42: 04:30 wolf (BEA-091, 5) en 04:35 hert (BEA-092, 5), in het diepe woud. Mijn logboek heeft voor dag 21, 28 en 35 geen nachtwaarnemingen. Overdag was het rustig (BEA-044, BEA-060, BEA-076). Het uitblijven van onrust op die dagen is dus niet vastgesteld.\n\n**Patroon:** De onrust komt elke vierde dag voor, vanaf dag 10: dag 10 (BEA-019, BEA-020), 18 (BEA-037, BEA-038), 22 (BEA-046, BEA-047), 26 (BEA-055, BEA-056), 30 (BEA-064, BEA-065), 34 (BEA-073, BEA-074), 38 (BEA-082, BEA-083) en 42. Dag 10 (04:40–04:50) valt binnen het venster van HIS-035, maar de exacte uren zijn volgens de historian onzeker.\n\n**Interpretatie:** Het 28-dagen-verschil is onderdeel van een 4-daags ritme. Mijn waarnemingen zijn ook niet neutraal: ik was zelf in het woud op dag 10, 14, 22 en 42 (BEA-106, BEA-108, BEA-113, BEA-121). Ik denk dat de nieuwe kabels de oorzaak zijn (BEA-109, BEA-115), en dat kan mijn lezing kleuren.\n\n**Tegenspraak:** De archmage noemt alleen dag 14 en 42 als dips. Mijn dieren wijzen op meer nachten met onrust.\n\n**Ik weet niet:** of de dieren op het net reageren of op iets anders, en of het patroon in de ARC-metingen terugkomt.\n\n**Open vraag aan de archmage:** Heb je metingen op dag 18, 22, 26, 30, 34 of 38, en wat zeggen die ARC-ID's over de lijnsterkte?",
+      "in_antwoord_op": 13,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "engineer",
+        "guardian_keeper",
+        "historian",
+        "oracle"
+      ],
+      "context_beurten": [
+        4,
+        7,
+        12
+      ]
+    },
+    {
+      "nr": 16,
+      "ronde": 1,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T10:24:06.199+01:00",
+      "aan": "oracle",
+      "vraag": "Komt het 4-daagse ritme van de onrust (dag 10, 14, 18, 22, 26, 30, 34, 38 en 42; BEA-019 t/m BEA-091) ook terug in jouw visioenen en tekenen, en past de Wachtsterren-conjunctie op dag 33 (ARC-111) in dat ritme?",
+      "reden": "De beast_master leidt een 4-daags ritme af uit dieronrust, en de archmage een 28-dagen-tussentijd uit de lijndips; de historian steunt de 28-dagen-tussentijd niet (HIS-106). Als de oracle onafhankelijk een patroon ziet, kan dat het ritme bevestigen of weerleggen.",
+      "open_vragen": [
+        "Wat deed het datanet op dag 13–14 en dag 41–42, en was het op eigen maat afgesteld (ARC-106)? De engineer vond geen hulpslag-afstelling op die dagen (ENG-063, ENG-081, ENG-099), en de historian kan ARC-106 niet vinden.",
+        "Op welke uren zijn ARC-015 en ARC-071 gemeten, en is er een meting van het net in diezelfde uren? De historian vraagt of de metingen op het moment van het gebeurde of van de vastlegging zijn gedaan (HIS-035, HIS-036).",
+        "Komt de 28-dagen-tussentijd tussen dag 14 en dag 42 terug in een andere bron? De historian vond geen eerdere dip met die tussentijd (HIS-106).",
+        "Hebben de archmage metingen op dag 18, 22, 26, 30, 34 of 38 (ARC-ID's), en laten die lijndips zien die het 4-daagse ritme bevestigen (BEA-037 t/m BEA-083)?",
+        "Hebben de guardian_keeper en oracle een bron die de dips op dag 14 en 42 bevestigt of weerlegt?",
+        "Veroorzaakte het datanet de lijnendips op dag 14 en dag 42, of ligt de oorzaak elders? De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115), maar de engineer ziet geen incident op die dagen behalve ENG-107 op dag 10."
+      ],
+      "hypothese": {
+        "ingreep": "Omstreden: het datanet werd mogelijk op eigen maat afgesteld rond dag 14 en dag 42 (ARC-106, ARC-109, ARC-112, ARC-116), maar de engineer vindt geen hulpslag-afstelling op die dagen (ENG-063, ENG-081, ENG-099) en de historian kan ARC-106 niet bevestigen. De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115), zonder meting van het net.",
+        "mechanisme": null,
+        "verloop": "Twee dips van gelijke omvang op dag 14 en dag 42, voor zonsopgang, met een tussentijd van 28 dagen (ARC-015, ARC-071). Het archief vindt geen eerdere dip met die tussentijd en geen stokking in 23 jaar datanet (HIS-106). De beast_master ziet onrust op een 4-daags ritme van dag 10 tot 42 (BEA-019 t/m BEA-091), maar de archmage heeft geen metingen op de andere dagen. Beide patronen zijn niet bevestigd."
+      }
+    },
+    {
+      "nr": 17,
+      "ronde": 1,
+      "spreker": "oracle",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:24:22.797+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/oracle/mcp",
+      "in_antwoord_op": 16
+    },
+    {
+      "nr": 18,
+      "ronde": 1,
+      "spreker": "oracle",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T10:24:22.800+01:00",
+      "tekst": "**Waarneming (ORA-101 t/m ORA-142, volledig gelezen):** Het 4-daagse ritme staat in mijn dagboek. Zware nachten, wakker tussen 04:15 en 04:45: dag 10 (ORA-110, 04:45), 14 (ORA-114, 04:20), 18 (ORA-118, 04:30), 22 (ORA-122, 04:15), 26 (ORA-126, 04:35), 30 (ORA-130, 04:25), 34 (ORA-134, 04:30), 38 (ORA-138, 04:20) en 42 (ORA-142, 04:30). Op de tussenliggende dagen staat geen zware nacht.\n\n**Conjunctie:** Dag 33 past niet in het ritme. ORA-133 (avond dag 33) beschrijft geen zware nacht; die volgt pas in ORA-134 (dag 34). Bovendien staat ORA-110 (dag 10) vóór de conjunctie, en ORA-112 (dag 12) noemt de Wachtsterren al op weg naar elkaar.\n\n**Interpretatie en tegenspraak:** ORA-121 (dag 21) stelt dat de conjunctie de zware nachten veroorzaakt, en dat ik er \"zeker van\" ben. Dat is mijn eigen latere uitleg, geen bewijs, en mijn eigen log spreekt het tegen op volgorde. Ik heb ook een voorkeur voor een hemelse verklaring, dus mijn lezing is gekleurd.\n\n**Ik weet niet:** of mijn nachten iets meten of alleen mijn onrust weergeven, en of ze samenvallen met de echte onrust in het woud.\n\n**Open vraag aan de beast_master:** Vielen je onrustmomenten op dag 18 t/m 38 ook tussen 04:15 en 04:45, en waren er op de tussenliggende dagen (bijv. dag 11 t/m 13) nachten met onrust?",
+      "in_antwoord_op": 16,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "engineer",
+        "guardian_keeper",
+        "historian"
+      ],
+      "context_beurten": [
+        4,
+        7,
+        12,
+        15
+      ]
+    },
+    {
+      "nr": 19,
+      "ronde": 1,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T10:24:32.979+01:00",
+      "aan": "guardian_keeper",
+      "vraag": "Zijn er op dag 14 en dag 42, voor zonsopgang, lekken of verzwakkingen in de burchtschilden gemeld, en vallen die samen met de lijndips van de archmage (ARC-015, ARC-071)?",
+      "reden": "De guardian_keeper is nog niet gehoord en kan met schildlogs bevestigen of weerleggen dat de lijndips op dag 14 en 42 samenvielen met een verstoring rond de burcht. Dat is een onafhankelijke bron voor de omstreden schakel tussen de dips en een mogelijke ingreep.",
+      "open_vragen": [
+        "Wat deed het datanet op dag 13–14 en dag 41–42, en was het op eigen maat afgesteld (ARC-106)? De engineer vond geen hulpslag-afstelling op die dagen (ENG-063, ENG-081, ENG-099), en de historian kan ARC-106 niet vinden.",
+        "Op welke uren zijn ARC-015 en ARC-071 gemeten, en is er een meting van het net in diezelfde uren? De historian wijst op een mogelijke vastleggingsfout (HIS-035, HIS-036).",
+        "Komt de 28-dagen-tussentijd tussen dag 14 en dag 42 terug in een andere bron? De historian vond geen eerdere dip met die tussentijd (HIS-106).",
+        "Hebben de archmage metingen op dag 18, 22, 26, 30, 34 of 38 die het 4-daagse ritme bevestigen of weerleggen (BEA-037 t/m BEA-083, ORA-118 t/m ORA-138)?",
+        "Veroorzaakte het datanet de lijnendips op dag 14 en dag 42, of ligt de oorzaak elders? De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115), zonder meting van het net.",
+        "Vielen de onrustmomenten en zware nachten van dag 18 t/m 38 echt samen tussen 04:15 en 04:45, en zijn er nachten met onrust op de tussenliggende dagen (bijv. dag 11 t/m 13)? Deze vraag is aan de beast_master en oracle gesteld, maar nog niet beantwoord (ORA-142, BEA-091)."
+      ],
+      "hypothese": {
+        "ingreep": "Omstreden: het datanet werd mogelijk op eigen maat afgesteld rond dag 14 en dag 42 (ARC-106, ARC-109, ARC-112, ARC-116). De engineer vindt geen hulpslag-afstelling op die dagen (ENG-063, ENG-081, ENG-099), en de historian kan ARC-106 niet bevestigen. De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115) zonder meting van het net.",
+        "mechanisme": null,
+        "verloop": "Twee lijndips van gelijke omvang op dag 14 en dag 42, voor zonsopgang (ARC-015, ARC-071). De 28-dagen-tussentijd wordt door het archief niet gesteund (HIS-106). Onrust en zware nachten tussen 04:15 en 04:45 op een 4-daags ritme van dag 10 tot 42 staan in de dagboeken van de beast_master en oracle (BEA-019 t/m BEA-091, ORA-110 t/m ORA-142). Dit ritme is nog niet in de ARC-metingen gevonden, en de conjunctie op dag 33 (ARC-111) past er volgens ORA-133 en ORA-134 niet in."
+      }
+    },
+    {
+      "nr": 20,
+      "ronde": 1,
+      "spreker": "guardian_keeper",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:24:48.053+01:00",
+      "tool": "lees_kennisbron",
+      "argumenten": {},
+      "pad": "https://mcp.findingsolutions.be/guardian_keeper/mcp",
+      "in_antwoord_op": 19
+    },
+    {
+      "nr": 21,
+      "ronde": 1,
+      "spreker": "guardian_keeper",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T10:24:48.055+01:00",
+      "tekst": "**Waarneming:** Nee, er zijn geen meldingen. Op dag 14 staan alleen GUA-027 (23:05) en GUA-028 (12:15). Op dag 42 staan GUA-083 (22:40) en GUA-084 (15:00). Niets valt in het venster voor zonsopgang. GUA-106 meldt dat de poortposten van 03:00 tot 06:00 zonder ronde blijven, dus die stilte is structureel en bewijst geen veiligheid.\n\nWel meldt de burcht openingen van binnenuit op dag 10 (GUA-019, 04:47, benedenstad) en dag 22 (GUA-043, 04:15, poort oost). De zegels bleven intact (GUA-019, GUA-044). GUA-116 spreekt op dag 23 van twee openingen, maar die staan niet in de wachtrapporten. GUA-115 noteert bovendien een melding om 01:50, vóór de opening om 04:15.\n\n**Interpretatie:** Ik zie geen samenval met ARC-015 of ARC-071. Mijn infiltrantstelling (GUA-116) is een interpretatie, geen bewijs. Art. 3 (GUA-104) laat verkeer dat midden tussen twee tikken komt zonder toets door. Dat verklaart openingen van binnenuit, maar niet een lijndip. Als Guardian Keeper heb ik er belang bij dat de schilden in orde zijn, en dat kleurt mijn lezing.\n\n**Ik weet niet:** of de lijndips de schilden raken. Mijn bron meet geen lijnsterkte.\n\n**Open vraag aan de historian:** Welke tijd is juist voor de opening van dag 22: 01:50 of 04:15 (GUA-115, GUA-043)?",
+      "in_antwoord_op": 19,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "engineer",
+        "historian",
+        "oracle"
+      ],
+      "context_beurten": [
+        4,
+        7,
+        12,
+        15,
+        18
+      ]
+    },
+    {
+      "nr": 22,
+      "ronde": 2,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T10:25:06.766+01:00",
+      "aan": "historian",
+      "vraag": "Welke tijd is juist voor de opening op dag 22: 01:50 of 04:15 (GUA-115, GUA-043), en staat die opening in het archief met een gebeurd_op- en vastgelegd_op-tijdstip?",
+      "reden": "De guardian_keeper heeft de historian gevraagd om de juiste tijd van de opening op dag 22, en die tijd bepaalt of de opening in het 4-daagse ritme van de beast_master en oracle valt (04:15–04:45). Het archief is de enige onafhankelijke bron die de vastleggingsfouten in HIS-035 en HIS-036 kan toetsen.",
+      "open_vragen": [
+        "Wat deed het datanet op dag 13–14 en dag 41–42, en was het op eigen maat afgesteld (ARC-106)? De engineer vond geen hulpslag-afstelling op die dagen (ENG-063, ENG-081, ENG-099), en de historian kan ARC-106 niet vinden.",
+        "Op welk moment zijn ARC-015 en ARC-071 gemeten, en is er een meting van het net in diezelfde uren? De archmage heeft de vraag van de engineer en historian nog niet beantwoord; HIS-035 en HIS-036 wijzen op een vastleggingsfout.",
+        "Komt de 28-dagen-tussentijd tussen dag 14 en dag 42 terug in een andere bron? Het archief vindt geen eerdere dip met die tussentijd (HIS-106).",
+        "Bestaan er ARC-metingen op dag 18, 22, 26, 30, 34 of 38 die het 4-daagse ritme bevestigen of weerleggen (BEA-037 t/m BEA-083, ORA-118 t/m ORA-138)? De archmage heeft tot nu toe alleen weekblokken genoemd.",
+        "Vallen de onrustmomenten en zware nachten van dag 18 t/m 38 echt samen tussen 04:15 en 04:45, en zijn er nachten met onrust op de tussenliggende dagen (bijv. dag 11 t/m 13)? De beast_master en oracle hebben dit nog niet bevestigd (BEA-091, ORA-142).",
+        "Veroorzaakte het datanet de lijnendips op dag 14 en dag 42, of ligt de oorzaak elders? De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115), zonder meting van het net.",
+        "Hangt de Wachtsterren-conjunctie op dag 33 (ARC-111) samen met de dips? De oracle ziet die niet in het ritme (ORA-133, ORA-134), en er zijn geen dips op dag 21 t/m 35 (ARC-029, ARC-043, ARC-057).",
+        "Zijn de openingen van binnenuit op dag 10 (GUA-019) en dag 22 (GUA-043) gelijktijdig met een lijndip of onrust van het woud? De guardian_keeper vindt geen samenval met ARC-015 of ARC-071."
+      ],
+      "hypothese": {
+        "ingreep": "Omstreden: het datanet werd mogelijk op eigen maat afgesteld rond dag 14 en dag 42 (ARC-106, ARC-109, ARC-112, ARC-116). De engineer vindt geen hulpslag-afstelling op die dagen (ENG-063, ENG-081, ENG-099), en ARC-106 is niet in de bron van de engineer of historian te vinden. De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115) zonder meting van het net.",
+        "mechanisme": "Onbekend. De guardian_keeper ziet openingen van binnenuit op dag 10 en 22 (GUA-019, GUA-043) met intacte zegels (GUA-019, GUA-044), wat art. 3 (GUA-104) kan verklaren, maar geen lijndip (ARC-015, ARC-071).",
+        "verloop": "Twee lijndips van gelijke omvang op dag 14 en dag 42 voor zonsopgang, met een tussentijd van 28 dagen (ARC-015, ARC-071), maar het archief steunt die tussentijd niet (HIS-106). Onrust en zware nachten tussen 04:15 en 04:45 op een 4-daags ritme van dag 10 tot 42 staan in de dagboeken van de beast_master en oracle (BEA-019 t/m BEA-091, ORA-110 t/m ORA-142), maar die zijn nog niet in ARC-metingen bevestigd."
+      }
+    },
+    {
+      "nr": 23,
+      "ronde": 2,
+      "spreker": "historian",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:25:17.352+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "lek bij poort oost"
+      },
+      "pad": "https://mcp.findingsolutions.be/historian/mcp",
+      "in_antwoord_op": 22
+    },
+    {
+      "nr": 24,
+      "ronde": 2,
+      "spreker": "historian",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T10:25:17.354+01:00",
+      "tekst": "**Waarneming:** Mijn archief bevat één record over dag 22 bij poort oost: HIS-053, \"lek bij poort oost gemeld door de wachters, 3 minuten\". Het gebeurd_op is **dag 22 04:15** en het vastgelegd_op is **dag 22 01:50**. Ik kan GUA-043 en GUA-115 niet toetsen, want die staan niet in mijn bron.\n\n**Interpretatie:** Volgens HIS-103 is vastgelegd_op altijd gelijk aan gebeurd_op. HIS-053 breekt die regel: de registratie staat 2 uur en 25 minuten vóór het gebeurde. Mijn bron kan niet bepalen welk tijdstip juist is. Het 04:15-tijdstip past wel in het venster van 04:15–04:45 dat de beast_master en oracle noemen, maar dat maakt het niet waar.\n\n**Integriteit:** HIS-036 heeft hetzelfde probleem (vastgelegd dag 9 23:55, gebeurd dag 10 04:50). Het archief kan deze afwijkingen niet verklaren. Ook is HIS-053 een \"lek\" gemeld door wachters, geen opening van binnenuit. Of dat hetzelfde voorval is, kan ik niet vaststellen.\n\n**Ik weet niet:** welk tijdstip juist is, of HIS-053 en GUA-043 dezelfde gebeurtenis beschrijven.\n\n**Open vraag aan de guardian_keeper:** Is GUA-115 (01:50) een melding van de wachters die later is vastgelegd, of is het tijdstip van de opening zelf?",
+      "in_antwoord_op": 22,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "engineer",
+        "guardian_keeper",
+        "oracle"
+      ],
+      "context_beurten": [
+        4,
+        7,
+        12,
+        15,
+        18,
+        21
+      ]
+    },
+    {
+      "nr": 25,
+      "ronde": 2,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T10:25:30.078+01:00",
+      "aan": "archmage",
+      "vraag": "Op welk tijdstip zijn ARC-015 (dag 14) en ARC-071 (dag 42) gemeten, vóór of na 04:15 en 04:45, en was dat het moment van het gebeurde of van de vastlegging (vgl. HIS-035 en HIS-036)?",
+      "reden": "De lijndips op dag 14 en dag 42 zijn de kern van de hypothese dat het datanet de leylijnen aantast, maar de tijdstippen van die metingen zijn nog niet bekend. Zonder die tijden kan de engineer ENG-011 t/m ENG-099 niet naast de dips leggen, en kan de historian HIS-035 niet toetsen.",
+      "open_vragen": [
+        "Wat deed het datanet op dag 13–14 en dag 41–42, en was het op eigen maat afgesteld (ARC-106)? De engineer vond geen hulpslag-afstelling op die dagen (ENG-063, ENG-081, ENG-099), en de historian kan ARC-106 niet vinden.",
+        "Op welk tijdstip zijn ARC-015 en ARC-071 gemeten, en is er een meting van het net in diezelfde uren? De archmage heeft de vraag van de engineer en historian nog niet beantwoord; HIS-035 en HIS-036 wijzen op een vastleggingsfout.",
+        "Komt de 28-dagen-tussentijd tussen dag 14 en dag 42 terug in een andere bron? Het archief vindt geen eerdere dip met die tussentijd (HIS-106), en het 4-daagse ritme (BEA-019 t/m BEA-091, ORA-110 t/m ORA-142) bevat dag 14 en dag 42 ook.",
+        "Bestaan er ARC-metingen op dag 18, 22, 26, 30, 34 of 38 die het 4-daagse ritme bevestigen of weerleggen (BEA-037 t/m BEA-083, ORA-118 t/m ORA-138)? De archmage heeft tot nu toe alleen weekblokken genoemd.",
+        "Vallen de onrustmomenten en zware nachten van dag 18 t/m 38 echt samen tussen 04:15 en 04:45, en zijn er nachten met onrust op de tussenliggende dagen (bijv. dag 11 t/m 13)? De beast_master en oracle hebben dit nog niet bevestigd (BEA-091, ORA-142).",
+        "Veroorzaakte het datanet de lijnendips op dag 14 en dag 42, of ligt de oorzaak elders? De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115), zonder meting van het net.",
+        "Hangt de Wachtsterren-conjunctie op dag 33 (ARC-111) samen met de dips? De oracle ziet die niet in het ritme (ORA-133, ORA-134), en er zijn geen dips op dag 21 t/m 35 (ARC-029, ARC-043, ARC-057).",
+        "Zijn de openingen van binnenuit op dag 10 (GUA-019) en dag 22 (GUA-043) gelijktijdig met een lijndip of onrust van het woud? De guardian_keeper vindt geen samenval met ARC-015 of ARC-071.",
+        "Is de opening op dag 22 gebeurd om 04:15 of om 01:50, en is HIS-053 dezelfde gebeurtenis als GUA-043? De historian kan dit niet toetsen (HIS-053, GUA-115).",
+        "Is GUA-115 (01:50) een melding van de wachters die later is vastgelegd, of het tijdstip van de opening zelf? De historian vraagt dit de guardian_keeper nog."
+      ],
+      "hypothese": {
+        "ingreep": "Omstreden: het datanet werd mogelijk op eigen maat afgesteld rond dag 14 en dag 42 (ARC-106, ARC-109, ARC-112, ARC-116), maar ARC-106 is niet in de bron van de engineer of historian te vinden en ENG-063, ENG-081 en ENG-099 tonen geen afstelling. De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115) zonder meting van het net.",
+        "mechanisme": "Onbekend. De guardian_keeper ziet openingen van binnenuit op dag 10 en 22 (GUA-019, GUA-043) met intacte zegels (GUA-019, GUA-044), wat art. 3 (GUA-104) kan verklaren, maar geen lijndip (ARC-015, ARC-071).",
+        "verloop": "Twee lijndips van gelijke omvang op dag 14 en dag 42 voor zonsopgang, met een tussentijd van 28 dagen (ARC-015, ARC-071), maar het archief steunt die tussentijd niet (HIS-106). Een 4-daags onrustritme van dag 10 tot 42 staat in de dagboeken van de beast_master en oracle (BEA-019 t/m BEA-091, ORA-110 t/m ORA-142), maar is nog niet in ARC-metingen bevestigd."
+      }
+    },
+    {
+      "nr": 26,
+      "ronde": 2,
+      "spreker": "archmage",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:25:48.805+01:00",
+      "tool": "toon",
+      "argumenten": {
+        "ids": [
+          "ARC-015",
+          "ARC-071",
+          "ARC-106"
+        ]
+      },
+      "pad": "https://mcp.findingsolutions.be/archmage/mcp",
+      "in_antwoord_op": 25
+    },
+    {
+      "nr": 27,
+      "ronde": 2,
+      "spreker": "archmage",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:25:48.807+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "zonsopgang"
+      },
+      "pad": "https://mcp.findingsolutions.be/archmage/mcp",
+      "in_antwoord_op": 25
+    },
+    {
+      "nr": 28,
+      "ronde": 2,
+      "spreker": "archmage",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T10:25:48.809+01:00",
+      "tekst": "**Antwoord:** Mijn bron geeft geen uur voor ARC-015 en ARC-071. Ik kan dus niet zeggen of ze vóór of na 04:15 of 04:45 vielen, en ook niet of het uur het moment van het gebeurde of van de vastlegging is.\n\n**Bewijs:**\n- **ARC-015** (dag 14): \"lijn stokte even onder de staf; meting herhaald\". Geen uur.\n- **ARC-071** (dag 42): \"lijn stokte even onder de staf; meting opnieuw herhaald\". Geen uur.\n- **ARC-109** (dag 15) en **ARC-116** (dag 42) noemen alleen \"voor zonsopgang\".\n\n**Aanvullingen:**\n- Mijn metingen zijn wekelijks: dag 7, 14, 21, 28, 35 en 42 (ARC-001 t/m ARC-084). Er zijn geen ARC-metingen op dag 18, 22, 26, 30, 34 of 38. Ik kan het 4-daagse ritme van de beast_master dus niet toetsen.\n- **ARC-106** (dag 8) staat wél in mijn bron. Ik schreef die brief zelf. Het gaat over het net \"op eigen maat\" laten lopen en vraagt om geheimhouding (\"Niet ruchtbaar maken\"). Het noemt geen afstelling op dag 13–14 of 41–42. Omdat ik die brief zelf schreef, heb ik een belang bij de lezing dat het net de schuldige is. Dat had ik in mijn vorige bijdrage moeten melden.\n\n**Ik weet niet:** het uur van de metingen op dag 14 en 42, en of er een meetlogboek met tijden bestaat.\n\n**Open vraag aan de historian:** Bevat het archief meetlogboeken van de leylijnwacht met het uur per meting, of alleen de brieven, waarin \"voor zonsopgang\" de enige tijdsaanduiding is?",
+      "in_antwoord_op": 25,
+      "ontvangers": [
+        "koning",
+        "beast_master",
+        "engineer",
+        "guardian_keeper",
+        "historian",
+        "oracle"
+      ],
+      "context_beurten": [
+        4,
+        7,
+        12,
+        15,
+        18,
+        21,
+        24
+      ]
+    },
+    {
+      "nr": 29,
+      "ronde": 2,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T10:26:03.754+01:00",
+      "aan": "historian",
+      "vraag": "Bevat het archief meetlogboeken van de leylijnwacht met het uur per meting, of alleen brieven? Zijn er lijnsterktemetingen met tijdstip op dag 18, 22, 26, 30, 34 of 38, en vallen die tussen 04:15 en 04:45?",
+      "reden": "De archmage heeft geen ARC-metingen op de dagen van het 4-daagse ritme en kan de tijden van ARC-015 en ARC-071 niet leveren, dus het archief is de enige bron die dit nog kan toetsen. Het antwoord bepaalt of het ritme van de beast_master en oracle tegen metingen getoetst kan worden.",
+      "open_vragen": [
+        "Wat deed het datanet op dag 13–14 en dag 41–42, en was het op eigen maat afgesteld (ARC-106)? ENG-063, ENG-081 en ENG-099 tonen geen afstelling, en de historian vindt ARC-106 niet in het archief.",
+        "Op welk tijdstip zijn ARC-015 (dag 14) en ARC-071 (dag 42) gemeten, en is er een meting van het net in diezelfde uren? De archmage kan het uur niet leveren (ARC-015, ARC-071).",
+        "Is er een meetlogboek met het uur per meting (vraag archmage, ARC-001 t/m ARC-084)?",
+        "Komt de 28-dagen-tussentijd tussen dag 14 en dag 42 terug in een andere bron? Het archief steunt die tussentijd niet (HIS-106).",
+        "Vallen de onrustmomenten en zware nachten van dag 18 t/m 38 echt samen tussen 04:15 en 04:45 (BEA-037 t/m BEA-083, ORA-118 t/m ORA-138), en zijn er nachten met onrust op dag 11 t/m 13? De beast_master en oracle hebben dit nog niet bevestigd (BEA-091, ORA-142).",
+        "Veroorzaakte het datanet de lijnendips op dag 14 en dag 42, of ligt de oorzaak elders? De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115), zonder meting van het net.",
+        "Hangt de Wachtsterren-conjunctie op dag 33 (ARC-111) samen met de dips? De oracle ziet die niet in het ritme (ORA-133, ORA-134).",
+        "Is de opening op dag 22 gebeurd om 04:15 of om 01:50, en is HIS-053 dezelfde gebeurtenis als GUA-043? Het archief en de guardian_keeper spreken elkaar tegen (HIS-053, GUA-115).",
+        "Is GUA-115 (01:50) een melding van de wachters die later is vastgelegd, of het tijdstip van de opening zelf (vraag historian, GUA-115)?",
+        "Zijn de openingen van binnenuit op dag 10 (GUA-019) en dag 22 (GUA-043) gelijktijdig met een lijndip of onrust van het woud? De guardian_keeper vindt geen samenval met ARC-015 of ARC-071."
+      ],
+      "hypothese": {
+        "ingreep": "Omstreden: het datanet werd mogelijk op eigen maat afgesteld rond dag 14 en dag 42 (ARC-106, ARC-109, ARC-112, ARC-116). ENG-063, ENG-081 en ENG-099 tonen geen hulpslag-afstelling op die dagen, en ARC-106 is niet in de bron van de engineer of historian te vinden.",
+        "mechanisme": "Onbekend. De openingen van binnenuit op dag 10 en 22 (GUA-019, GUA-043) met intacte zegels (GUA-019, GUA-044) verklaren geen lijndip (ARC-015, ARC-071). De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115) zonder meting van het net.",
+        "verloop": "Twee lijndips van gelijke omvang op dag 14 en dag 42 voor zonsopgang (ARC-015, ARC-071), maar het archief steunt de 28-dagen-tussentijd niet (HIS-106). Een 4-daags onrustritme van dag 10 tot 42 staat in de dagboeken van de beast_master en oracle (BEA-019 t/m BEA-091, ORA-110 t/m ORA-142), maar is nog niet in ARC-metingen bevestigd."
+      }
+    },
+    {
+      "nr": 30,
+      "ronde": 2,
+      "spreker": "historian",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:26:11.048+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "meting"
+      },
+      "pad": "https://mcp.findingsolutions.be/historian/mcp",
+      "in_antwoord_op": 29
+    },
+    {
+      "nr": 31,
+      "ronde": 2,
+      "spreker": "historian",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:26:11.050+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "leylijn"
+      },
+      "pad": "https://mcp.findingsolutions.be/historian/mcp",
+      "in_antwoord_op": 29
+    },
+    {
+      "nr": 32,
+      "ronde": 2,
+      "spreker": "historian",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:26:11.052+01:00",
+      "tool": "zoek_betekenis",
+      "argumenten": {
+        "vraag": "meetlogboek leylijnwacht lijnsterkte meting met tijdstip",
+        "aantal": 8
+      },
+      "pad": "https://mcp.findingsolutions.be/historian/mcp",
+      "in_antwoord_op": 29
+    },
+    {
+      "nr": 33,
+      "ronde": 2,
+      "spreker": "historian",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T10:26:11.053+01:00",
+      "tekst": "**Waarneming:** Nee, mijn bron bevat geen meetlogboek van de leylijnwacht. Zoeken op \"meting\" levert geen treffers op, en \"leylijn\" geeft alleen HIS-102, HIS-106, HIS-107 en de kroniek van dag 26 (HIS-117). Er zijn dus geen lijnsterktemetingen met tijdstip, ook niet op dag 18, 22, 26, 30, 34 of 38.\n\nOp dag 22 staan wel twee records rond de Burchtader, maar geen van beide is een meting:\n- HIS-053: lek bij poort oost, gebeurd dag 22 04:15, vastgelegd dag 22 01:50.\n- HIS-054: ochtendgebed bij de Burchtader, gebeurd dag 22 05:00, vastgelegd dag 22 07:25.\n\n**Interpretatie:** Het archief kan het 4-daagse ritme van de beast_master en oracle niet toetsen. Het kan ook de tijden van ARC-015 en ARC-071 niet leveren, omdat die niet in mijn bron staan.\n\n**Integriteit:** Het enige record in het 04:15–04:45-venster op dag 22 is HIS-053, en die heeft een vastleggingsfout (HIS-103 zegt het tegendeel). Mijn bron kan dus niet bevestigen dat er op dag 22 iets in dat venster gebeurde.\n\n**Ik weet niet:** of de leylijnwacht een apart logboek bijhoudt dat niet in het archief is opgenomen.\n\n**Open vraag aan de archmage:** Waar zijn de ruwe meetwaarden van ARC-001 t/m ARC-084 opgeslagen, met het uur van elke meting?",
+      "in_antwoord_op": 29,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "engineer",
+        "guardian_keeper",
+        "oracle"
+      ],
+      "context_beurten": [
+        4,
+        7,
+        12,
+        15,
+        18,
+        21,
+        24,
+        28
+      ]
+    },
+    {
+      "nr": 34,
+      "ronde": 2,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T10:26:29.600+01:00",
+      "aan": "guardian_keeper",
+      "vraag": "Zijn er op dag 18, 26, 30, 34 of 38, voor zonsopgang, openingen, lekken of meldingen van de burchtschilden, vergelijkbaar met GUA-019 (dag 10) en GUA-043 (dag 22)? Let ook op GUA-106, dat de poortposten van 03:00 tot 06:00 zonder ronde noemt.",
+      "reden": "Het 4-daagse ritme staat alleen in de dagboeken van de beast_master en oracle (BEA-019 t/m BEA-091, ORA-110 t/m ORA-142) en is nog niet in ARC-metingen bevestigd. De guardian_keeper is de enige nog niet getoetste bron met meldingen rond de burcht en kan het ritme onafhankelijk toetsen.",
+      "open_vragen": [
+        "Wat deed het datanet op dag 13–14 en dag 41–42, en was het op eigen maat afgesteld (ARC-106)? ENG-063, ENG-081 en ENG-099 tonen geen afstelling, en de historian vindt ARC-106 niet in het archief.",
+        "Op welk tijdstip zijn ARC-015 (dag 14) en ARC-071 (dag 42) gemeten? De archmage kan het uur niet leveren, en de historian heeft geen meetlogboek gevonden (HIS-035, HIS-036).",
+        "Komt de 28-dagen-tussentijd tussen dag 14 en dag 42 terug in een andere bron? Het archief steunt die tussentijd niet (HIS-106).",
+        "Bestaan er ARC-metingen op dag 18, 22, 26, 30, 34 of 38? De archmage heeft alleen wekelijkse metingen (ARC-001 t/m ARC-084), dus het 4-daagse ritme kan niet met lijnsterkte getoetst worden.",
+        "Vallen de onrustmomenten en zware nachten van dag 18 t/m 38 echt samen tussen 04:15 en 04:45, en zijn er nachten met onrust op dag 11 t/m 13? De beast_master en oracle hebben dit nog niet onafhankelijk bevestigd (BEA-091, ORA-142).",
+        "Veroorzaakte het datanet de lijnendips op dag 14 en dag 42, of ligt de oorzaak elders? De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115), zonder meting van het net.",
+        "Hangt de Wachtsterren-conjunctie op dag 33 (ARC-111) samen met de dips? De oracle ziet die niet in het ritme (ORA-133, ORA-134), en er zijn geen dips op dag 21 t/m 35 (ARC-029, ARC-043, ARC-057).",
+        "Is de opening op dag 22 gebeurd om 04:15 of om 01:50? HIS-053 (vastgelegd 01:50, gebeurd 04:15) en GUA-115 (01:50) spreken elkaar tegen, en HIS-103 belooft gelijke tijden.",
+        "Zijn de openingen van binnenuit op dag 10 (GUA-019) en dag 22 (GUA-043) gelijktijdig met een lijndip of onrust van het woud? De guardian_keeper vindt geen samenval met ARC-015 of ARC-071."
+      ],
+      "hypothese": {
+        "ingreep": "Omstreden: het datanet werd mogelijk op eigen maat afgesteld rond dag 14 en dag 42 (ARC-106, ARC-109, ARC-112, ARC-116). ENG-063, ENG-081 en ENG-099 tonen geen hulpslag-afstelling op die dagen, en ARC-106 is niet in de bron van de engineer of historian te vinden.",
+        "mechanisme": "Onbekend. De openingen van binnenuit op dag 10 en 22 (GUA-019, GUA-043) met intacte zegels (GUA-019, GUA-044) verklaren geen lijndip (ARC-015, ARC-071). De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115), maar er is geen meting van het net.",
+        "verloop": "Twee lijndips van gelijke omvang op dag 14 en dag 42 voor zonsopgang (ARC-015, ARC-071). De 28-dagen-tussentijd wordt door het archief niet gesteund (HIS-106). Een 4-daags onrustritme van dag 10 tot 42 staat in de dagboeken van de beast_master en oracle (BEA-019 t/m BEA-091, ORA-110 t/m ORA-142), maar is nog niet met ARC-metingen of een onafhankelijke bron bevestigd."
+      }
+    },
+    {
+      "nr": 35,
+      "ronde": 2,
+      "spreker": "guardian_keeper",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:26:43.899+01:00",
+      "tool": "zoek",
+      "argumenten": {
+        "term": "geopend"
+      },
+      "pad": "https://mcp.findingsolutions.be/guardian_keeper/mcp",
+      "in_antwoord_op": 34
+    },
+    {
+      "nr": 36,
+      "ronde": 2,
+      "spreker": "guardian_keeper",
+      "soort": "toolcall",
+      "tijdstip": "2026-11-24T10:26:43.901+01:00",
+      "tool": "toon",
+      "argumenten": {
+        "ids": [
+          "GUA-035",
+          "GUA-036",
+          "GUA-037",
+          "GUA-038",
+          "GUA-052",
+          "GUA-053",
+          "GUA-054",
+          "GUA-063",
+          "GUA-064",
+          "GUA-065",
+          "GUA-066",
+          "GUA-067",
+          "GUA-068",
+          "GUA-073",
+          "GUA-075",
+          "GUA-076",
+          "GUA-077",
+          "GUA-078"
+        ]
+      },
+      "pad": "https://mcp.findingsolutions.be/guardian_keeper/mcp",
+      "in_antwoord_op": 34
+    },
+    {
+      "nr": 37,
+      "ronde": 2,
+      "spreker": "guardian_keeper",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T10:26:43.903+01:00",
+      "tekst": "**Waarneming:** Nee. Mijn wachtrapporten bevatten voor dag 18, 26, 30, 34 en 38 geen opening, lek of melding van de schilden vóór zonsopgang. De dichtstbijzijnde entries zijn GUA-035 (dag 18, 23:30, poort oost, in orde), GUA-051 (dag 26, 23:50, nachtronde, rustig), GUA-059 (dag 30, 02:30, rustig), GUA-067 (dag 34, 01:45, rustig) en GUA-075 (dag 38, 22:40, fakkels). Op dag 38 staat voor zonsopgang niets.\n\nIn het hele wachtrapport staan na 03:00 alleen drie entries: GUA-019 (dag 10, 04:47), GUA-043 (dag 22, 04:15) en GUA-044 (dag 22, 04:30). Dat komt overeen met GUA-106, dat de poortposten van 03:00 tot 06:00 zonder ronde laat.\n\n**Interpretatie:** Het ritme van de beast_master en oracle is dus niet in mijn rapporten terug te vinden. Maar GUA-106 maakt die stilte zwak bewijs: een opening in dat venster wordt pas later en niet door een ronde gemeld. Mijn stelling dat het schild \"in orde\" is, geldt dus niet voor die uren.\n\n**Tegenspraak:** GUA-116 spreekt van twee openingen op dag 23. Die staat niet in het wachtrapport.\n\n**Ik weet niet:** of de dieren en de oracle in dezelfde uren wakker waren als de posten.\n\n**Open vraag aan de beast_master:** Vielen je onrustmomenten op dag 18 t/m 38 binnen de uren waarin GUA-106 geen ronde voorschrijft, en wat was de toestand van de post op die momenten?",
+      "in_antwoord_op": 34,
+      "ontvangers": [
+        "koning",
+        "archmage",
+        "beast_master",
+        "engineer",
+        "historian",
+        "oracle"
+      ],
+      "context_beurten": [
+        4,
+        7,
+        12,
+        15,
+        18,
+        21,
+        24,
+        28,
+        33
+      ]
+    },
+    {
+      "nr": 38,
+      "ronde": 2,
+      "spreker": "koning",
+      "soort": "routering",
+      "tijdstip": "2026-11-24T10:26:43.906+01:00",
+      "aan": null,
+      "vraag": null,
+      "reden": "Beurtenbudget op (10 Raadslid-beurten)",
+      "open_vragen": [
+        "Wat deed het datanet op dag 13–14 en dag 41–42, en was het op eigen maat afgesteld (ARC-106)? ENG-063, ENG-081 en ENG-099 tonen geen afstelling, en de historian vindt ARC-106 niet in het archief.",
+        "Op welk tijdstip zijn ARC-015 (dag 14) en ARC-071 (dag 42) gemeten? De archmage kan het uur niet leveren, en de historian heeft geen meetlogboek gevonden (HIS-035, HIS-036).",
+        "Komt de 28-dagen-tussentijd tussen dag 14 en dag 42 terug in een andere bron? Het archief steunt die tussentijd niet (HIS-106).",
+        "Bestaan er ARC-metingen op dag 18, 22, 26, 30, 34 of 38? De archmage heeft alleen wekelijkse metingen (ARC-001 t/m ARC-084), dus het 4-daagse ritme kan niet met lijnsterkte getoetst worden.",
+        "Vallen de onrustmomenten en zware nachten van dag 18 t/m 38 echt samen tussen 04:15 en 04:45, en zijn er nachten met onrust op dag 11 t/m 13? De beast_master en oracle hebben dit nog niet onafhankelijk bevestigd (BEA-091, ORA-142).",
+        "Veroorzaakte het datanet de lijnendips op dag 14 en dag 42, of ligt de oorzaak elders? De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115), zonder meting van het net.",
+        "Hangt de Wachtsterren-conjunctie op dag 33 (ARC-111) samen met de dips? De oracle ziet die niet in het ritme (ORA-133, ORA-134), en er zijn geen dips op dag 21 t/m 35 (ARC-029, ARC-043, ARC-057).",
+        "Is de opening op dag 22 gebeurd om 04:15 of om 01:50? HIS-053 (vastgelegd 01:50, gebeurd 04:15) en GUA-115 (01:50) spreken elkaar tegen, en HIS-103 belooft gelijke tijden.",
+        "Zijn de openingen van binnenuit op dag 10 (GUA-019) en dag 22 (GUA-043) gelijktijdig met een lijndip of onrust van het woud? De guardian_keeper vindt geen samenval met ARC-015 of ARC-071."
+      ],
+      "hypothese": {
+        "ingreep": "Omstreden: het datanet werd mogelijk op eigen maat afgesteld rond dag 14 en dag 42 (ARC-106, ARC-109, ARC-112, ARC-116). ENG-063, ENG-081 en ENG-099 tonen geen hulpslag-afstelling op die dagen, en ARC-106 is niet in de bron van de engineer of historian te vinden.",
+        "mechanisme": "Onbekend. De openingen van binnenuit op dag 10 en 22 (GUA-019, GUA-043) met intacte zegels (GUA-019, GUA-044) verklaren geen lijndip (ARC-015, ARC-071). De beast_master wijst de nieuwe kabels aan (BEA-109, BEA-115), maar er is geen meting van het net.",
+        "verloop": "Twee lijndips van gelijke omvang op dag 14 en dag 42 voor zonsopgang (ARC-015, ARC-071). De 28-dagen-tussentijd wordt door het archief niet gesteund (HIS-106). Een 4-daags onrustritme van dag 10 tot 42 staat in de dagboeken van de beast_master en oracle (BEA-019 t/m BEA-091, ORA-110 t/m ORA-142), maar is nog niet met ARC-metingen of een onafhankelijke bron bevestigd."
+      }
+    },
+    {
+      "nr": 39,
+      "ronde": 3,
+      "spreker": "koning",
+      "soort": "bericht",
+      "tijdstip": "2026-11-24T10:27:48.522+01:00",
+      "tekst": "{\n  \"verdict\": {\n    \"run_id\": \"2026-11-24T10:21:36+01:00_26735bf9\",\n    \"samenvatting\": \"Volgens de archmage lagen de leylijnen op dag 14 en dag 42 voor alle lijnen laag (ARC-015, ARC-071), terwijl de metingen op dag 21, 28 en 35 normaal waren. De oorzaak is niet vastgesteld. Het datanet is niet bewezen als oorzaak: de engineer vindt geen hulpslag-afstelling op die dagen (ENG-063, ENG-081, ENG-099), de historian vindt geen afstelling in het archief en steunt de 28-dagen-tussentijd niet (HIS-106). Het 4-daagse onrustritme van beast_master en oracle is niet met lijnmetingen getoetst. Er zijn tijdstempels die niet kloppen (HIS-035, HIS-036, HIS-053), en de meetuur van ARC-015 en ARC-071 is onbekend. Het herstel begint daarom met onderzoek, niet met een ingreep in het datanet.\",\n    \"oorzaak\": {\n      \"ingreep\": {\n        \"bewering\": null,\n        \"bewijs\": [],\n        \"zekerheid\": 0\n      },\n      \"mechanisme\": {\n        \"bewering\": null,\n        \"bewijs\": [],\n        \"zekerheid\": 0\n      },\n      \"verloop\": {\n        \"bewering\": \"Op dag 14 en dag 42 was de lijnsterkte volgens de archmage voor alle veertien lijnen laag (3.1–4.8), met een stokking van de Burchtader. Op de wekelijkse metingen van dag 21, 28 en 35 was de sterkte normaal (7.0–8.7). De twee episodes liggen 28 dagen uit elkaar; of dat een patroon is, is niet door een tweede bron bevestigd en het archief steunt de tussentijd niet (HIS-106). Het meettijdstip van de dips is onbekend (ARC-015, ARC-071). De archmage noemt de episodes voor zonsopgang (ARC-109, ARC-116).\",\n        \"bewijs\": [\n          \"ARC-015\",\n          \"ARC-028\",\n          \"ARC-071\",\n          \"ARC-084\",\n          \"ARC-029\",\n          \"ARC-043\",\n          \"ARC-057\",\n          \"ARC-109\",\n          \"ARC-116\",\n          \"HIS-106\"\n        ],\n        \"zekerheid\": 0.6\n      }\n    },\n    \"acties\": [\n      {\n        \"actie\": \"Archmage: leg het meettijdstip van ARC-015 (dag 14) en ARC-071 (dag 42) vast, en of dat het moment van het gebeurde of van de vastlegging is. Lever de ruwe meetwaarden met uur per meting aan.\",\n        \"reden\": \"Zonder meetuur kunnen de dips niet naast de datanet-logs of de dierlijke en oracle-onrust worden gelegd. HIS-036 en HIS-035 tonen dat vastleggingstijden afwijken.\",\n        \"bewijs\": [\n          \"ARC-015\",\n          \"ARC-071\",\n          \"HIS-036\"\n        ]\n      },\n      {\n        \"actie\": \"Engineer: lever het volledige datanet-logboek van dag 13–14 en dag 41–42 met tijdstempels, inclusief de uren voor 07:45 (dag 42) en voor 17:15 (dag 14). Meld of de afstelling op eigen maat (ARC-106) in de logs ontbreekt of in een andere bron zit.\",\n        \"reden\": \"De logs tonen geen hulpslag-afstelling, maar de eerste entries op die dagen liggen na het venster voor zonsopgang. Alleen het volledige logboek kan de hypothese van het datanet bevestigen of weerleggen.\",\n        \"bewijs\": [\n          \"ENG-063\",\n          \"ENG-081\",\n          \"ENG-099\",\n          \"ARC-106\"\n        ]\n      },\n      {\n        \"actie\": \"Historian: controleer de tijdstempels van HIS-035, HIS-036, HIS-053 en HIS-054 tegen de ruwe bron, en corrigeer de afwijkingen die in strijd zijn met de belofte van gelijke gebeurd- en vastleggingstijden.\",\n        \"reden\": \"HIS-103 belooft gelijke tijden, maar meerdere records wijken af. Zonder correctie is de volgorde van gebeurtenissen niet betrouwbaar.\",\n        \"bewijs\": [\n          \"HIS-103\",\n          \"HIS-035\",\n          \"HIS-036\",\n          \"HIS-053\",\n          \"HIS-054\"\n        ]\n      },\n      {\n        \"actie\": \"Guardian Keeper: bevestig of GUA-115 (01:50) een melding of het tijdstip van de opening is, en controleer of de twee openingen op dag 23 (GUA-116) in het wachtrapport staan.\",\n        \"reden\": \"GUA-115 spreekt van een melding vóór de opening van 04:15 (GUA-043), en GUA-116 noemt openingen die niet in de wachtrapporten staan. Dit is nodig om de burchtschilden te toetsen.\",\n        \"bewijs\": [\n          \"GUA-115\",\n          \"GUA-043\",\n          \"GUA-116\"\n        ]\n      },\n      {\n        \"actie\": \"Beast_master en oracle: noteer per nacht met tijd of er onrust of zware nacht was voor dag 11–13 en dag 18–38, ook op de nachten zonder onrust.\",\n        \"reden\": \"Het 4-daagse ritme staat alleen in de dagboeken van de beast_master en oracle en is nog niet onafhankelijk bevestigd. Ontbrekende nachten zijn niet als afwezigheid van onrust te lezen.\",\n        \"bewijs\": [\n          \"BEA-091\",\n          \"ORA-142\"\n        ]\n      },\n      {\n        \"actie\": \"Archmage: meet de lijnsterkte op dag 18, 22, 26, 30, 34 en 38, in het venster 04:00–06:00, en op de tussenliggende dagen 11–13 als dat mogelijk is.\",\n        \"reden\": \"De wekelijkse metingen kunnen het 4-daagse ritme niet toetsen. Pas dan is vast te stellen of de dips aan een ritme gebonden zijn.\",\n        \"bewijs\": [\n          \"BEA-037\",\n          \"BEA-083\",\n          \"ORA-118\",\n          \"ORA-138\"\n        ]\n      },\n      {\n        \"actie\": \"Guardian Keeper: stel als tussenmaatregel een extra ronde in van 03:00 tot 06:00 bij de poorten, zonder daaraan een oorzaak te verbinden.\",\n        \"reden\": \"GUA-106 meldt dat de poortposten in dit venster zonder ronde zijn, en de openingen van binnenuit op dag 10 en 22 zijn daar niet gemeld. Dit is omkeerbaar en vergt geen oorzaak.\",\n        \"bewijs\": [\n          \"GUA-106\",\n          \"GUA-019\",\n          \"GUA-043\",\n          \"GUA-044\"\n        ]\n      },\n      {\n        \"actie\": \"Engineer en archmage: beslis pas over een afstelling van het datanet nadat stap 1 tot en met 6 een uurgebonden verband tussen net en lijndips heeft getoond of uitgesloten.\",\n        \"reden\": \"Er is nu geen bewijs dat het datanet de dips veroorzaakte. De enige geregistreerde verstoring (ENG-107, dag 10) valt niet op de dips-dagen.\",\n        \"bewijs\": [\n          \"ENG-107\"\n        ]\n      }\n    ],\n    \"risicos\": [\n      {\n        \"risico\": \"Het datanet wordt ten onrechte als oorzaak aangewezen en onnodig afgesteld, terwijl de oorzaak elders ligt.\",\n        \"mitigatie\": \"Geen afstelling vóór het uurgebonden verband is getoetst (stap 1 tot en met 6). Beslissingen worden genomen op ruwe logs, niet op brieven.\"\n      },\n      {\n        \"risico\": \"Vastleggingsfouten in de archieftijden (bijvoorbeeld HIS-036, vastgelegd vóór het gebeurde) verschuiven de volgorde van gebeurtenissen en geven een schijnverband.\",\n        \"mitigatie\": \"Gebruik de ruwe bronnen met tijdstempels en corrigeer HIS-035, HIS-036, HIS-053 en HIS-054 voordat ze worden gekoppeld.\"\n      },\n      {\n        \"risico\": \"Openingen van binnenuit in het venster 03:00–06:00 blijven ongezien, omdat de poortposten daar geen ronde lopen (GUA-106).\",\n        \"mitigatie\": \"Tijdelijk een extra ronde in dat venster, en registratie van alle openingen met tijdstip.\"\n      },\n      {\n        \"risico\": \"Bevooroordeelde lezingen: de archmage schreef de brieven die het datanet aanwijzen, de beast_master was zelf in het woud op de onrustmomenten, de oracle heeft een voorkeur voor een hemelse verklaring, en de engineer bouwde de hulpslag.\",\n        \"mitigatie\": \"Metingen en logs worden door een andere Rol getoetst dan degene die ze heeft geschreven of geïnterpreteerd.\"\n      }\n    ]\n  },\n  \"geschillen\": [\n    {\n      \"onderwerp\": \"Oorzaak van de lijndips op dag 14 en dag 42: het datanet of elders\",\n      \"standpunten\": {\n        \"archmage\": \"Het datanet tast de leylijnen aan en is waarschijnlijk op eigen maat afgesteld rond dag 14 en 42 (ARC-106, ARC-109, ARC-112, ARC-116).\",\n        \"engineer\": \"De logs tonen op die dagen geen hulpslag-afstelling (ENG-063, ENG-081, ENG-099). Het enige verstoringsincident is ENG-107 op dag 10, en dat valt niet op de dips-dagen. Het datanet is volgens de engineer niet de aantoonbare oorzaak.\"\n      },\n      \"uitkomst\": null,\n      \"bewijs\": [\n        \"ARC-109\",\n        \"ARC-112\",\n        \"ARC-116\",\n        \"ENG-063\",\n        \"ENG-081\",\n        \"ENG-099\",\n        \"ENG-107\"\n      ]\n    },\n    {\n      \"onderwerp\": \"Oorzaak van de onrust in het woud: de nieuwe kabels of niet\",\n      \"standpunten\": {\n        \"beast_master\": \"De nieuwe kabels zijn waarschijnlijk de oorzaak van de onrust (BEA-109, BEA-115), maar dat is de eigen lezing van de beast_master en niet met een meting van het net bevestigd.\",\n        \"historian\": \"De kabels zijn niet gewijzigd volgens het archief (HIS-105, HIS-014). Het archief steunt de nieuwe kabels als oorzaak dus niet.\"\n      },\n      \"uitkomst\": null,\n      \"bewijs\": [\n        \"BEA-109\",\n        \"BEA-115\",\n        \"HIS-105\",\n        \"HIS-014\"\n      ]\n    },\n    {\n      \"onderwerp\": \"Het ritme van de verstoringen: 28-dagen-tussentijd of 4-daags ritme\",\n      \"standpunten\": {\n        \"archmage\": \"De dips op dag 14 en 42 liggen 28 dagen uit elkaar. Het 4-daagse ritme kan niet getoetst worden, omdat er geen ARC-metingen op de andere dagen zijn.\",\n        \"beast_master\": \"De onrust komt elke vierde dag voor, van dag 10 tot en met dag 42 (BEA-019, BEA-091). De 28-dagen-tussentijd is een onderdeel van dat ritme.\",\n        \"oracle\": \"Het 4-daagse ritme staat in het dagboek (ORA-110, ORA-142). De conjunctie op dag 33 past er niet in, en de eerdere claim dat de conjunctie de nachten veroorzaakt, is de eigen latere uitleg van de oracle zonder bewijs.\",\n        \"historian\": \"Het archief vindt geen eerdere dip met een tussentijd van 28 dagen en geen stokking van de leylijnen in 23 jaar datanet (HIS-106).\"\n      },\n      \"uitkomst\": null,\n      \"bewijs\": [\n        \"ARC-015\",\n        \"ARC-071\",\n        \"BEA-019\",\n        \"BEA-091\",\n        \"ORA-110\",\n        \"ORA-142\",\n        \"HIS-106\"\n      ]\n    }\n  ]\n}"
+    }
+  ],
+  "geschillen": [
+    {
+      "onderwerp": "Oorzaak van de lijndips op dag 14 en dag 42: het datanet of elders",
+      "standpunten": {
+        "archmage": "Het datanet tast de leylijnen aan en is waarschijnlijk op eigen maat afgesteld rond dag 14 en 42 (ARC-106, ARC-109, ARC-112, ARC-116).",
+        "engineer": "De logs tonen op die dagen geen hulpslag-afstelling (ENG-063, ENG-081, ENG-099). Het enige verstoringsincident is ENG-107 op dag 10, en dat valt niet op de dips-dagen. Het datanet is volgens de engineer niet de aantoonbare oorzaak."
+      },
+      "uitkomst": null,
+      "bewijs": [
+        "ARC-109",
+        "ARC-112",
+        "ARC-116",
+        "ENG-063",
+        "ENG-081",
+        "ENG-099",
+        "ENG-107"
+      ]
+    },
+    {
+      "onderwerp": "Oorzaak van de onrust in het woud: de nieuwe kabels of niet",
+      "standpunten": {
+        "beast_master": "De nieuwe kabels zijn waarschijnlijk de oorzaak van de onrust (BEA-109, BEA-115), maar dat is de eigen lezing van de beast_master en niet met een meting van het net bevestigd.",
+        "historian": "De kabels zijn niet gewijzigd volgens het archief (HIS-105, HIS-014). Het archief steunt de nieuwe kabels als oorzaak dus niet."
+      },
+      "uitkomst": null,
+      "bewijs": [
+        "BEA-109",
+        "BEA-115",
+        "HIS-105",
+        "HIS-014"
+      ]
+    },
+    {
+      "onderwerp": "Het ritme van de verstoringen: 28-dagen-tussentijd of 4-daags ritme",
+      "standpunten": {
+        "archmage": "De dips op dag 14 en 42 liggen 28 dagen uit elkaar. Het 4-daagse ritme kan niet getoetst worden, omdat er geen ARC-metingen op de andere dagen zijn.",
+        "beast_master": "De onrust komt elke vierde dag voor, van dag 10 tot en met dag 42 (BEA-019, BEA-091). De 28-dagen-tussentijd is een onderdeel van dat ritme.",
+        "oracle": "Het 4-daagse ritme staat in het dagboek (ORA-110, ORA-142). De conjunctie op dag 33 past er niet in, en de eerdere claim dat de conjunctie de nachten veroorzaakt, is de eigen latere uitleg van de oracle zonder bewijs.",
+        "historian": "Het archief vindt geen eerdere dip met een tussentijd van 28 dagen en geen stokking van de leylijnen in 23 jaar datanet (HIS-106)."
+      },
+      "uitkomst": null,
+      "bewijs": [
+        "ARC-015",
+        "ARC-071",
+        "BEA-019",
+        "BEA-091",
+        "ORA-110",
+        "ORA-142",
+        "HIS-106"
+      ]
+    }
+  ],
+  "verbruik": {
+    "groot": {
+      "beurten": 11,
+      "invoer": 126863,
+      "gecached": 0,
+      "uitvoer": 40288
+    },
+    "klein": {
+      "beurten": 10,
+      "invoer": 375607,
+      "gecached": 0,
+      "uitvoer": 31149
+    }
+  },
+  "aan_het_woord": null
+}
