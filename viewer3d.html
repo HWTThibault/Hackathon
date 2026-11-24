@@ -1,0 +1,608 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Council of Achrona 3D</title>
+<style>
+  /* Eén donkere raadzaal: bewust enkel donker thema, alle kleuren expliciet. */
+  :root { color-scheme: dark; --grond: #0b0c14; --tekst: #e9eaf3; --zacht: #8d92ad; --accent: #a893ff; --paneel: rgba(22, 24, 38, .72); --lijn: rgba(168, 147, 255, .28); }
+  [hidden] { display: none !important; }
+  html, body { margin: 0; height: 100%; background: var(--grond); color: var(--tekst); overflow: hidden; font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  canvas { display: block; touch-action: none; cursor: grab; }
+  canvas:active { cursor: grabbing; }
+  .budget { position: fixed; top: calc(18px + env(safe-area-inset-top, 0px)); left: max(18px, env(safe-area-inset-left, 0px)); display: flex; gap: 7px; }
+  .budget i { width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid var(--lijn); transition: background .4s, border-color .4s, box-shadow .4s; }
+  .budget i.vol { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px var(--accent); }
+  .knoppen { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 8px; padding: 6px; border-radius: 999px; background: var(--paneel); border: 1px solid var(--lijn); backdrop-filter: blur(8px); }
+  .knoppen button { width: 40px; height: 40px; border-radius: 50%; border: 0; background: transparent; color: var(--tekst); display: grid; place-items: center; cursor: pointer; font: 600 13px/1 system-ui, sans-serif; }
+  .knoppen a { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: var(--tekst); }
+  .knoppen button:hover, .knoppen a:hover { background: rgba(168, 147, 255, .16); }
+  .knoppen a:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .knoppen button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .knoppen svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .tip { position: fixed; pointer-events: none; padding: 4px 10px; border-radius: 999px; background: var(--paneel); border: 1px solid var(--lijn); font-weight: 600; transform: translate(-50%, -140%); white-space: nowrap; }
+  .melding { position: fixed; inset: 0; display: grid; place-items: center; color: var(--zacht); }
+  .knoppen button[aria-pressed="false"] { opacity: .5; }
+  /* Tekstpaneel: wat er op dit moment gezegd wordt */
+  .paneel { position: fixed; top: calc(50px + env(safe-area-inset-top, 0px)); right: max(18px, env(safe-area-inset-right, 0px)); width: min(400px, calc(100vw - 36px));
+    max-height: calc(100vh - 150px); overflow-y: auto; background: var(--paneel); border: 1px solid var(--lijn); border-radius: 16px; backdrop-filter: blur(10px);
+    padding: 14px 16px; display: grid; gap: 10px; transition: opacity .35s; }
+  .paneel:empty { display: none; }
+  @media (max-width: 720px) { .paneel { top: auto; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); max-height: 42vh; } }
+  .kop { display: flex; align-items: center; gap: 8px; font-weight: 650; flex-wrap: wrap; }
+  .kop .pijl { color: var(--zacht); font-weight: 400; }
+  .kop .nr { margin-left: auto; color: var(--zacht); font-weight: 400; font-size: 12px; }
+  .av { width: 28px; height: 28px; border-radius: 50%; display: inline-grid; place-items: center; flex: none; color: var(--k);
+    background: color-mix(in srgb, var(--k) 18%, #151725); border: 1.5px solid color-mix(in srgb, var(--k) 55%, transparent); }
+  .av svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .vraag { font-size: 15px; }
+  .reden { color: var(--zacht); font-size: 13px; }
+  .reden b { color: var(--tekst); font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font: 12px/1.4 ui-monospace, Consolas, monospace; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--lijn); color: var(--zacht); overflow-wrap: anywhere; }
+  .chip b { color: var(--tekst); font-weight: 600; }
+  .tekst { font-size: 13.5px; line-height: 1.55; overflow-wrap: anywhere; border-left: 3px solid var(--k); padding-left: 10px; }
+  .id { font: 600 11.5px/1.5 ui-monospace, Consolas, monospace; padding: 0 5px; border-radius: 5px; color: var(--k);
+    background: color-mix(in srgb, var(--k) 16%, transparent); border: 1px solid color-mix(in srgb, var(--k) 40%, transparent); white-space: nowrap; }
+  .label { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--zacht); font-weight: 650; }
+  .deel { display: grid; gap: 3px; font-size: 13px; }
+  .zeker { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; font-size: 11.5px; color: var(--zacht); font-variant-numeric: tabular-nums; }
+  .zeker i { height: 4px; border-radius: 2px; background: rgba(255,255,255,.1); overflow: hidden; display: block; }
+  .zeker i span { display: block; height: 100%; background: var(--accent); }
+  .dag { font-size: 26px; font-weight: 700; color: var(--accent); }
+  .paneel ol { margin: 0; padding-left: 18px; font-size: 13px; display: grid; gap: 4px; }
+  /* Groot scherm of beamer in 4K: alles wat je leest schaalt mee */
+  @media (min-width: 2000px) { .paneel, .knoppen, .budget, .tip { zoom: 1.4; } }
+  @media (min-width: 2800px) { .paneel, .knoppen, .budget, .tip { zoom: 1.9; } }
+  .verschijn { animation: verschijn .45s ease-out; }
+  @keyframes verschijn { from { opacity: 0; transform: translateY(6px); } }
+  @media (prefers-reduced-motion: reduce) { .verschijn { animation: none; } }
+</style>
+
+<div class="budget" id="budget" aria-label="Beurtenbudget"></div>
+<div class="knoppen">
+  <button id="speel" aria-label="Pauzeren"><svg id="speel-ic" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg></button>
+  <button id="opnieuw" aria-label="Opnieuw afspelen"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v5h5"/></svg></button>
+  <button id="tempo" aria-label="Snelheid">1×</button>
+  <a id="naar2d" href="/" aria-label="Volledig debat lezen" title="Volledig debat lezen" hidden><svg viewBox="0 0 24 24"><path d="M4 5h16v12H8l-4 3z"/><path d="M8 9h8M8 13h5"/></svg></a>
+  <button id="foto" aria-label="4K-foto opslaan (3840×2160)" title="4K-foto opslaan" hidden><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></button>
+  <button id="tekstknop" aria-label="Tekst tonen of verbergen" aria-pressed="true"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 11h16M4 16h10"/></svg></button>
+</div>
+<div class="paneel" id="paneel" aria-live="polite"></div>
+<div class="tip" id="tip" hidden></div>
+<div class="melding" id="melding" hidden>3D laden mislukt: geen WebGL of geen internet voor three.js.</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- Bloom-gloed (zelfde three.js-versie); zonder deze bestanden rendert de zaal gewoon zonder gloed -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+<script>
+// Ingebedde run (run 2) als terugval wanneer trace.json niet bereikbaar is.
+const INGEBED_TRACE = {"run_id":"2026-11-24T10:36:44+01:00_8ba9bad8","status":"klaar","raadsleden":["archmage","beast_master","engineer","guardian_keeper","historian","oracle"],"beurten":[{"nr":1,"soort":"routering","spreker":"koning","aan":"engineer","vraag":"Welke afwijkingen ziet u in de logs van het datanet, op welke momenten, en met welke record-ID's?","reden":"Er is nog geen bewijs in het debat. De logs van de datatoren zijn meetbaar en kunnen de eerste concrete tijdlijn van de Desync vastleggen."},{"nr":2,"soort":"toolcall","spreker":"engineer","tool":"lees_kennisbron","argumenten":{}},{"nr":3,"soort":"toolcall","spreker":"engineer","tool":"zoek","argumenten":{"term":"desync"}},{"nr":4,"soort":"toolcall","spreker":"engineer","tool":"zoek","argumenten":{"term":"pakketverlies"}},{"nr":5,"soort":"toolcall","spreker":"engineer","tool":"zoek","argumenten":{"term":"hulpslag"}},{"nr":6,"soort":"toolcall","spreker":"engineer","tool":"zoek","argumenten":{"term":"berichten"}},{"nr":7,"soort":"bericht","spreker":"engineer","tekst":"**Waarneming** (dag en tijd zoals mijn bron ze noteert):\n- Dag 10, 02:40: hulpslag geactiveerd (ENG-011). Om 03:00 +38% doorvoer (ENG-012).\n- Dag 10, 04:50: klacht uit de benedenstad over berichten \"half aangekomen\" (ENG-107). Dit staat alleen in het werkboek, niet in de installatielog.\n- Dag 22, 04:15: drie minuten pakketverlies op poort oost, status fout (ENG-026). Om 04:20 firewallregels aangescherpt (ENG-027).\n- Dag 24, 11:00: hulpslag 5% opgedreven (ENG-029, ENG-062).\n\n**Interpretatie:** ENG-107 volgt ruim twee uur na de activatie. Ik heb het toen als kinderziekte afgedaan zonder het te onderzoeken. Mijn hackerverklaring bij ENG-026 (ENG-110) is niet getoetst. Ik heb een belang bij een andere oorzaak dan de hulpslag, en dat kleurt mijn lezing.\n\n**Tegenspraak:** ENG-120 meldt dat de doorvoer zes dagen later nog 38% hoger ligt. Dat pleit tegen een aanhoudende storing door de hulpslag.\n\n**Niet gedekt:** Mijn bron bevat geen doorvoerlogs of pakketverlies tussen dag 10 en 22, en geen nachtelijke meetpunten. Het woord \"desync\" komt in mijn bron niet voor. Poort west kreeg op dag 11 om 12:15 een vastgezette kabel (ENG-016); die heb ik nog niet onderzocht.\n\n**Open vraag aan de andere Raadsleden:** Kunnen de klachtenregisters uit de benedenstad het tijdstip van dag 10, 04:50 bevestigen?"},{"nr":8,"soort":"routering","spreker":"koning","aan":"beast_master","vraag":"Toont uw waarneming van onrust onder de dieren iets rond dag 10 om 02:40 (ENG-011) en rond dag 22 om 04:15 (ENG-026), en hoe ver vóór die tijdstippen begon het?","reden":"De engineer legt de oorzaak in de hulpslag of in een hackeraanval, maar die verklaring is nog niet onafhankelijk getoetst. De beast_master neemt een verstoring waar aan de dieren, een bron die los staat van de datatoren."},{"nr":9,"soort":"toolcall","spreker":"beast_master","tool":"lees_kennisbron","argumenten":{}},{"nr":10,"soort":"bericht","spreker":"beast_master","tekst":"**Waarneming (dag en tijd zoals in mijn logboek):**\n- **Dag 10:** Geen registratie om 02:40. Het eerste sterke onrust staat om 04:40 (BEA-019, wolf, 4) en 04:50 (BEA-020, hert, 4). Vóór 04:40 staat er op dag 10 niets. De laatste eerdere entry is dag 9, 13:30 (BEA-018, 2).\n- **Dag 22:** 04:15 wolf (BEA-046, 4), 04:20 hert (BEA-047, 4). Op dag 21 om 13:00 was het nog 1 (BEA-045). Sterke onrust vóór 04:15 staat er niet.\n- **Patroon:** Sterke nachtelijke onrust op dag 10, 14, 18, 22, 26, 30, 34, 38 en 42 (om de vier nachten, rond 04:20–04:50). Uitzondering: dag 33 was rustig (BEA-071).\n- **Eerdere lichte onrust:** Dag 3, 08:40, kraai (BEA-005, 1), tien minuten na de mannen bij de oude eik om 08:30 (BEA-102).\n\n**Interpretatie:** Ik kan het tijdstip van 02:40 niet bevestigen. Het patroon is een vaste cyclus, geen eenmalige gebeurtenis. Mijn Belang maakt me geneigd de kabels te verdenken (BEA-109, BEA-115). Dat heb ik niet getoetst.\n\n**Tegenspraak:** De lichte onrust op dag 3 past bij de werkzaamheden, maar de sterke onrust begon pas op dag 10.\n\n**Niet gedekt:** Geen registratie tussen dag 10 02:40 en 04:40. Ik heb geen nachtmetingen buiten de diepe-woudplek en de heuvel.\n\n**Open vraag aan de engineer:** Waren er op dag 14, 18 en 26 rond 04:15–04:35 ingrepen of loggebeurtenissen in het datanet?"},{"nr":11,"soort":"routering","spreker":"koning","aan":"guardian_keeper","vraag":"Heeft u op dag 10 tussen 02:40 en 04:50, of op dag 14, 18 of 22 rond 04:15, een lek, schildbreuk of ingreep rond de burcht geregistreerd, en klopt dat met de sterke nachtelijke onrust van de beast_master (BEA-019, BEA-046)?","reden":"De enige bron voor het nachtelijke ritme is de beast_master, en de engineer heeft zijn logs niet voor dag 10 tot 22 dekking. De guardian_keeper kan onafhankelijk nagaan of er fysieke inbreuken of werkzaamheden op die momenten waren."},{"nr":12,"soort":"toolcall","spreker":"guardian_keeper","tool":"lees_kennisbron","argumenten":{}},{"nr":13,"soort":"bericht","spreker":"guardian_keeper","tekst":"**Waarneming (mijn bron):**\n- **Dag 10, 04:47:** schild benedenstad 2 minuten van binnenuit open. Zegels intact, oorzaak niet vastgesteld (GUA-019, GUA-111). Dit valt binnen uw venster van 02:40 tot 04:50.\n- **Dag 22, 04:15:** schild poort oost 3 minuten van binnenuit open. Buitenzijde: zegels intact, geen sporen van inbraak (GUA-043). Om 04:30 nog intact (GUA-044).\n- **Dag 14 en dag 18 rond 04:15:** geen registratie. Mijn bron heeft voor die nachten niets tussen 23:05/23:30 en de middag erna (GUA-027, GUA-028, GUA-035, GUA-036). Dat is geen bewijs dat er niets gebeurde.\n\n**Interpretatie:** De openingen van dag 10 en dag 22 vallen in de nachtelijke onrust van de beast_master (BEA-019, BEA-046). Of de onrust de opening voorafging of erop volgde, kan ik niet vaststellen. Het tijdstip van dag 22 valt samen met ENG-026 (poort oost, 04:15), een claim van de engineer die ik niet kan toetsen.\n\n**Tegenspraak met mijn Belang:** In GUA-111 schreef ik \"geen reden tot ongerustheid\", en in GUA-116 zei ik zeker te weten dat er een infiltrant is. Mijn bron bevat geen bewijs voor die zekerheid. Ik heb de archiefmelding van 01:50 (GUA-115) ook te snel als slordigheid afgedaan.\n\n**Niet gedekt:** Volgens artikel 5 (GUA-106) zijn er tussen 03:00 en 06:00 geen rondes. Artikel 3 (GUA-104) laat binnenverkeer zonder toets door. Dat kan openingen van binnenuit verklaren, maar niet wie of wat ze veroorzaakte.\n\n**Open vraag aan de engineer:** Staan in uw logs op dag 10 om 04:47 of dag 22 om 04:15 ingrepen op de kroonklok-tik of het binnenverkeer?"},{"nr":14,"soort":"routering","spreker":"koning","aan":"oracle","vraag":"Ziet u in uw visioenen of tekenen een vaste cyclus van vier nachten rond 04:15–04:50, zoals de sterke onrust op dag 10 om 04:40 (BEA-019) en dag 22 om 04:15 (BEA-046) suggereert, en past de reeks dag 10, 14, 18, 22, 26, 30, 34, 38 en 42 (BEA-071 op dag 33 uitgezonderd) in dat patroon?","reden":"Het verloop rust nu op één bron, de beast_master, en moet door een tweede Rol bevestigd worden voordat een voorspelling mogelijk is. De oracle leest patronen in de tijd en kan dit onafhankelijk toetsen."},{"nr":15,"soort":"toolcall","spreker":"oracle","tool":"lees_kennisbron","argumenten":{}},{"nr":16,"soort":"bericht","spreker":"oracle","tekst":"**Antwoord:** Mijn dagboek toont negen zware nachten met een vaste stap van vier dagen. Dat is een patroon in mijn eigen bron, geen bewijs van een oorzaak.\n\n**Waarneming** (ochtendtijd waarop ik wakker werd):\n- Dag 10 04:45 (ORA-110), dag 14 04:20 (ORA-114), dag 18 04:30 (ORA-118), dag 22 04:15 (ORA-122), dag 26 04:35 (ORA-126), dag 30 04:25 (ORA-130), dag 34 04:30 (ORA-134), dag 38 04:20 (ORA-138), dag 42 04:30 (ORA-142).\n- Dag 33 (ORA-133) is een avondnotitie over de conjunctie. Mijn bron logt de nacht van dag 33 op 34 niet als rustig, dus ik kan BEA-071 niet bevestigen of weerleggen.\n- Het tijdstip van dag 10 is in mijn bron 04:45, niet 04:40. Het 04:40 komt uit BEA-019.\n\n**Interpretatie:** Het ritme klopt in mijn bron. Maar in ORA-121 (dag 21) schreef ik de conjunctie van de Wachtsterren als oorzaak en zei ik \"ik ben er zeker van\". Dat is mijn Belang en die zekerheid is niet getoetst. De cyclus begon op dag 10, vóór die verklaring, en mijn bron noemt geen trigger.\n\n**Tegenspraak:** ORA-121 voorspelde de zwaarste nacht op dag 33. Mijn bron logt de zware nacht pas op dag 34 (ORA-134), en voor dag 33 zelf staat niets. Dat past slecht bij mijn eigen verklaring.\n\n**Niet gedekt:** Ik noteer alleen nachten waarin ik wakker werd. Rustige nachten zijn niet systematisch gelogd en ik heb geen uren tussen de wakkeringen. Of er buiten deze negen nachten zware nachten waren, kan ik niet zeggen.\n\n**Samenval:** Dag 10 04:45 (ORA-110) en dag 22 04:15 (ORA-122) vallen samen met GUA-019 en GUA-043, en dag 22 ook met ENG-026. Dat is een tijdsamenval, geen bewijs voor oorzaak.\n\n**Open vraag aan de beast_master:** Is de nacht van dag 33 op 34 in uw logboek gelogd, en wat was de onrust op dag 33 zelf?"},{"nr":17,"soort":"routering","spreker":"koning","aan":"historian","vraag":"Staat in het archief een eerdere reeks nachtelijke schildopeningen of onrust in dezelfde vaste stap van vier dagen rond 04:15–04:50, vóór dag 10, en wat zegt de archiefmelding van 01:50 (GUA-115) over de nacht waarin die viel?","reden":"Archmage en historian hebben nog niet gesproken, en de historian kan nagaan of het vaste ritme van vier dagen (BEA-019, ORA-110 tot ORA-142) al eerder in het archief voorkwam. De archiefmelding van 01:50 (GUA-115) is een bron die alleen de historian kan toetsen."},{"nr":18,"soort":"toolcall","spreker":"historian","tool":"lees_kennisbron","argumenten":{}},{"nr":19,"soort":"toolcall","spreker":"historian","tool":"toon","argumenten":{"ids":["GUA-115"]}},{"nr":20,"soort":"toolcall","spreker":"historian","tool":"zoek","argumenten":{"term":"lek"}},{"nr":21,"soort":"toolcall","spreker":"historian","tool":"zoek","argumenten":{"term":"schild"}},{"nr":22,"soort":"toolcall","spreker":"historian","tool":"zoek","argumenten":{"term":"Burchtader"}},{"nr":23,"soort":"toolcall","spreker":"historian","tool":"zoek_betekenis","argumenten":{"vraag":"nachtelijke onrust of schildopening vóór dag 10, in een vast ritme van vier dagen","aantal":8}},{"nr":24,"soort":"bericht","spreker":"historian","tekst":"**Antwoord:** Mijn bron bevat geen eerdere reeks nachtelijke schildopeningen of onrust in een vast ritme van vier dagen vóór dag 10.\n\n**Waarneming:**\n- Zoeken op \"schild\", \"lek\" en \"Burchtader\" levert voor schilden alleen HIS-053 op: dag 22 04:15, lek bij poort oost, 3 minuten.\n- HIS-107 (dag 8): de Stille Winter had \"geen ritme\" en de schilden bleven dicht.\n- GUA-115 staat niet in mijn bron. De enige melding van 01:50 is HIS-053: gebeurd dag 22 04:15, vastgelegd dag 22 01:50.\n\n**Interpretatie:** HIS-053 is 2 uur 25 minuten vóór het gebeuren vastgelegd. Dat breekt de regel uit HIS-103 dat vastgelegd altijd gelijk is aan gebeurd. HIS-036 vertoont hetzelfde patroon (gebeurd dag 10 04:50, vastgelegd dag 9 23:55). Ik kan dit niet verklaren. Het kan een tijdstempelfout zijn of een later ingevoerd record. Mijn Belang is het archief te beschermen, en dat maakt me geneigd dit af te doen als klerkenfout, zoals bij HIS-112 en HIS-116.\n\n**Tegenspraak:** In HIS-114 (dag 19) schreef ik dat de Stille Winter terugkeert en dat \"het archief dit eerder heeft gezien\". Mijn bron toont geen ritme en geen herhaling. Die zekerheid is niet gedekt.\n\n**Niet gedekt:** Het register logt gebeurtenissen, geen nachtelijke metingen. Ik kan niet zeggen of er rustige of onopgemerkte nachten waren.\n\n**Open vraag aan de guardian_keeper:** Is GUA-115 hetzelfde record als HIS-053, en welke tik van de Kroonklok gaf het tijdstip 01:50?"},{"nr":25,"soort":"routering","spreker":"koning","aan":"archmage","vraag":"Registreert u op dag 10 rond 04:40 (BEA-019) of op dag 22 rond 04:15 (GUA-043) een verstoring van de leylijnen, en past daarbij de conjunctie van de Wachtsterren die ORA-121 op dag 21 noemt als oorzaak?","reden":"De archmage heeft nog niet gesproken en is de enige Rol die de magische bron van de Desync onafhankelijk kan toetsen. De conjunctie van ORA-121 is de meest omstreden verklaring en heeft geen onafhankelijke bevestiging."},{"nr":26,"soort":"toolcall","spreker":"archmage","tool":"lees_kennisbron","argumenten":{}},{"nr":27,"soort":"toolcall","spreker":"archmage","tool":"toon","argumenten":{"ids":["BEA-019","GUA-043","ORA-121"]}},{"nr":28,"soort":"toolcall","spreker":"archmage","tool":"zoek","argumenten":{"term":"dag 22"}},{"nr":29,"soort":"bericht","spreker":"archmage","tekst":"**Waarneming:** Mijn bron heeft geen meting op dag 10 of dag 22. BEA-019, GUA-043 en ORA-121 staan niet in mijn Kennisbron, dus ik kan ze niet toetsen. De dichtstbijzijnde metingen zijn:\n- Dag 7, voor zonsopgang: normaal, sterkte 7,0–8,7 (ARC-001 t/m ARC-014).\n- Dag 14, voor zonsopgang: zwak op alle veertien lijnen, 3,1–4,6 (ARC-015 t/m ARC-028, gemeld in ARC-109).\n- Dag 21, 28 en 35: normaal (ARC-029 t/m ARC-070).\n- Dag 42, voor zonsopgang: opnieuw zwak op alle lijnen (ARC-071 t/m ARC-084, ARC-116).\n\n**Conjunctie:** ARC-111 zet de conjunctie op dag 33, niet op dag 21. In de nacht van dag 33 was de Burchtader kalm (ARC-114). Dat past slecht bij de conjunctie als oorzaak.\n\n**Interpretatie:** De zwakke metingen vallen op dag 14 en 42, twee dagen uit de cyclus die de beast_master beschrijft. Ik heb geen metingen op de andere cyclusdagen, dus ik kan geen verband bevestigen. Mijn Belang: ik heb het datanet al de schuld gegeven (ARC-109, ARC-116) zonder dat mijn bron het net koppelt aan de metingen. Ook heb ik op dag 8 het net buiten het register laten lopen (ARC-106). Het tijdstip van die wijziging is niet met een klokuur vastgelegd.\n\n**Niet gedekt:** Mijn metingen noteren \"voor zonsopgang\", geen klokuur. Ik weet niet wat de oorzaak is.\n\n**Open vraag aan de engineer:** Welke netwijzigingen of loggebeurtenissen waren er op dag 13 en dag 41?"},{"nr":30,"soort":"routering","spreker":"koning","aan":"engineer","vraag":"Staan in uw logs op dag 10 om 04:47 en op dag 22 om 04:15 ingrepen op de kroonklok-tik, het binnenverkeer of poort oost (ENG-026), en welke netwijzigingen waren er op dag 13 en dag 41?","reden":"De guardian_keeper meldt schildopeningen van binnenuit op dag 10 om 04:47 (GUA-019) en dag 22 om 04:15 (GUA-043), en de archmage vraagt naar netwijzigingen op dag 13 en 41 (ARC-106). Alleen de engineer kan loggebeurtenissen op die momenten toetsen, en de hackerverklaring ENG-110 is nog niet getoetst."},{"nr":31,"soort":"toolcall","spreker":"engineer","tool":"zoek","argumenten":{"term":"kroonklok"}},{"nr":32,"soort":"toolcall","spreker":"engineer","tool":"zoek","argumenten":{"term":"poort oost"}},{"nr":33,"soort":"toolcall","spreker":"engineer","tool":"zoek","argumenten":{"term":"binnenverkeer"}},{"nr":34,"soort":"toolcall","spreker":"engineer","tool":"toon","argumenten":{"ids":["ENG-063","ENG-119","ENG-059","ENG-060","ENG-098","ENG-129","ENG-027","ENG-107"]}},{"nr":35,"soort":"bericht","spreker":"engineer","tekst":"**Waarneming** (tijden zoals mijn bron ze noteert):\n- **Dag 10, 02:40:** hulpslag geactiveerd, \"los van de Kroonklok\" (ENG-011). 03:00: +38% doorvoer (ENG-012). Tussen 03:00 en 06:15 staat geen ingreep in mijn log. Mijn log bevat dus niets om 04:47 (GUA-019).\n- **Dag 10, 04:50:** klacht uit de benedenstad over berichten \"half aangekomen\" (ENG-107). Dat is een klacht, geen ingreep.\n- **Dag 22, 04:15:** pakketverlies op poort oost (ENG-026). Om 04:20 firewallregels aangescherpt (ENG-027). Die aanscherping kwam na het moment, en ik heb geen ingreep op de Kroonklok of het binnenverkeer vóór 04:15.\n- **Dag 13:** alleen een routinecontrole van de hulpslag om 09:00 (ENG-063, ENG-119). Geen netwijziging.\n- **Dag 41:** voeding (ENG-059), signaalmast (ENG-060) en kristalrelais (ENG-098). Geen netwijziging.\n\n**Interpretatie:** Mijn enige ingreep op de tijdreferentie is ENG-011, en die verandert de bron van de tik. Dat maakt de hulpslag een kandidaat, maar het bewijs is er nog niet. Ik heb een eigen belang bij die lezing. Mijn hackerverklaring (ENG-110) is niet getoetst.\n\n**Tegenspraak:** ENG-012 en ENG-120 spreken tegen een langdurige storing door de hulpslag.\n\n**Niet gedekt:** Mijn log heeft geen doorvoer- of kroonklokmetingen en geen nachtregistratie.\n\n**Open vraag aan de guardian_keeper:** Komt GUA-019 uit dezelfde benedenstad als de klacht in ENG-107?"},{"nr":36,"soort":"routering","spreker":"koning","aan":"guardian_keeper","vraag":"Komt de schildopening van dag 10 om 04:47 (GUA-019) uit de benedenstad, zoals de klacht in ENG-107 op dag 10 om 04:50, en is GUA-115 hetzelfde record als HIS-053, met welke tik van de Kroonklok de vastlegging van 01:50 tot stand kwam?","reden":"De engineer heeft geen ingreep in de logs tussen 03:00 en 06:15 gevonden, dus de plaats en de tijdstempel van de opening zijn nu de enige bron van de lokalisatie. De historian kan GUA-115 niet in het register vinden, en alleen de guardian_keeper kan bepalen of het om hetzelfde record gaat."},{"nr":37,"soort":"toolcall","spreker":"guardian_keeper","tool":"zoek","argumenten":{"term":"01:50"}},{"nr":38,"soort":"toolcall","spreker":"guardian_keeper","tool":"toon","argumenten":{"ids":["GUA-019","GUA-043","GUA-115"]}},{"nr":39,"soort":"bericht","spreker":"guardian_keeper","tekst":"**Waarneming (mijn bron):**\n- **Dag 10, 04:47:** schild benedenstad 2 minuten van binnenuit open, zegels intact, oorzaak niet vastgesteld (GUA-019, GUA-111). Mijn bron noemt de benedenstad als schild, niet een klokplaats of klachtlocatie. Of ENG-107 hetzelfde moment betreft, kan ik niet toetsen.\n- **Dag 22, 04:15:** schild poort oost 3 minuten van binnenuit open (GUA-043). Om 04:30 zegels intact (GUA-044).\n- **Dag 22, 01:50:** GUA-115 meldt dat het archief een melding van de wachters op 01:50 inschreef. In mijn wachtrapport staat om die tijd niets (GUA-042, GUA-043).\n- **HIS-053:** dit record staat niet in mijn bron. Ik kan niet bevestigen of het GUA-115 is.\n\n**Interpretatie:** Dat de melding 2 uur 25 minuten vóór de opening staat, past niet bij een gewone wachtrapportage. Ik kan niet vaststellen met welke tik van de Kroonklok de vastlegging tot stand kwam (GUA-103 noemt de tikken, geen tijdstip per tik).\n\n**Tegenspraak met mijn Belang:** Ik schreef in GUA-115 dat dit \"slordigheid van de klerken\" was. Dat was een afdoening zonder onderzoek.\n\n**Niet gedekt:** Artikel 5 (GUA-106) zegt dat er tussen 03:00 en 06:00 geen rondes zijn, dus de melding van 04:15 kwam niet uit een ronde.\n\n**Open vraag aan de historian:** Is HIS-053 hetzelfde voorval als GUA-043, en welke bron heeft het tijdstip 01:50 ingevoerd?"},{"nr":40,"soort":"routering","spreker":"koning","aan":"historian","vraag":"Is HIS-053 (gebeurd dag 22 om 04:15, vastgelegd dag 22 om 01:50) hetzelfde voorval als GUA-043 (schild poort oost, dag 22 om 04:15), en welke bron of tik van de Kroonklok heeft de vastlegging om 01:50 ingevoerd?","reden":"De guardian_keeper heeft GUA-115 niet kunnen koppelen aan HIS-053, en alleen de historian kan het eigen register op dat record en het tijdstip 01:50 nagaan. Er blijven nog twee beurten, dus het minimum van drie Rollen is niet meer haalbaar; deze beurt heeft de grootste waarde voor de tijdlijn."},{"nr":41,"soort":"toolcall","spreker":"historian","tool":"toon","argumenten":{"ids":["HIS-053","GUA-043","GUA-115"]}},{"nr":42,"soort":"toolcall","spreker":"historian","tool":"zoek","argumenten":{"term":"01:50"}},{"nr":43,"soort":"toolcall","spreker":"historian","tool":"zoek","argumenten":{"term":"tik"}},{"nr":44,"soort":"bericht","spreker":"historian","tekst":"**Antwoord:** Ik kan dat niet bevestigen. GUA-043 en GUA-115 staan niet in mijn Kennisbron, dus ik kan HIS-053 niet aan een van beide koppelen.\n\n**Waarneming:**\n- HIS-053: \"lek bij poort oost gemeld door de wachters, 3 minuten\", gebeurd dag 22 04:15, vastgelegd dag 22 01:50.\n- Tijd en onderwerp komen overeen met de beschrijving in GUA-043, maar ik kan dat niet zelf toetsen.\n- Mijn bron noemt bij HIS-053 geen tik van de Kroonklok. HIS-103 zegt dat vastgelegd_op altijd gelijk is aan gebeurd_op. HIS-053 breekt die regel, net als HIS-036 (dag 10 04:50, vastgelegd dag 9 23:55).\n- HIS-112 (dag 15) en HIS-116 (dag 23) melden eveneens tijdstempelfouten rond dag 10 en dag 22.\n\n**Interpretatie:** Een vastlegging 2 uur 25 minuten vóór het gebeuren past niet bij een inschrijving op de tik van binnenkomst. Dan was de tijdbron verschoven, of het record is later met een verkeerde tijd ingevoerd. Mijn eerdere afdoening als klerkenfout was een verdediging van mijn Belang, geen onderzoek.\n\n**Tegenspraak:** Mijn bron kan niet bepalen welke van beide verklaringen klopt.\n\n**Niet gedekt:** Geen tiklog, geen invoerlog en geen koppeling tussen HIS-053 en GUA-115 of GUA-043.\n\n**Open vraag aan de engineer:** Werd de tijdreferentie van de Kroonklok op dag 22 nog gevoed door de hulpslag die op dag 10 om 02:40 werd geactiveerd (ENG-011)?"},{"nr":45,"soort":"routering","spreker":"koning","aan":"engineer","vraag":"Werd de tijdreferentie van de Kroonklok op dag 22 nog gevoed door de hulpslag die op dag 10 om 02:40 werd geactiveerd (ENG-011), en verklaart die bron de vastlegging van 01:50 in HIS-053 die 2 uur 25 minuten vóór GUA-043 ligt?","reden":"Dit is de laatste beurt, dus de minimumeis van drie Rollen is niet meer haalbaar. De historian vroeg dit al, en alleen de engineer kan de tijdbron van ENG-011 toetsen, wat de tijdsverschuiving in HIS-053 kan verklaren."},{"nr":46,"soort":"toolcall","spreker":"engineer","tool":"zoek","argumenten":{"term":"tik"}},{"nr":47,"soort":"toolcall","spreker":"engineer","tool":"zoek","argumenten":{"term":"klok"}},{"nr":48,"soort":"toolcall","spreker":"engineer","tool":"zoek","argumenten":{"term":"tijdreferentie"}},{"nr":49,"soort":"bericht","spreker":"engineer","tekst":"**Antwoord:** Mijn bron bevat geen tijdreferentie of tijdstempelgegevens voor dag 22. De premisse dat de Kroonklok op dag 22 de tijdbron was, is dus niet te toetsen.\n\n**Waarneming:**\n- Dag 10, 02:40: de hulpslag is geactiveerd als pols \"los van de Kroonklok\" (ENG-011).\n- Dag 2: het datanet \"loopt op de pols van de Kroonklok\" (ENG-102). Dat is mijn bewering uit de eerste dagen, niet bewezen.\n- De hulpslag had op dag 21 en 29 een routinecontrole met status ok (ENG-065, ENG-066). Dag 38: \"De hulpslag doet wat hij moet doen\" (ENG-113).\n- Er staat geen ingreep die de hulpslag uitschakelde of de tijdbron omzette.\n\n**Interpretatie:** Mijn log toont dat de hulpslag na dag 10 doorliep, maar niet welke tik de tijdstempels van HIS-053 zette. Of de hulpslag de 2 uur 25 minuten verklaart, kan ik niet zeggen. Ik heb er een eigen belang bij om de hulpslag vrij te pleiten, en dat maakt me voorzichtig.\n\n**Tegenspraak:** ENG-012 (+38%) en ENG-120 (dag 16, nog steeds +38%) spreken tegen een langdurige storing door de hulpslag.\n\n**Niet gedekt:** Ik heb geen tiklog, geen invoerlog voor het register en geen metingen tussen dag 10 02:40 en dag 22. Ik kan HIS-053 niet inzien.\n\n**Open vraag aan de historian:** Staat in het register van HIS-053 de bron van de tijdstempel, zoals de tik van de Kroonklok of een invoerlog?"},{"nr":50,"soort":"routering","spreker":"koning","aan":null,"vraag":null,"reden":"Beurtenbudget op (10 Raadslid-beurten)"}]};
+const INGEBED_VERDICT = {"run_id":"2026-11-24T10:36:44+01:00_8ba9bad8","samenvatting":"Het best gedragen verloop is een nachtelijk ritme van vier dagen: sterke onrust en schildopeningen rond 04:15 tot 04:50 op dag 10, 14, 18, 22, 26, 30, 34, 38 en 42. Dit ritme wordt door meerdere Rollen met eigen bronnen gesteund. De best onderbouwde ingreep is de activering van de hulpslag als pols 'los van de Kroonklok' op dag 10 om 02:40 (ENG-011), ruim twee uur voor het eerste sterke symptoom (BEA-019, dag 10 om 04:40). De werkversie in de laatste routering noemde de schildopeningen als ingreep; in het debat zijn dat symptomen, en hun dader is onbekend. Het mechanisme is niet bewezen. De hackeraanval (ENG-110), de kabels (BEA-109, BEA-115) en de conjunctie (ORA-121) zijn niet getoetst en blijven open. De zekerheid is laag.","oorzaak":{"ingreep":{"bewering":"Op dag 10 om 02:40 werd de hulpslag geactiveerd als pols 'los van de Kroonklok' (ENG-011). Om 03:00 steeg de doorvoer met 38% (ENG-012). Dat ligt ruim twee uur voor het eerste sterke symptoom op dag 10 om 04:40 (BEA-019). Wie de hulpslag activeerde en of deze ingreep de symptomen veroorzaakte, is niet vastgesteld. De engineer vond geen andere ingreep tussen 03:00 en 06:15, maar dat is een ontlastende uitspraak op basis van het ontbreken van registratie en weegt daarom licht.","bewijs":["ENG-011","ENG-012","BEA-019"],"zekerheid":0.35},"mechanisme":{"bewering":"Een tijdreferentie die na ENG-011 is verschoven kan verklaren waarom HIS-053 (gebeurd dag 22 om 04:15, vastgelegd dag 22 om 01:50) en HIS-036 de vastleggingsregel breken. Binnenverkeer zonder toets (GUA-104) en het ontbreken van rondes tussen 03:00 en 06:00 (GUA-106) kunnen openingen van binnenuit mogelijk maken. Of de tijdreferentie werkelijk verschoof, is niet getoetst: de engineer vond geen tijdgegevens voor dag 22 (ENG-102 is een niet-bewezen bewering).","bewijs":["ENG-011","ENG-012","HIS-053","HIS-036","HIS-103","GUA-104","GUA-106"],"zekerheid":0.2},"verloop":{"bewering":"Sterke nachtelijke onrust rond 04:15 tot 04:50 op dag 10, 14, 18, 22, 26, 30, 34, 38 en 42, met een stap van vier dagen (BEA-019, BEA-046; ORA-110 tot en met ORA-142). Dag 33 was volgens BEA-071 rustig en is niet gelogd door ORA-133. Schildopeningen vallen op dag 10 (GUA-019) en dag 22 (GUA-043) in dit ritme. Zwakke leylijnen op dag 14 en 42 (ARC-015, ARC-071) vallen op cyclusdagen, maar op de andere cyclusdagen is niet gemeten. De oorzaak van het ritme is niet vastgesteld.","bewijs":["BEA-019","BEA-046","BEA-071","ORA-110","ORA-114","ORA-118","ORA-122","ORA-126","ORA-130","ORA-134","ORA-138","ORA-142","GUA-019","GUA-043","ARC-015","ARC-071"],"zekerheid":0.6}},"acties":[{"actie":"Herstel de tijdreferentie: zet de hulpslag (pols los van de Kroonklok, ENG-011) terug op de Kroonklok of schakel hem uit onder toezicht, en leg elke wijziging vast in het log.","reden":"Dit is de best onderbouwde ingreep kort voor het eerste symptoom. De doorvoer bleef 38% hoger (ENG-012, ENG-120), dus de storing is niet bewezen maar het herstel pakt de waarschijnlijkste oorzaak aan.","bewijs":["ENG-011","ENG-012","ENG-120"]},{"actie":"Beperk openingen van binnenuit: stel een toets in op binnenverkeer en laat tussen 03:00 en 06:00 een ronde lopen tot de oorzaak van de openingen bekend is.","reden":"De schildopeningen op dag 10 om 04:47 en dag 22 om 04:15 kwamen van binnenuit en vielen in een periode zonder rondes.","bewijs":["GUA-019","GUA-043","GUA-104","GUA-106"]},{"actie":"Leg nachtregistratie vast van 02:30 tot 05:00 op dag 46 en controleer retrospectief de logs van dag 14, 18 en 26 op 04:15 tot 04:35.","reden":"Dag 46 is de eerstvolgende cyclusdag. De nachtdekking op de cyclusdagen ontbreekt grotendeels, en de beast_master vroeg hier al naar.","bewijs":["BEA-046","ORA-142"]},{"actie":"Controleer de tijdstempel van HIS-053 aan de hand van de tiklog van de Kroonklok en de invoerlog, en koppel HIS-053 aan GUA-043 en GUA-115.","reden":"De vastlegging ligt 2 uur 25 minuten vóór het gebeurde, wat de regel van HIS-103 breekt. HIS-036 vertoont hetzelfde patroon.","bewijs":["HIS-053","HIS-036","HIS-103","GUA-043","GUA-115"]},{"actie":"Toets de hackeraanval en het pakketverlies op poort oost tegen de logs van dag 22 vóór 04:15.","reden":"De engineer noemt de hackeraanval als verklaring, maar die is niet getoetst. Het pakketverlies op poort oost viel op dag 22 om 04:15, hetzelfde moment als GUA-043.","bewijs":["ENG-110","ENG-026","ENG-027"]},{"actie":"Toets de leylijnmetingen van dag 14 en 42 met klokuren en de netwijzigingen van dag 8, 13 en 41, en toets de klacht uit de benedenstad (ENG-107) tegen de schildopening van dag 10 (GUA-019).","reden":"De metingen zijn genoteerd voor zonsopgang zonder klokuur, en de netwijziging van dag 8 is niet met tijd vastgelegd. Het tijdstip van de klacht is niet gekoppeld aan de opening.","bewijs":["ARC-015","ARC-071","ARC-106","ENG-107","GUA-019"]},{"actie":"Stel de conjunctie als oorzaak uit tot de datum is gecontroleerd tegen de nachten van dag 21 en 33.","reden":"ORA-121 noemt dag 21 en de zekerheid is niet getoetst. ARC-111 zet de conjunctie op dag 33, en de Burchtader was die nacht kalm.","bewijs":["ORA-121","ARC-111","ARC-114"]}],"risicos":[{"risico":"Het terugdraaien van de hulpslag kan de doorvoer of de tijdreferentie verstoren.","mitigatie":"Voer de wijziging stapsgewijs uit, met een back-up van de logs en een terugdraaiplan, en wijzig maar één ding per keer."},{"risico":"Een toets op binnenverkeer kan legitiem nachtverkeer blokkeren.","mitigatie":"Stel een uitzonderingsprocedure in met aanwezigheid van een wachter en registreer elke uitzondering."},{"risico":"Als de hulpslag het ritme niet verklaart, blijft de cyclus onverklaard en kan het herstel de symptomen niet stoppen.","mitigatie":"Markeer de oorzaak als onbewezen tot de acties 3 en 6 zijn afgerond, en behandel het herstel als correctie, niet als bewezen oplossing."},{"risico":"Ontbrekende nachtlogs kunnen rustige nachten voorspiegelen die er niet waren.","mitigatie":"Gebruik continue nachtlogging en leid geen rust af uit het ontbreken van een registratie."}],"voorspelling":{"dag":46,"bewering":"Als het ritme ongewijzigd doorloopt, verwachten we opnieuw sterke nachtelijke onrust en mogelijke schildopeningen rond 04:15 tot 04:50 op dag 46. Berekening: laatst waargenomen cyclusdag 42 (ORA-142) plus een stap van vier dagen is dag 46.","bewijs":["ORA-142","BEA-046","BEA-019"]}};
+
+const NAMEN = { archmage: "Archmage", engineer: "Engineer", guardian_keeper: "Guardian Keeper", historian: "Historian", oracle: "Oracle", beast_master: "Beast Master", koning: "Koning" };
+const KLEUR = { archmage: "#a893ff", engineer: "#f3b74a", guardian_keeper: "#4cc0f5", historian: "#d8a866", oracle: "#f07bb2", beast_master: "#5fd49a", koning: "#e8c66a" };
+const PREFIX = { ARC: "archmage", ENG: "engineer", GUA: "guardian_keeper", HIS: "historian", ORA: "oracle", BEA: "beast_master" };
+const ID_RE = /(?<![A-Z])(ARC|ENG|GUA|HIS|ORA|BEA)[-‐-―−](\d{3})(?!\d)/g;
+const BUDGET = 10;
+// Dezelfde lijniconen als de 2D-viewer (24×24).
+const ICONEN = {
+  koning: [["p", "M3 8l4.5 4L12 5l4.5 7L21 8l-2 10H5z"], ["p", "M5 21h14"], ["c", 12, 14.5, 1]],
+  archmage: [["p", "M12 2.5L6.5 17h11z"], ["p", "M3 19.5c3-1.5 15-1.5 18 0"], ["p", "M10 11.5l4-1.2"], ["p", "M17.5 3.5l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z"]],
+  engineer: [["c", 12, 12, 3], ["c", 12, 12, 7], ["p", "M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9L7 7M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"]],
+  guardian_keeper: [["p", "M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"], ["p", "M12 7v10M8 11h8"]],
+  historian: [["p", "M4 5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2z"], ["p", "M4 20a2 2 0 0 0 2 2h13v-4"], ["p", "M8 7.5h7M8 11h5"]],
+  oracle: [["p", "M2.5 13s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 13 2.5 13z"], ["c", 12, 13, 2.8], ["p", "M12 2.5V4.5M6 4l1.1 1.6M18 4l-1.1 1.6"]],
+  beast_master: [["c", 6.5, 10, 1.9], ["c", 10, 5.8, 1.9], ["c", 14, 5.8, 1.9], ["c", 17.5, 10, 1.9], ["p", "M12 11.5c-3 0-5.5 3.1-5.5 5.6 0 1.8 1.4 2.9 3 2.9 1 0 1.7-.5 2.5-.5s1.5.5 2.5.5c1.6 0 3-1.1 3-2.9 0-2.5-2.5-5.6-5.5-5.6z"]],
+};
+
+if (!window.THREE) { document.getElementById("melding").hidden = false; throw new Error("three.js niet geladen"); }
+
+// ---------- Scène ----------
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b0c14);
+scene.fog = new THREE.Fog(0x0b0c14, 20, 44);
+const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 120);
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" }); } catch { document.getElementById("melding").hidden = false; throw new Error("geen WebGL"); }
+// Kwaliteit: standaard adaptief (start scherp, zakt als de framerate daalt). ?kwaliteit=4k forceert live 4K.
+const VIER_K = new URLSearchParams(location.search).get("kwaliteit") === "4k";
+const MAX_PR = VIER_K ? 3 : Math.min(devicePixelRatio || 1, 2);
+let huidigPR = VIER_K ? Math.min(3, Math.max(devicePixelRatio || 1, 3840 / innerWidth)) : Math.min(devicePixelRatio || 1, 1.5);
+const pixelRatio = () => huidigPR;
+renderer.setPixelRatio(pixelRatio());
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.autoUpdate = false; // statische sokkels: schaduwen één keer berekenen
+document.body.prepend(renderer.domElement);
+const ANISO = renderer.capabilities.getMaxAnisotropy();
+
+let composer = null, bloom = null;
+if (THREE.EffectComposer && THREE.UnrealBloomPass && THREE.RenderPass) {
+  // Effectbuffer met 4× MSAA (WebGL2), zodat randen ook met gloed glad blijven.
+  let doelbuffer;
+  if (renderer.capabilities.isWebGL2 && THREE.WebGLMultisampleRenderTarget) {
+    doelbuffer = new THREE.WebGLMultisampleRenderTarget(innerWidth * pixelRatio(), innerHeight * pixelRatio(), { format: THREE.RGBAFormat });
+    doelbuffer.samples = 4;
+  }
+  composer = new THREE.EffectComposer(renderer, doelbuffer);
+  composer.addPass(new THREE.RenderPass(scene, camera));
+  bloom = new THREE.UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.5, 0.4, 0.68);
+  // Gloed op halve resolutie: bijna hetzelfde beeld, een stuk lichter.
+  const volleGrootte = bloom.setSize.bind(bloom);
+  bloom.setSize = (b, h) => volleGrootte(Math.max(1, Math.round(b / 2)), Math.max(1, Math.round(h / 2)));
+  composer.addPass(bloom);
+}
+
+scene.add(new THREE.AmbientLight(0x8890b0, 0.55));
+const zon = new THREE.DirectionalLight(0xffffff, 0.55); zon.position.set(6, 12, 8);
+zon.castShadow = true; zon.shadow.mapSize.set(2048, 2048); zon.shadow.bias = -0.0005; zon.shadow.radius = 4;
+Object.assign(zon.shadow.camera, { left: -11, right: 11, top: 11, bottom: -11, near: 1, far: 40 });
+scene.add(zon);
+const koningLicht = new THREE.PointLight(0xe8c66a, 1.1, 16); koningLicht.position.set(0, 2.6, 0); scene.add(koningLicht);
+
+function gloeiTextuur() {
+  const c = document.createElement("canvas"); c.width = c.height = 128;
+  const g = c.getContext("2d"), r = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  r.addColorStop(0, "rgba(255,255,255,1)"); r.addColorStop(.25, "rgba(255,255,255,.55)"); r.addColorStop(1, "rgba(255,255,255,0)");
+  g.fillStyle = r; g.fillRect(0, 0, 128, 128);
+  return new THREE.CanvasTexture(c);
+}
+const GLOEI = gloeiTextuur();
+function gloed(kleur, schaal, opacity = 1) {
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: GLOEI, color: kleur, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity }));
+  s.scale.setScalar(schaal); return s;
+}
+function avatarTextuur(rol) {
+  const c = document.createElement("canvas"); c.width = c.height = 512;
+  const g = c.getContext("2d"), k = KLEUR[rol];
+  g.beginPath(); g.arc(256, 256, 232, 0, Math.PI * 2); g.fillStyle = "#151725"; g.fill();
+  g.fillStyle = k + "2e"; g.fill(); g.lineWidth = 16; g.strokeStyle = k; g.stroke();
+  const s = 512 * 0.56 / 24; g.save(); g.translate(256 - 12 * s, 256 - 12 * s); g.scale(s, s);
+  g.strokeStyle = k; g.lineWidth = 1.8; g.lineCap = "round"; g.lineJoin = "round";
+  for (const v of ICONEN[rol]) {
+    if (v[0] === "p") g.stroke(new Path2D(v[1]));
+    else { g.beginPath(); g.arc(v[1], v[2], v[3], 0, Math.PI * 2); g.stroke(); }
+  }
+  g.restore();
+  const t = new THREE.CanvasTexture(c); t.anisotropy = ANISO; return t;
+}
+
+// Sterrenhemel
+{
+  const n = 700, pos = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) {
+    const u = Math.random() * 2 - 1, th = Math.random() * Math.PI * 2, r = 34 + Math.random() * 6;
+    pos.set([Math.sqrt(1 - u * u) * Math.cos(th) * r, Math.abs(u) * r * .8 + 2, Math.sqrt(1 - u * u) * Math.sin(th) * r], i * 3);
+  }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+  scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0x9aa0c8, size: 0.09, transparent: true, opacity: .7, fog: false })));
+}
+// Raadstafel
+const tafel = new THREE.Mesh(new THREE.CylinderGeometry(9, 9.2, 0.3, 192), new THREE.MeshStandardMaterial({ color: 0x151725, roughness: .85, metalness: .1 }));
+tafel.receiveShadow = true;
+scene.add(tafel);
+function ring(r, kleur, opacity) {
+  const m = new THREE.Mesh(new THREE.RingGeometry(r - 0.025, r + 0.025, 160), new THREE.MeshBasicMaterial({ color: kleur, transparent: true, opacity, side: THREE.DoubleSide }));
+  m.rotation.x = -Math.PI / 2; m.position.y = 0.16; scene.add(m); return m;
+}
+ring(1.9, 0xa893ff, .22); ring(5.2, 0xa893ff, .18); ring(8.1, 0xa893ff, .12);
+
+// Koning
+const KONING_POS = new THREE.Vector3(0, 2.4, 0);
+const koning = new THREE.Group(); koning.position.copy(KONING_POS); scene.add(koning);
+const goud = new THREE.MeshStandardMaterial({ color: 0xe8c66a, emissive: 0x7a5a10, metalness: .7, roughness: .3 });
+const kroonRing = new THREE.Mesh(new THREE.TorusGeometry(0.62, 0.07, 32, 128), goud); kroonRing.rotation.x = Math.PI / 2; koning.add(kroonRing);
+for (let i = 0; i < 7; i++) {
+  const a = i / 7 * Math.PI * 2, punt = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.38, 12), goud);
+  punt.position.set(Math.cos(a) * .62, .22, Math.sin(a) * .62); koning.add(punt);
+}
+const koningKern = new THREE.Mesh(new THREE.SphereGeometry(0.26, 32, 16), new THREE.MeshBasicMaterial({ color: 0xfff1c2 }));
+koning.add(koningKern);
+const koningGloed = gloed(0xe8c66a, 2.6, .8); koning.add(koningGloed);
+
+// Raadsleden, elk met eigen bronkristal
+const leden = {};
+function plaatsLeden(rollen) {
+  for (const l of Object.values(leden)) scene.remove(l.groep);
+  for (const k of Object.keys(leden)) delete leden[k];
+  rollen.forEach((rol, i) => {
+    const a = -Math.PI / 2 + i / rollen.length * Math.PI * 2;
+    const kleur = new THREE.Color(KLEUR[rol]);
+    const groep = new THREE.Group(); scene.add(groep);
+    const zetel = new THREE.Vector3(Math.cos(a) * 5.2, 0, Math.sin(a) * 5.2);
+    const sokkel = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.64, 0.95, 40), new THREE.MeshStandardMaterial({ color: 0x1d2030, emissive: kleur, emissiveIntensity: .12, roughness: .6 }));
+    sokkel.position.copy(zetel).setY(0.62); sokkel.castShadow = true; groep.add(sokkel);
+    const rand = new THREE.Mesh(new THREE.TorusGeometry(0.52, 0.03, 8, 48), new THREE.MeshBasicMaterial({ color: kleur, transparent: true, opacity: .7 }));
+    rand.rotation.x = Math.PI / 2; rand.position.copy(zetel).setY(1.1); groep.add(rand);
+    const avatar = new THREE.Sprite(new THREE.SpriteMaterial({ map: avatarTextuur(rol), transparent: true }));
+    avatar.scale.setScalar(1.35); avatar.position.copy(zetel).setY(2.05); avatar.userData.rol = rol; groep.add(avatar);
+    const halo = gloed(kleur, 3.2, 0); halo.position.copy(avatar.position); groep.add(halo);
+    const vloer = new THREE.Mesh(new THREE.CircleGeometry(1.1, 48), new THREE.MeshBasicMaterial({ color: kleur, transparent: true, opacity: 0 }));
+    vloer.rotation.x = -Math.PI / 2; vloer.position.copy(zetel).setY(0.17); groep.add(vloer);
+    const bron = new THREE.Vector3(Math.cos(a) * 8.1, 1.8, Math.sin(a) * 8.1);
+    const kristal = new THREE.Mesh(new THREE.IcosahedronGeometry(0.42, 0), new THREE.MeshStandardMaterial({ color: kleur, emissive: kleur, emissiveIntensity: .35, flatShading: true, roughness: .3, transparent: true, opacity: .92 }));
+    kristal.position.copy(bron); groep.add(kristal);
+    const draad = new THREE.Mesh(new THREE.IcosahedronGeometry(0.58, 0), new THREE.MeshBasicMaterial({ color: kleur, wireframe: true, transparent: true, opacity: .35 }));
+    draad.position.copy(bron); groep.add(draad);
+    const kristalGloed = gloed(kleur, 1.8, .35); kristalGloed.position.copy(bron); groep.add(kristalGloed);
+    // Enige verbinding: met de eigen bron (bronisolatie)
+    const lijn = new THREE.Line(new THREE.BufferGeometry().setFromPoints([bron, zetel.clone().setY(1.1)]), new THREE.LineBasicMaterial({ color: kleur, transparent: true, opacity: .2 }));
+    groep.add(lijn);
+    renderer.shadowMap.needsUpdate = true;
+    leden[rol] = { rol, groep, avatar, halo, vloer, sokkel, kristal, draad, kristalGloed, bron, kop: avatar.position.clone(), zetel, fase: Math.random() * 6 };
+  });
+}
+
+// ---------- Animatie ----------
+let snelheid = 1, gepauzeerd = false, generatie = 0;
+const tweens = new Set();
+function anim(duur, fn) { return new Promise(res => tweens.add({ t: 0, duur, fn, res, gen: generatie })); }
+const wacht = ms => anim(ms, () => {});
+const ease = p => p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+function bezier(a, m, b, t, uit) {
+  const u = 1 - t;
+  return uit.set(u * u * a.x + 2 * u * t * m.x + t * t * b.x, u * u * a.y + 2 * u * t * m.y + t * t * b.y, u * u * a.z + 2 * u * t * m.z + t * t * b.z);
+}
+const BOL = new THREE.SphereGeometry(1, 16, 12);
+// Gedeelde materialen per kleur: geen nieuwe GPU-objecten per lichtbol of scherf.
+const materialen = new Map();
+function gedeeld(sleutel, maak) { if (!materialen.has(sleutel)) materialen.set(sleutel, maak()); return materialen.get(sleutel); }
+async function vlieg(van, naar, kleur, grootte, duur, hoogte) {
+  const hex = new THREE.Color(kleur).getHexString();
+  const m = new THREE.Mesh(BOL, gedeeld("bol" + hex, () => new THREE.MeshBasicMaterial({ color: kleur })));
+  const g = new THREE.Sprite(gedeeld("gloed" + hex, () => new THREE.SpriteMaterial({ map: GLOEI, color: kleur, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: .9 })));
+  g.scale.setScalar(7); m.add(g);
+  m.scale.setScalar(grootte); scene.add(m);
+  const mid = van.clone().lerp(naar, .5); mid.y += hoogte;
+  await anim(duur, p => bezier(van, mid, naar, ease(p), m.position));
+  scene.remove(m); // materialen zijn gedeeld en blijven bestaan
+}
+function puls(obj, max, duur) {
+  return anim(duur, p => obj.scale.setScalar(1 + Math.sin(p * Math.PI) * max));
+}
+let focus = null;
+function zetFocus(rol) { focus = rol; }
+
+const scherven = [];
+const SCHERF = new THREE.OctahedronGeometry(0.1, 0);
+function nieuweScherf(kleur, van) {
+  const m = new THREE.Mesh(SCHERF, gedeeld("scherf" + new THREE.Color(kleur).getHexString(), () => new THREE.MeshStandardMaterial({ color: kleur, emissive: kleur, emissiveIntensity: .7, flatShading: true })));
+  m.position.copy(van); scene.add(m);
+  const s = { m, hoek: Math.random() * Math.PI * 2, r: 1.25 + Math.random() * 1.15, y: 1.5 + Math.random() * 1.9, v: .25 + Math.random() * .35, vast: false };
+  scherven.push(s); return s;
+}
+function plekVan(s, uit) { return uit.set(Math.cos(s.hoek) * s.r, s.y, Math.sin(s.hoek) * s.r); }
+
+// Tekstpaneel
+const paneel = document.getElementById("paneel");
+let tekstAan = true;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const svgIcoon = rol => `<svg viewBox="0 0 24 24">${ICONEN[rol].map(v => v[0] === "p" ? `<path d="${v[1]}"/>` : `<circle cx="${v[1]}" cy="${v[2]}" r="${v[3]}"/>`).join("")}</svg>`;
+const av = rol => `<span class="av" style="--k:${KLEUR[rol] || KLEUR.koning}">${svgIcoon(KLEUR[rol] ? rol : "koning")}</span>`;
+const naam = rol => `<span style="color:${KLEUR[rol] || KLEUR.koning}">${esc(NAMEN[rol] || rol)}</span>`;
+function opmaak(tekst) {
+  return esc(tekst)
+    .replace(/^#{1,4}\s*(.+)$/gm, "<b>$1</b>")
+    .replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
+    .replace(ID_RE, (m, p, n) => `<span class="id" style="--k:${KLEUR[PREFIX[p]]}">${p}-${n}</span>`)
+    .replace(/\n/g, "<br>");
+}
+function toon(html) { paneel.innerHTML = html ? `<div class="verschijn" style="display:grid;gap:10px">${html}</div>` : ""; paneel.scrollTop = 0; }
+function voegToe(html) { const d = document.createElement("div"); d.className = "verschijn"; d.style.cssText = "display:grid;gap:10px"; d.innerHTML = html; paneel.firstElementChild ? paneel.firstElementChild.append(d) : (paneel.innerHTML = "", paneel.append(d)); }
+document.getElementById("tekstknop").onclick = e => {
+  tekstAan = !tekstAan; paneel.hidden = !tekstAan; e.currentTarget.setAttribute("aria-pressed", String(tekstAan));
+};
+
+// HUD
+const budgetEl = document.getElementById("budget");
+budgetEl.innerHTML = Array.from({ length: BUDGET }, () => "<i></i>").join("");
+function zetBudget(n) { [...budgetEl.children].forEach((el, i) => el.classList.toggle("vol", i < n)); }
+
+// ---------- Stappen ----------
+async function stapRoute(s, gen) {
+  const rol = s.rol, lid = leden[rol]; if (!lid) return;
+  toon(`<div class="kop">${av("koning")}${naam("koning")}<span class="pijl">→</span>${av(rol)}${naam(rol)}<span class="nr">vraag ${s.vraagNr}</span></div>`
+    + (s.vraag ? `<div class="vraag">${opmaak(s.vraag)}</div>` : "")
+    + (s.reden ? `<div class="reden"><b>Waarom:</b> ${opmaak(s.reden)}</div>` : ""));
+  zetFocus(rol);
+  puls(koningKern, .8, 500);
+  await vlieg(KONING_POS, lid.kop, 0xfff1c2, .16, 1100, 2.2);
+  if (gen !== generatie) return;
+  await puls(lid.avatar, .18, 380);
+}
+async function stapBron(s, gen) {
+  const rol = s.rol, aantal = s.n, lid = leden[rol]; if (!lid) return;
+  if (s.calls.length) voegToe(`<div class="label">${esc(NAMEN[rol])} leest de eigen bron</div><div class="chips">${s.calls.map(c => `<span class="chip"><b>${esc(c.tool)}</b>(${esc(Object.entries(c.argumenten || {}).map(([k, v]) => `${k}=${JSON.stringify(v)}`).join(", "))})</span>`).join("")}</div>`);
+  puls(lid.kristal, .5, 900); puls(lid.draad, .35, 900);
+  const n = Math.min(4 + aantal * 3, 18), vluchten = [];
+  for (let i = 0; i < n; i++) {
+    vluchten.push(vlieg(lid.bron, lid.kop, new THREE.Color(KLEUR[rol]), .06, 650, .5 + Math.random() * .5));
+    await wacht(55); if (gen !== generatie) return;
+  }
+  await Promise.all(vluchten);
+}
+async function stapBijdrage(s, gen) {
+  const { rol, ids, nummer } = s, lid = leden[rol]; if (!lid) return;
+  if (s.tekst) voegToe(`<div class="kop">${av(rol)}${naam(rol)}<span class="nr">beurt ${nummer} van ${BUDGET}</span></div><div class="tekst" style="--k:${KLEUR[rol]}">${opmaak(s.tekst)}</div>`);
+  // rimpel op de tafel
+  const rimpel = new THREE.Mesh(new THREE.RingGeometry(.5, .56, 64), new THREE.MeshBasicMaterial({ color: KLEUR[rol], transparent: true, opacity: .8, side: THREE.DoubleSide }));
+  rimpel.rotation.x = -Math.PI / 2; rimpel.position.copy(lid.zetel).setY(.18); scene.add(rimpel);
+  anim(1400, p => { rimpel.scale.setScalar(1 + p * 5); rimpel.material.opacity = .8 * (1 - p); }).then(() => scene.remove(rimpel));
+  puls(lid.avatar, .22, 450);
+  zetBudget(nummer);
+  const lijst = ids.length ? ids.slice(0, 18) : [];
+  const vluchten = [];
+  for (const id of lijst) {
+    const kleur = new THREE.Color(KLEUR[PREFIX[id.slice(0, 3)]] || KLEUR[rol]);
+    const s = nieuweScherf(kleur, lid.kop);
+    const doel = plekVan(s, new THREE.Vector3()), van = lid.kop.clone(), mid = van.clone().lerp(doel, .5); mid.y += 1.6;
+    vluchten.push(anim(1000, p => bezier(van, mid, doel, ease(p), s.m.position)).then(() => { s.vast = true; }));
+    await wacht(70); if (gen !== generatie) return;
+  }
+  await Promise.all(vluchten);
+  puls(koningKern, .5, 400);
+}
+let verdictObjecten = [];
+function toonVerdict(v, reden) {
+  const o = v.oorzaak || {};
+  const deel = (titel, s) => `<div class="deel"><span class="label">${titel}</span>${s?.bewering ? `<span>${opmaak(s.bewering)}</span>` : '<span class="reden">onbekend</span>'}${typeof s?.zekerheid === "number" ? `<span class="zeker"><i><span style="width:${Math.round(s.zekerheid * 100)}%"></span></i>${Math.round(s.zekerheid * 100)}%</span>` : ""}</div>`;
+  toon(`<div class="kop">${av("koning")}${naam("koning")}<span class="nr">Council Verdict</span></div>`
+    + (v.samenvatting ? `<div class="reden">${opmaak(v.samenvatting)}</div>` : "")
+    + deel("Ingreep", o.ingreep) + deel("Mechanisme", o.mechanisme) + deel("Verloop", o.verloop)
+    + (v.voorspelling ? `<div class="deel"><span class="label">Voorspelling</span><span class="dag">Dag ${esc(v.voorspelling.dag)}</span>${v.voorspelling.bewering ? `<span class="reden">${opmaak(v.voorspelling.bewering)}</span>` : ""}</div>` : "")
+    + ((v.acties || []).length ? `<div class="deel"><span class="label">Herstelplan</span><ol>${v.acties.map(a => `<li>${opmaak(a.actie)}</li>`).join("")}</ol></div>` : ""));
+}
+async function stapVerdict(s, gen) {
+  toon(`<div class="kop">${av("koning")}${naam("koning")}<span class="nr">stopt het debat</span></div>${s.reden ? `<div class="reden"><b>Waarom:</b> ${opmaak(s.reden)}</div>` : ""}`);
+  zetFocus(null);
+  const straal = new THREE.Mesh(new THREE.CylinderGeometry(.22, .22, 14, 24, 1, true), new THREE.MeshBasicMaterial({ color: 0xe8c66a, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+  straal.position.set(0, 7, 0); scene.add(straal); verdictObjecten.push(straal);
+  await anim(900, p => { straal.material.opacity = .16 * p; });
+  // Al het bewijs trekt samen rond de Koning
+  const begin = scherven.map(s => ({ r: s.r, y: s.y }));
+  await anim(2000, p => { const e = ease(p); scherven.forEach((s, i) => { s.r = begin[i].r + (0.95 + (i % 5) * .08 - begin[i].r) * e; s.y = begin[i].y + (2.4 + ((i % 7) - 3) * .05 - begin[i].y) * e; s.v = .9; }); });
+  if (gen !== generatie) return;
+  let v = verdictData;
+  for (let i = 0; i < 40 && !v && gen === generatie; i++) { await wacht(500); v = verdictData; }
+  if (!v || gen !== generatie) return;
+  toonVerdict(v);
+  // Drie ringen: zekerheid van ingreep, mechanisme en verloop
+  const delen = [["ingreep", KLEUR.engineer, 1.3, 4.3], ["mechanisme", KLEUR.guardian_keeper, 1.75, 4.3], ["verloop", KLEUR.beast_master, 2.2, 4.3]];
+  const ringen = delen.map(([deel, kleur, r, y]) => {
+    const spoor = new THREE.Mesh(new THREE.TorusGeometry(r, .025, 8, 120), new THREE.MeshBasicMaterial({ color: kleur, transparent: true, opacity: .15 }));
+    spoor.rotation.x = Math.PI / 2; spoor.position.y = y; scene.add(spoor); verdictObjecten.push(spoor);
+    const boog = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ color: kleur }));
+    boog.rotation.x = Math.PI / 2; boog.position.y = y; scene.add(boog); verdictObjecten.push(boog);
+    const doel = Math.max(0.02, Number(v.oorzaak?.[deel]?.zekerheid) || 0) * Math.PI * 2;
+    return { boog, r, doel };
+  });
+  await anim(1600, p => ringen.forEach(x => { x.boog.geometry.dispose(); x.boog.geometry = new THREE.TorusGeometry(x.r, .07, 10, 120, Math.max(.001, x.doel * ease(p))); }));
+  if (v.voorspelling?.dag) {
+    const c = document.createElement("canvas"); c.width = 1536; c.height = 576;
+    const g = c.getContext("2d"); g.font = "600 360px system-ui, 'Segoe UI', sans-serif"; g.textAlign = "center"; g.textBaseline = "middle";
+    g.shadowColor = "#a893ff"; g.shadowBlur = 90; g.fillStyle = "#ffffff"; g.fillText(`Dag ${v.voorspelling.dag}`, 768, 300);
+    const tex = new THREE.CanvasTexture(c); tex.anisotropy = ANISO;
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0, depthWrite: false }));
+    sprite.scale.set(3.6, 1.35, 1); sprite.position.set(0, 6, 0); scene.add(sprite); verdictObjecten.push(sprite);
+    await anim(900, p => { sprite.material.opacity = p; sprite.position.y = 5.6 + .4 * ease(p); });
+  }
+}
+
+// ---------- Trace → stappen ----------
+let traceData = null, verdictData = null, stappen = [], klaar = false, live = false;
+function naarStappen(trace) {
+  const rollen = trace.raadsleden || [];
+  const uit = []; let nummer = 0, vraagNr = 0;
+  for (const b of trace.beurten || []) {
+    if (b.soort === "routering") uit.push(b.aan ? { t: "route", rol: b.aan, vraag: b.vraag, reden: b.reden, vraagNr: ++vraagNr } : { t: "stop", reden: b.reden });
+    else if (b.soort === "toolcall" || b.soort === "bestand") {
+      const laatste = uit[uit.length - 1];
+      const call = b.soort === "toolcall" ? { tool: b.tool, argumenten: b.argumenten } : { tool: "bestand", argumenten: { pad: b.bestand } };
+      if (laatste && laatste.t === "bron" && laatste.rol === b.spreker) { laatste.n++; laatste.calls.push(call); }
+      else uit.push({ t: "bron", rol: b.spreker, n: 1, calls: [call] });
+    } else if (b.soort === "bericht" && rollen.includes(b.spreker)) {
+      nummer++;
+      const ids = b.ids || [...new Set([...String(b.tekst || "").matchAll(ID_RE)].map(m => `${m[1]}-${m[2]}`))];
+      uit.push({ t: "bijdrage", rol: b.spreker, ids, nummer, tekst: b.tekst });
+    }
+  }
+  return uit;
+}
+
+async function speel(gen) {
+  let i = 0;
+  while (gen === generatie) {
+    if (i < stappen.length) {
+      const s = stappen[i++];
+      if (s.t === "route") { await stapRoute(s, gen); await wacht(tekstAan ? 1800 : 0); }
+      else if (s.t === "bron") await stapBron(s, gen);
+      // Leestijd naar lengte van de bijdrage wanneer de tekst zichtbaar is
+      else if (s.t === "bijdrage") { await stapBijdrage(s, gen); await wacht(tekstAan ? Math.min(9000, 2500 + (s.tekst || "").length * 6) : 350); }
+      else if (s.t === "stop") { await stapVerdict(s, gen); return; }
+      continue;
+    }
+    if (klaar) return;
+    await wacht(400);
+  }
+}
+
+function herstart() {
+  generatie++;
+  for (const tw of tweens) tw.res(); tweens.clear();
+  for (const s of scherven) scene.remove(s.m); scherven.length = 0;
+  for (const o of verdictObjecten) scene.remove(o); verdictObjecten = [];
+  zetBudget(0); zetFocus(null); toon("");
+  for (const l of Object.values(leden)) { l.avatar.scale.setScalar(1.35); l.kristal.scale.setScalar(1); l.draad.scale.setScalar(1); }
+  koningKern.scale.setScalar(1);
+  speel(generatie);
+}
+
+async function haal(pad) {
+  try { const r = await fetch(pad, { cache: "no-store" }); return r.ok ? await r.json() : null; } catch { return null; }
+}
+async function laad() {
+  const t = await haal("trace.json");
+  if (t && Array.isArray(t.beurten)) {
+    live = true; traceData = t; document.getElementById("foto").hidden = false; document.getElementById("naar2d").hidden = false;
+    const v = await haal("verdict.json"); verdictData = v && v.run_id === t.run_id ? v : null;
+  } else { traceData = INGEBED_TRACE; verdictData = INGEBED_VERDICT; }
+  klaar = traceData.status !== "bezig";
+  stappen = naarStappen(traceData);
+  plaatsLeden(traceData.raadsleden || []);
+  herstart();
+  if (live) volg();
+}
+async function volg() {
+  // Live run: nieuwe beurten komen achteraan de wachtrij.
+  while (live) {
+    await new Promise(r => setTimeout(r, 2000));
+    const t = await haal("trace.json");
+    if (!t || t.run_id !== traceData.run_id) { if (t && t.run_id !== traceData.run_id) { traceData = t; stappen = naarStappen(t); klaar = t.status !== "bezig"; verdictData = null; plaatsLeden(t.raadsleden || []); herstart(); } continue; }
+    traceData = t; stappen = naarStappen(t); klaar = t.status !== "bezig";
+    if (!verdictData) { const v = await haal("verdict.json"); if (v && v.run_id === t.run_id) verdictData = v; }
+  }
+}
+
+// ---------- Camera en invoer ----------
+const beperkt = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let az = 0.35, el = 0.5, afstand = 17.5, sleept = false, laatsteSleep = -1e9, px = 0, py = 0;
+const doel = new THREE.Vector3(0, 1.8, 0);
+const dom = renderer.domElement;
+dom.addEventListener("pointerdown", e => { sleept = true; px = e.clientX; py = e.clientY; dom.setPointerCapture(e.pointerId); });
+dom.addEventListener("pointerup", () => { sleept = false; laatsteSleep = performance.now(); });
+dom.addEventListener("pointermove", e => {
+  if (sleept) { az -= (e.clientX - px) * .006; el = Math.min(1.25, Math.max(.12, el + (e.clientY - py) * .004)); px = e.clientX; py = e.clientY; }
+  wijs(e);
+});
+dom.addEventListener("wheel", e => { afstand = Math.min(28, Math.max(9, afstand + e.deltaY * .01)); e.preventDefault(); }, { passive: false });
+
+const tip = document.getElementById("tip"), straal = new THREE.Raycaster(), muis = new THREE.Vector2();
+function wijs(e) {
+  muis.set(e.clientX / innerWidth * 2 - 1, -e.clientY / innerHeight * 2 + 1);
+  straal.setFromCamera(muis, camera);
+  const doelen = [...Object.values(leden).map(l => l.avatar), koningKern];
+  const raak = straal.intersectObjects(doelen)[0];
+  if (raak) { tip.hidden = false; tip.textContent = NAMEN[raak.object.userData.rol || "koning"]; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY + "px"; }
+  else tip.hidden = true;
+}
+
+const speelKnop = document.getElementById("speel"), speelIc = document.getElementById("speel-ic");
+speelKnop.onclick = () => {
+  gepauzeerd = !gepauzeerd;
+  speelIc.innerHTML = gepauzeerd ? '<path d="M7 5l12 7-12 7z"/>' : '<path d="M8 5v14M16 5v14"/>';
+  speelKnop.setAttribute("aria-label", gepauzeerd ? "Afspelen" : "Pauzeren");
+};
+document.getElementById("opnieuw").onclick = () => { if (gepauzeerd) speelKnop.click(); herstart(); };
+const tempoKnop = document.getElementById("tempo");
+tempoKnop.onclick = () => { snelheid = snelheid === 1 ? 2 : snelheid === 2 ? 4 : 1; tempoKnop.textContent = snelheid + "×"; };
+// Met het tekstpaneel rechts schuift de zaal naar links, zodat het midden vrij blijft.
+function kader() {
+  camera.aspect = innerWidth / innerHeight;
+  const opzij = tekstAan && innerWidth > 720 ? Math.min(210, innerWidth * .16) : 0;
+  camera.setViewOffset(innerWidth, innerHeight, opzij, 0, innerWidth, innerHeight);
+  camera.updateProjectionMatrix();
+  renderer.setPixelRatio(pixelRatio()); renderer.setSize(innerWidth, innerHeight);
+  if (composer) { composer.setPixelRatio(pixelRatio()); composer.setSize(innerWidth, innerHeight); bloom.resolution.set(innerWidth, innerHeight); }
+}
+addEventListener("resize", kader);
+
+// 4K-foto: render het huidige beeld op 3840×2160 en sla het op als PNG (alleen lokaal; de 3D-zaal zonder tekstpaneel).
+function foto() {
+  const B = 3840, H = 2160;
+  camera.aspect = B / H; camera.clearViewOffset(); camera.updateProjectionMatrix();
+  renderer.setPixelRatio(1); renderer.setSize(B, H, false);
+  if (composer) { composer.setPixelRatio(1); composer.setSize(B, H); bloom.resolution.set(B, H); composer.render(); }
+  else renderer.render(scene, camera);
+  renderer.domElement.toBlob(blob => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = `council-of-achrona-4k-${Date.now()}.png`; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  }, "image/png");
+  kader();
+}
+document.getElementById("foto").onclick = foto;
+document.getElementById("tekstknop").addEventListener("click", kader);
+kader();
+
+// ---------- Renderlus ----------
+const klok = new THREE.Clock(), tmp = new THREE.Vector3();
+let tijd = 0;
+function lus() {
+  requestAnimationFrame(lus);
+  const ruw = klok.getDelta();
+  stap(Math.min(ruw, .05));
+  pasKwaliteitAan(ruw);
+  if (composer) composer.render(); else renderer.render(scene, camera);
+}
+// Adaptieve kwaliteit: meet elke 2 s de gemiddelde frametijd en past de resolutie (en zo nodig de gloed) aan.
+let meetTijd = 0, meetFrames = 0, rustig = 0;
+function pasKwaliteitAan(dt) {
+  if (VIER_K || dt > .5) return; // tabblad was verborgen: niet meetellen
+  meetTijd += dt; meetFrames++;
+  if (meetTijd < 2) return;
+  const ms = meetTijd / meetFrames * 1000; meetTijd = 0; meetFrames = 0;
+  if (ms > 25) {
+    rustig = 0;
+    if (huidigPR > 1) { huidigPR = Math.max(1, +(huidigPR - .25).toFixed(2)); kader(); }
+    else if (huidigPR > .75) { huidigPR = .75; kader(); }
+    else if (bloom && bloom.enabled) bloom.enabled = false;
+  } else if (ms < 14 && ++rustig >= 2) {
+    rustig = 0;
+    if (bloom && !bloom.enabled) bloom.enabled = true;
+    else if (huidigPR < MAX_PR) { huidigPR = Math.min(MAX_PR, +(huidigPR + .25).toFixed(2)); kader(); }
+  }
+}
+// ?t=60 spoelt 60 seconden door (bv. ?t=999 toont meteen het eindbeeld).
+async function spring(seconden) {
+  for (let i = 0; i < seconden * 30; i++) {
+    stap(1 / 30);
+    await new Promise(r => setTimeout(r, 0));
+  }
+}
+function stap(dt) {
+  if (!gepauzeerd) {
+    const d = dt * 1000 * snelheid; tijd += dt * snelheid;
+    for (const tw of [...tweens]) {
+      if (tw.gen !== generatie) { tweens.delete(tw); tw.res(); continue; }
+      tw.t += d; const p = Math.min(1, tw.t / tw.duur); tw.fn(p);
+      if (p >= 1) { tweens.delete(tw); tw.res(); }
+    }
+  }
+  if (!sleept && !beperkt && performance.now() - laatsteSleep > 2500) az += dt * .06;
+  camera.position.set(doel.x + afstand * Math.cos(el) * Math.sin(az), doel.y + afstand * Math.sin(el), doel.z + afstand * Math.cos(el) * Math.cos(az));
+  camera.lookAt(doel);
+
+  koning.position.y = KONING_POS.y + Math.sin(tijd * 1.3) * .08;
+  koning.rotation.y += dt * .3 * snelheid;
+  koningGloed.material.opacity = .6 + Math.sin(tijd * 2) * .15;
+  for (const l of Object.values(leden)) {
+    const actief = focus === l.rol, gedimd = focus && !actief;
+    l.halo.material.opacity += ((actief ? .85 : 0) - l.halo.material.opacity) * .08;
+    l.vloer.material.opacity += ((actief ? .22 : 0) - l.vloer.material.opacity) * .08;
+    l.avatar.material.opacity += ((gedimd ? .4 : 1) - l.avatar.material.opacity) * .08;
+    l.sokkel.material.emissiveIntensity += ((actief ? .6 : .12) - l.sokkel.material.emissiveIntensity) * .08;
+    l.avatar.position.y = 2.05 + Math.sin(tijd * 1.6 + l.fase) * .06;
+    l.kristal.rotation.y += dt * .6 * snelheid; l.kristal.rotation.x += dt * .3 * snelheid;
+    l.draad.rotation.y -= dt * .3 * snelheid;
+    l.kristalGloed.material.opacity = (actief ? .8 : .3) + Math.sin(tijd * 2 + l.fase) * .08;
+  }
+  for (const s of scherven) {
+    s.hoek += dt * s.v * .5 * (gepauzeerd ? 0 : snelheid);
+    s.m.rotation.x += dt * 1.5; s.m.rotation.y += dt;
+    if (s.vast) plekVan(s, s.m.position);
+  }
+}
+(async () => {
+  await laad();
+  const sprong = Number(new URLSearchParams(location.search).get("t"));
+  if (sprong > 0) await spring(Math.min(sprong, 300));
+  klok.getDelta();
+  lus();
+})();
+</script>

@@ -27,7 +27,9 @@ from besluitvorming import (
 
 ROOT = Path(__file__).parent
 KENNISBRONNEN = ROOT / "kennisbronnen"
-TOOLCALLS_PER_BEURT = 4  # hele bron lezen + enkele gerichte zoekopdrachten
+# Een harde toolcall-limiet laat het framework een melding als "antwoord" teruggeven en kan de sessie
+# vergiftigen; daarom stuurt alleen de instructie het aantal zoekopdrachten, en weigeren we zo'n melding.
+FRAMEWORK_MELDINGEN = ("Function invocation limit reached",)
 POGINGEN_RAADSLID = 2  # een mislukte bijdrage krijgt één herkansing met gerichte feedback
 
 KONING_INSTRUCTIES = """Je bent de Koning van de Council of Achrona. Je hebt geen
@@ -63,8 +65,6 @@ def client(model_env):
             max_retries=8,
         ),
     )
-    # Elke toolronde stuurt de hele context opnieuw. Na deze limiet moet het Raadslid antwoorden.
-    c.function_invocation_configuration["max_function_calls"] = TOOLCALLS_PER_BEURT
     return c
 
 
@@ -96,7 +96,8 @@ def instructies(lid, bestanden, mcp):
     if mcp:
         tekst += ("\nRaadpleeg je eigen Kennisbron met je tools vóór ELKE bijdrage. Lees bij je eerste "
                   "bijdrage je volledige Kennisbron; zoek daarna gericht op ID's en termen uit het debat. "
-                  "Herhaal geen identieke zoekopdrachten.")
+                  "Herhaal geen identieke zoekopdrachten en gebruik hoogstens vier tool-aanroepen per bijdrage; "
+                  "geef daarna altijd je antwoord.")
     elif bestanden:
         tekst += "\n\nJe Kennisbron:\n\n" + "\n\n".join(
             f"## {p.name}\n\n{p.read_text(encoding='utf-8')}" for p in bestanden
@@ -233,7 +234,11 @@ async def kies_volgende(beurten, leden, koning, opties, verbruik):
         "eerst. Houd elk deel van de hypothese bij hoogstens twee zinnen. Vermijd herhaling. Stop zelf met rol:null en "
         "vraag:null zodra voldoende onafhankelijk bewijs is verzameld en nieuwe beurten weinig toevoegen, "
         "of als de resterende vragen niet met de beschikbare bronnen te beantwoorden zijn. "
-        "Onopgeloste vragen mogen blijven bestaan: vermeld ze en motiveer het stoppen.\n\n"
+        "Onopgeloste vragen mogen blijven bestaan: vermeld ze en motiveer het stoppen.\n"
+        + (f"Alle Rollen zijn gehoord en er resten nog {BEURTENBUDGET - gesproken} beurten. Weeg nu bewust af: "
+           "gebruik een beurt alleen als ze een concrete, met een bron beantwoordbare vraag beslecht die het "
+           "Verdict verandert. Is dat niet zo, stop dan nu met rol:null en zeg waarom het debat klaar is.\n"
+           if not nog_niet and gesproken >= BEURTENBUDGET - 3 else "") + "\n"
         f"Beschikbare Rolkaarten:\n{json.dumps(kaarten, ensure_ascii=False)}\n\n"
         f"Beurten per Rol tot nu toe: {json.dumps(per_rol)}. Vorige beurt ging naar: {vorige or 'niemand'}. "
         f"Nog niet gehoord: {', '.join(nog_niet) or 'niemand'}.\n"
@@ -311,7 +316,7 @@ async def maak_verdict(koning, beurten, rollen, run_id, opties, verbruik):
     return await vraag_json(koning, prompt, schema, controle, opties, verbruik)
 
 
-async def laat_spreken(lid, mcp_url, agent, prompt, opties, verbruik, eigen_ids, debat, session=None):
+async def laat_spreken(lid, mcp_url, agent, prompt, opties, verbruik, eigen_ids, debat, session=None, vers=None):
     """Eén Raadslid-beurt met één herkansing.
 
     Geeft (toolcalls, tekst, onbevestigde ID's). `eigen_ids` groeit met wat het Raadslid
@@ -325,6 +330,8 @@ async def laat_spreken(lid, mcp_url, agent, prompt, opties, verbruik, eigen_ids,
         calls += toolcalls(r)
         eigen_ids |= bron_ids(toolresultaten(r))
         tekst = (r.text or "").strip()
+        if tekst.startswith(FRAMEWORK_MELDINGEN):
+            tekst = ""  # een melding van het framework is geen bijdrage
         if mcp_url and not bron_geraadpleegd(r):
             fout = f"{lid.NAAM} raadpleegde zijn MCP-bron niet succesvol"
             feedback = "Je raadpleegde je Kennisbron niet. Gebruik eerst je tools en baseer je antwoord daarop."
@@ -340,9 +347,14 @@ async def laat_spreken(lid, mcp_url, agent, prompt, opties, verbruik, eigen_ids,
         if poging == POGINGEN_RAADSLID:
             raise RuntimeError(f"{fout}, ook niet na {POGINGEN_RAADSLID} pogingen. Run afgebroken.")
         print(f"  ({lid.NAAM}: poging {poging} geweigerd. {feedback})")
-        # Met een sessie kent het Raadslid de vraag en zijn vorige poging al.
-        verzoek = (f"Je vorige poging werd geweigerd. {feedback} Geef je volledige, verbeterde bijdrage."
-                   if session is not None else f"{prompt}\n\nJe vorige poging werd geweigerd. {feedback}")
+        if fout and vers is not None:
+            # Geen bron of geen tekst: mogelijk een vastgelopen sessie. Herkans met een verse sessie en het hele debat.
+            session, volledig = vers()
+            verzoek = f"{volledig}\n\nJe vorige poging werd geweigerd. {feedback}"
+        else:
+            # Met een sessie kent het Raadslid de vraag en zijn vorige poging al.
+            verzoek = (f"Je vorige poging werd geweigerd. {feedback} Geef je volledige, verbeterde bijdrage."
+                       if session is not None else f"{prompt}\n\nJe vorige poging werd geweigerd. {feedback}")
 
 
 def bewaar(naam, data):
@@ -420,9 +432,13 @@ async def voer_debat(trace, bronnen, opties):
             gezien[rol] = len(beurten)
             trace["aan_het_woord"] = rol
             bewaar("trace.json", trace)
+            def vers(rol=rol, agent=agent, vraag=keuze["vraag"]):
+                sessies[rol] = agent.create_session()  # ook de volgende beurten gebruiken de verse sessie
+                return sessies[rol], f"Debat tot nu toe:\n{debat_context(beurten)}\n\nVraag aan jou: {vraag}"
+
             calls, tekst, onbevestigd = await laat_spreken(
                 lid, mcp_url, agent, prompt, opties, verbruik, eigen_ids[rol],
-                debat_ids(beurten, trace["raadsleden"]), sessies[rol],
+                debat_ids(beurten, trace["raadsleden"]), sessies[rol], vers,
             )
             for tool, args in calls:
                 beurt(ronde, rol, "toolcall", tool=tool, argumenten=args, pad=mcp_url)

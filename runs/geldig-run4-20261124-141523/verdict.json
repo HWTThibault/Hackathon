@@ -1,0 +1,132 @@
+{
+  "run_id": "2026-11-24T14:11:06+01:00_11b5c96e",
+  "samenvatting": "Best onderbouwde verklaring met lage zekerheid: de enige gedocumenteerde ingreep vóór het eerste symptoom is een niet-gelogde nachtelijke netaanpassing op dag 8 (ARC-106), twee dagen voor de hulpslag op dag 10 om 02:40 (ENG-011). Daarna volgen meetbare verstoringen: doorvoerstijging (ENG-012), dierenonrust rond 04:40 tot 04:50 (BEA-019, BEA-020), een stokkende Burchtader (HIS-035) en een opening van binnenuit om 04:47 (GUA-019, oorzaak niet vastgesteld). De oorzaak is niet bewezen: de installatielog bevat op dag 8 geen nachtelijke netwijziging (ENG-008), de tijdstempels van ENG-107 en HIS-036 zijn onderling strijdig, en het vierdaagse ritme komt vooral uit het dagboek van de Oracle. Dag 10, 14 en 22 worden door meerdere Rollen met eigen bronnen gedragen (ENG, BEA, HIS, GUA, ARC, ORA); dag 18, 26 en latere nachten niet.",
+  "oorzaak": {
+    "ingreep": {
+      "bewering": "Mogelijk de niet-gelogde nachtelijke netaanpassing van dag 8 (ARC-106), waarbij de toren het net op eigen maat liet lopen zonder registratie. Dit is de enige ingreep die in het debat vóór 02:40 op dag 10 valt. Niet bevestigd door de installatielog, die op dag 8 alleen ENG-008 (hulpslag, onderdelen geleverd) toont.",
+      "bewijs": [
+        "ARC-106",
+        "ENG-008"
+      ],
+      "zekerheid": 0.3
+    },
+    "mechanisme": {
+      "bewering": "De hulpslag van dag 10 om 02:40 (ENG-011) reageerde op een verstoring van het net of de leylijnen. De doorvoerstijging van +38% (ENG-012), de dierenonrust rond 04:40 tot 04:50 (BEA-019, BEA-020) en de stokkende Burchtader (HIS-035, dag 10 04:45; ook ARC-015 en ARC-109 op dag 14) zijn daar gevolgen van. De precieze koppeling tussen de netaanpassing en de verstoring is niet bewezen, en de opening van GUA-019 om 04:47 is niet aan ENG-011 gekoppeld.",
+      "bewijs": [
+        "ENG-011",
+        "ENG-012",
+        "BEA-019",
+        "BEA-020",
+        "HIS-035",
+        "ARC-015",
+        "ARC-109"
+      ],
+      "zekerheid": 0.4
+    },
+    "verloop": {
+      "bewering": "De symptomen op dag 10 (ENG-011, BEA-019), dag 14 (lijnen 3.1 tot 4.6 en stokkende Burchtader, ARC-015 t/m ARC-028) en dag 22 (ENG-026, 04:15) vallen op een vast interval van vier dagen (10, 14, 18, 22). De Oracle heeft ORA-110 t/m ORA-142 als zware nachten gedagboekt (04:15 tot 04:45). Dag 24 (ENG-029) en dag 27 (ENG-034) passen niet in dit ritme; dag 21 was normaal (ARC-029). Het ritme is alleen deels door andere bronnen getoetst.",
+      "bewijs": [
+        "ENG-011",
+        "ARC-015",
+        "ENG-026",
+        "ORA-110",
+        "ORA-114",
+        "ORA-122",
+        "ORA-130",
+        "ORA-142"
+      ],
+      "zekerheid": 0.4
+    }
+  },
+  "acties": [
+    {
+      "actie": "Beheers de ingreep: stop de ongelogde nachtelijke netaanpassing (toren laat het net niet meer op eigen maat lopen), zet de netconfiguratie terug naar de gedocumenteerde standaard van dag 7 en leg de wijziging van dag 8 in het register vast.",
+      "reden": "ARC-106 is de enige gedocumenteerde ingreep vóór het eerste symptoom en ligt twee dagen voor ENG-011. De oorzaak is nog niet bewezen, dus dit is een beheersmaatregel en geen bewezen oplossing.",
+      "bewijs": [
+        "ARC-106",
+        "ENG-011"
+      ]
+    },
+    {
+      "actie": "Meet doorvoer en netstand met tijdstempels na de terugzetting. Pas de opdrijving van de hulpslag (5% op dag 24) pas aan na een meting van het effect.",
+      "reden": "ENG-012 is de enige doorvoermeting; de opdrijving op dag 24 is zonder logmeting uitgevoerd.",
+      "bewijs": [
+        "ENG-012",
+        "ENG-029",
+        "ENG-062"
+      ]
+    },
+    {
+      "actie": "Haal het tijdstip van ENG-011 uit het bronsysteem van de datatoren (niet uit het werkboek) en vergelijk dit met ENG-106. Controleer ook de herkomst van de tijdstempel van ENG-107, dat niet in de CSV staat.",
+      "reden": "Het tijdstip van de hulpslag is nog niet als onafhankelijke meting bevestigd, en de klacht van 04:50 heeft alleen een werkboekbron.",
+      "bewijs": [
+        "ENG-011",
+        "ENG-106",
+        "ENG-107"
+      ]
+    },
+    {
+      "actie": "Onderzoek de tijdstempels die vóór het gebeuren liggen: HIS-036 (vastgelegd dag 9 23:55 voor dag 10 04:50) en HIS-053 (vastgelegd dag 22 01:50 voor 04:15). Vergelijk ze met de bronsystemen.",
+      "reden": "Vastlegging vóór het gebeuren breekt de regel van HIS-103 en maakt de tijdlijn onbetrouwbaar.",
+      "bewijs": [
+        "HIS-036",
+        "HIS-053",
+        "HIS-103"
+      ]
+    },
+    {
+      "actie": "Onderzoek de opening van dag 10 om 04:47 (GUA-019): schildlogs en zegels van de benedenstad, en of de opening van binnenuit kwam. Vergelijk de berichtenlogs van de benedenstad met de poortlog van dag 10 en dag 22.",
+      "reden": "De opening is niet gekoppeld aan ENG-011 en de vraag of de verlieskenmerken overeenkomen is nog onbeslist.",
+      "bewijs": [
+        "GUA-019",
+        "GUA-105",
+        "HIS-036",
+        "ENG-026"
+      ]
+    },
+    {
+      "actie": "Meet het net en de leylijnen op dag 18 en dag 26, ook in de nacht (00:00 tot 06:00), om het vierdaagse ritme van de Oracle te toetsen.",
+      "reden": "De Archmage meet alleen op dag 7, 14, 21 en 28 en de Oracle heeft het ritme niet door een tweede bron laten toetsen.",
+      "bewijs": [
+        "ARC-029",
+        "ARC-114",
+        "ORA-118",
+        "ORA-126"
+      ]
+    },
+    {
+      "actie": "Registreer de relaiswijziging van dag 11 (ENG-118) in de installatielog, met tijdstip, en controleer of het symptoom van dag 10 daardoor kan verklaard worden.",
+      "reden": "ENG-118 staat alleen in het werkboek en heeft geen tijdstip.",
+      "bewijs": [
+        "ENG-118"
+      ]
+    }
+  ],
+  "risicos": [
+    {
+      "risico": "Het terugzetten van de netconfiguratie kan de hulpslag of de verstoring verergeren, of de symptomen laten voortduren als ARC-106 niet de oorzaak is.",
+      "mitigatie": "Voer de terugzetting stap voor stap uit, met meting van doorvoer en netstand voor en na elke stap, en houd een terugdraai-plan klaar."
+    },
+    {
+      "risico": "De oorzaak kan naast ARC-106 liggen. De Archmage heeft een eigen Belang bij haar stilzwijgen, en de Engineer kan de netaanpassing niet bevestigen of weerleggen.",
+      "mitigatie": "Laat de netwijziging van dag 8 onafhankelijk verifiëren via de bronlog, en neem geen definitieve oorzaak aan voordat de tijdstempels van ENG-011 en ENG-107 bevestigd zijn."
+    },
+    {
+      "risico": "Tijdstempels zijn onbetrouwbaar (ENG-107 en HIS-036 zijn onderling strijdig, HIS-053 is vastgelegd vóór het gebeuren), waardoor de tijdlijn en het ritme verkeerd kunnen zijn.",
+      "mitigatie": "Controleer de tijdstempels tegen de bronsystemen voordat de tijdlijn of de voorspelling gebruikt wordt."
+    },
+    {
+      "risico": "Het ritme van vier dagen is afkomstig van het dagboek van de Oracle, die zichzelf bevestigt (ORA-130) en eerder een verkeerde oorzaak op dag 33 aanwees (ORA-121).",
+      "mitigatie": "Toets de voorspelling op dag 46 met onafhankelijke metingen en neem geen maatregelen op basis van het ritme alleen."
+    }
+  ],
+  "voorspelling": {
+    "dag": 46,
+    "bewering": "Berekening: de laatst waargenomen zware nacht in het Oracle-dagboek is dag 42 (ORA-142). Met een vast interval van vier dagen volgt dag 42 + 4 = dag 46, rond 04:15 tot 04:45. Ook dag 22 (ENG-026) + 6 x 4 dagen = dag 46 sluit aan. Dit is niet door een tweede bron getoetst en de zekerheid is laag.",
+    "bewijs": [
+      "ORA-142",
+      "ORA-130",
+      "ENG-026"
+    ]
+  }
+}

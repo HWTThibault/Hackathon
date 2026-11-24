@@ -23,6 +23,8 @@ def main():
             pad = self.path.split("?")[0]
             if pad in ("/", "/index.html"):
                 return self.stuur(ROOT / "viewer.html", "text/html; charset=utf-8")
+            if pad in ("/3d", "/3d.html"):
+                return self.stuur(ROOT / "viewer3d.html", "text/html; charset=utf-8")
             if pad in ("/trace.json", "/verdict.json"):
                 return self.stuur(map_ / pad[1:], "application/json; charset=utf-8")
             self.send_error(404)

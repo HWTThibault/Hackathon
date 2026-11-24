@@ -224,6 +224,21 @@ class RaadslidBeurtTests(unittest.IsolatedAsyncioTestCase):
             await council.laat_spreken(self.lid, "https://x.invalid/engineer/mcp", agent, "v", None, {}, set(), set())
         self.assertEqual(agent.run.await_count, council.POGINGEN_RAADSLID)
 
+    async def test_frameworkmelding_is_geen_bijdrage_en_herkansing_krijgt_verse_sessie(self):
+        mcp = "https://x.invalid/engineer/mcp"
+        oud, nieuw = object(), object()
+        agent = SimpleNamespace(run=AsyncMock(side_effect=[
+            self.antwoord("Function invocation limit reached before a final answer could be produced.",
+                          self.mcp_berichten("ENG-002: testrecord")),
+            self.antwoord("ENG-002 gelezen.", self.mcp_berichten("ENG-002: testrecord")),
+        ]))
+        _, tekst, _ = await council.laat_spreken(
+            self.lid, mcp, agent, "kort", None, {}, set(), set(), oud, lambda: (nieuw, "volledig debat"))
+        self.assertEqual(tekst, "ENG-002 gelezen.")
+        tweede = agent.run.await_args_list[1]
+        self.assertIs(tweede.kwargs["session"], nieuw)
+        self.assertIn("volledig debat", tweede.args[0])
+
     def test_onbevestigde_ids_tellen_niet_als_bewijs(self):
         beurten = [{"soort": "bericht", "spreker": "engineer", "tekst": "ENG-001 en ENG-999",
                     "onbevestigd": ["ENG-999"]}]
